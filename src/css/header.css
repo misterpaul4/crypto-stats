@@ -2,7 +2,7 @@ header {
   background-color: black;
   color: white;
   font-family: 'Lexend Mega', sans-serif;
-  padding: 5px;
+  padding: 0 30px;
 }
 
 .logo {
@@ -13,8 +13,23 @@ header {
 
 .home {
   transform: scale(0.6);
+  margin-left: -50px;
 }
 
 .logo-name {
   font-size: 1.6rem;
+}
+
+.display-mode {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.display-mode:hover {
+  -webkit-transform: rotate(-20deg);
+  -moz-transform: rotate(-20deg);
+  -ms-transform: rotate(-20deg);
+  -o-transform: rotate(-20deg);
+  transform: rotate(-20deg);
 }

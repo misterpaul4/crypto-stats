@@ -43,7 +43,7 @@ a:hover {
   background-repeat: no-repeat;
 }
 
-.flex-around,
+.flex-between,
 .flex-centered {
   display: flex;
   align-items: center;
@@ -53,6 +53,6 @@ a:hover {
   justify-content: center;
 }
 
-.flex-around {
-  justify-content: space-around;
+.flex-between {
+  justify-content: space-between;
 }
