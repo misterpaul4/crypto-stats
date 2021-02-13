@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/header.css';
-import DisplayMode from '../containers/DisplayMode';
+import DisplayPreference from '../containers/DisplayPreference';
 
 const Header = () => (
   <header className="flex-between">
@@ -10,7 +10,7 @@ const Header = () => (
       <span className="logo-name">Crypto Stats</span>
     </Link>
 
-    <DisplayMode />
+    <DisplayPreference />
   </header>
 );
 

@@ -1,9 +1,9 @@
 const darkMode = () => ({
-  type: 'DARK_MODE',
+  type: 'DARK_MODE_ON',
 });
 
 const lightMode = () => ({
-  type: 'LIGHT_MODE',
+  type: 'DARK_MODE_OFF',
 });
 
 export { darkMode, lightMode };

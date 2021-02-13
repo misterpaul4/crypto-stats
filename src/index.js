@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -6,10 +7,10 @@ import rootReducer from './reducers';
 import Routes from './routes';
 
 const displayModeInitialState = {
-  display: 'light',
+  darkmode: false,
 };
 
-const store = createStore(rootReducer, { display: displayModeInitialState });
+const store = createStore(rootReducer, { darkmode: displayModeInitialState });
 
 ReactDOM.render(
   <React.StrictMode>

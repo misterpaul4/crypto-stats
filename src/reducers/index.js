@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import DisplayModeReducer from './display';
+import DarkModeReducer from './darkmode';
 
 const rootReducer = combineReducers({
-  display: DisplayModeReducer,
+  darkmode: DarkModeReducer,
 });
 
 export default rootReducer;
