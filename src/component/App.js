@@ -1,9 +1,11 @@
-function App() {
-  return (
-    <div className="border main-container">
-      <h1>Crypto Stats</h1>
-    </div>
-  );
-}
+import HotToday from './HotToday';
+import Filter from './PriceChangeFilter';
+
+const App = () => (
+  <div className="main-container container">
+    <HotToday />
+    <Filter />
+  </div>
+);
 
 export default App;
