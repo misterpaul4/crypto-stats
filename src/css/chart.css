@@ -1,0 +1,20 @@
+.chart {
+  width: 100%;
+}
+
+.chart-header {
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+}
+
+.chart-header td {
+  padding: 15px 0;
+}
+
+.chart-crypto-row {
+  border-bottom: 1px solid grey;
+}
+
+.chart-crypto-row > * {
+  padding: 7px 0;
+}

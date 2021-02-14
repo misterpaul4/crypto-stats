@@ -25,7 +25,7 @@ const Filter = () => {
   const Options = pg => <option key={pg}>{pg}</option>;
 
   return (
-    <form className="d-flex align-items-center mt-3">
+    <form className="d-flex align-items-center my-3">
       <select onChange={onFilterChange} value={filterBy}>
         {percentageChange.map(Options)}
       </select>
