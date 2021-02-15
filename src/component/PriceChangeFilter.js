@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import filterIcon from '../img/filter.svg';
 
 const Filter = () => {
   const percentageChange = ['All', '-15%', '-10%', '-5%', '0%', '+5%', '+10%', '+15%'];
@@ -53,7 +52,7 @@ const Filter = () => {
       </div>
 
       <button type="submit" className="d-flex align-items-center filter-submit-btn" onClick={handleSubmit}>
-        <img src={filterIcon} alt="filter icon" className="filter-icon mr-2" />
+        <i className="fas fa-exchange-alt mr-1" />
         filter
       </button>
     </form>

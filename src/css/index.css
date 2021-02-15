@@ -62,11 +62,19 @@ select {
   width: 200px;
   padding: 6px 15px 9px 16px;
   border-radius: 4px;
+  background-color: inherit;
+  color: inherit;
 }
 
 .filter-submit-btn,
 select {
   height: 35px;
+}
+
+.filter-submit-btn {
+  background-color: inherit;
+  color: inherit;
+  border: 0;
 }
 
 .filter-icon {

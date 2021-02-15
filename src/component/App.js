@@ -22,8 +22,9 @@ const App = props => {
   }, []);
 
   return (
-    <div className="main-container container">
-      {
+    <div className={props.darkmode ? 'bg-dark text-light' : 'bg-light text-dark'}>
+      <div className="main-container container">
+        {
         props.cryptos
           ? (
             <>
@@ -34,12 +35,14 @@ const App = props => {
           )
           : <span>...loading</span>
       }
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   cryptos: state.cryptos,
+  darkmode: state.darkmode.darkmode,
 });
 
 const mapDispatchToProps = dispatch => ({
