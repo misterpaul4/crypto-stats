@@ -72,3 +72,8 @@ select {
   height: 20px;
   width: 20px;
 }
+
+td img {
+  height: 1rem;
+  width: 1rem;
+}
