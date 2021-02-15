@@ -1,4 +1,4 @@
-const darkModeReducer = (state = null, action) => {
+const updateCryptoReducer = (state = null, action) => {
   switch (action.type) {
     case 'UPDATE_CRYPTO_DATA':
       return {
@@ -11,4 +11,4 @@ const darkModeReducer = (state = null, action) => {
   }
 };
 
-export default darkModeReducer;
+export default updateCryptoReducer;

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
@@ -6,6 +7,7 @@ import React from 'react';
 
 const Crypto = props => {
   const to2Decimal = value => parseFloat(value).toFixed(2);
+  const toDecimal = value => parseFloat(value).toFixed(0);
 
   const percentTD = value => (
     <td className={value > '0' ? 'text-success' : 'text-danger'}>
@@ -31,7 +33,9 @@ const Crypto = props => {
       {percentTD(props.crypto.price_change_percentage_7d_in_currency)}
       {percentTD(props.crypto.price_change_percentage_24h)}
 
-      <td>$100 7days ago</td>
+      <td>{moneyWithCommas(toDecimal(props.crypto.circulating_supply))}</td>
+
+      <td>{props.crypto.max_supply ? moneyWithCommas(toDecimal(props.crypto.max_supply)) : '-'}</td>
       <td>
         $
         {moneyWithCommas(props.crypto.market_cap)}
