@@ -6,13 +6,25 @@ import React from 'react';
 
 const Crypto = props => (
   <tr className="chart-crypto-row">
-    <td>{props.crypto.rank}</td>
+    <td>{props.crypto.market_cap_rank}</td>
     <td>{props.crypto.name}</td>
-    <td>{props.crypto.price}</td>
-    <td>{props.crypto.d7}</td>
-    <td>{props.crypto.h24}</td>
-    <td>(price + (d7 x price)) x $100</td>
-    <td>{props.crypto.cap}</td>
+    <td>
+      $
+      {props.crypto.current_price}
+    </td>
+    <td>
+      {props.crypto.price_change_percentage_7d_in_currency}
+      %
+    </td>
+    <td>
+      {props.crypto.price_change_percentage_24h}
+      %
+    </td>
+    <td>$100 7days ago</td>
+    <td>
+      $
+      {props.crypto.market_cap}
+    </td>
   </tr>
 );
 

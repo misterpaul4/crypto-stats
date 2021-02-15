@@ -1,9 +1,13 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React from 'react';
+import { connect } from 'react-redux';
 import '../css/chart.css';
 import Crypto from '../component/Crypto';
 
-const Chart = () => {
+const Chart = props => {
   const temp = {
     cryptos: [
       {
@@ -74,10 +78,14 @@ const Chart = () => {
       </thead>
 
       <tbody>
-        {temp.cryptos.map(passCrypto)}
+        {props.cryptos.cryptos.map(passCrypto)}
       </tbody>
     </table>
   );
 };
 
-export default Chart;
+const mapStateToProps = state => ({
+  cryptos: state.cryptos,
+});
+
+export default connect(mapStateToProps)(Chart);
