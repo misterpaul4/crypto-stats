@@ -1,12 +1,10 @@
-/* eslint-disable max-len */
-/* eslint-disable no-console */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Crypto = props => {
+const Crypto = ({
+  crypto,
+}) => {
   const to2Decimal = value => parseFloat(value).toFixed(2);
   const toDecimal = value => parseFloat(value).toFixed(0);
 
@@ -21,28 +19,28 @@ const Crypto = props => {
 
   return (
     <tr className="chart-crypto-row">
-      <td>{props.crypto.market_cap_rank}</td>
+      <td>{crypto.market_cap_rank}</td>
       <td>
-        <Link to={`/cryptostat/${props.crypto.id}`}>
-          <img src={props.crypto.image} alt="icon" className="mr-2" />
-          {props.crypto.name}
+        <Link to={`/cryptostat/${crypto.id}`}>
+          <img src={crypto.image} alt="icon" className="mr-2" />
+          {crypto.name}
         </Link>
       </td>
       <td>
         $
-        {moneyWithCommas(to2Decimal(props.crypto.current_price))}
+        {moneyWithCommas(to2Decimal(crypto.current_price))}
       </td>
 
-      {percentTD(props.crypto.price_change_percentage_24h)}
+      {percentTD(crypto.price_change_percentage_24h)}
 
-      {percentTD(props.crypto.price_change_percentage_7d_in_currency)}
+      {percentTD(crypto.price_change_percentage_7d_in_currency)}
 
-      <td>{moneyWithCommas(toDecimal(props.crypto.circulating_supply))}</td>
+      <td>{moneyWithCommas(toDecimal(crypto.circulating_supply))}</td>
 
-      <td>{props.crypto.max_supply ? moneyWithCommas(toDecimal(props.crypto.max_supply)) : '-'}</td>
+      <td>{crypto.max_supply ? moneyWithCommas(toDecimal(crypto.max_supply)) : '-'}</td>
       <td>
         $
-        {moneyWithCommas(props.crypto.market_cap)}
+        {moneyWithCommas(crypto.market_cap)}
       </td>
     </tr>
   );

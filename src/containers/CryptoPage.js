@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/cryptoPage.css';
@@ -18,23 +14,10 @@ const CryptoPage = () => {
     fetch(url).then(response => response.json())
       .then(data => {
         updateCrypto(data);
-        // console.log(data.description.en);
       });
 
     return null;
   }, []);
-
-  // const InsertDescription = () => {
-  //   const stuff = 'asd';
-  //   // const doc = document.createElement('span');
-  //   // doc.insertAdjacentHTML('afterend', '<div>what i inserted</div>');
-  //   // console.log(doc);
-  //   return (
-  //     <span>
-  //       something
-  //     </span>
-  //   );
-  // };
 
   return (
     <div className="container c-pg py-4">

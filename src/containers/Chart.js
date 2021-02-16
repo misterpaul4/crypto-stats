@@ -1,7 +1,4 @@
-/* eslint-disable max-len */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React from 'react';
 import { connect } from 'react-redux';
 import '../css/chart.css';
@@ -18,6 +15,7 @@ const Chart = ({
       if (filter.duration === '24h') {
         return cryptos.filter(crypto => crypto.price_change_percentage_24h >= filter.filter);
       }
+      // eslint-disable-next-line max-len
       return cryptos.filter(crypto => crypto.price_change_percentage_7d_in_currency >= filter.filter);
     }
     return cryptos;

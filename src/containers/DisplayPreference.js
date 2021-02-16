@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -27,7 +23,9 @@ const DisplayPreference = ({
   };
 
   return (
-    <img src={darkmode ? dark : light} alt="display preference" className="display-mode" onClick={handleClick} />
+    <button type="button" onClick={handleClick} className="display-mode-btn">
+      <img src={darkmode ? dark : light} alt="display preference" className="display-mode" />
+    </button>
   );
 };
 

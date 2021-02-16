@@ -1,7 +1,4 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { filterCryptos } from '../actions';

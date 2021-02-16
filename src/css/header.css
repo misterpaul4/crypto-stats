@@ -20,10 +20,14 @@ header {
   font-size: 1.6rem;
 }
 
+.display-mode-btn {
+  border: 0;
+  background-color: inherit;
+}
+
 .display-mode {
   width: 25px;
   height: 25px;
-  cursor: pointer;
 }
 
 .display-mode:hover {
