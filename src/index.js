@@ -12,6 +12,7 @@ const store = createStore(
   rootReducer,
   {
     darkmode: { darkmode: false },
+    sort: { asc: false },
     filter: {
       filter: {
         filter: 'All',

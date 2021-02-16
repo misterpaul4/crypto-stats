@@ -1,6 +1,6 @@
 import { lightMode, darkMode } from './displayActions';
-import { updateCryptos, filterCryptos } from './cryptosActions';
+import { updateCryptos, filterCryptos, toggleAscSorting } from './cryptosActions';
 
 export {
-  lightMode, darkMode, updateCryptos, filterCryptos,
+  lightMode, darkMode, updateCryptos, filterCryptos, toggleAscSorting,
 };

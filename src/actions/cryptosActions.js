@@ -8,4 +8,8 @@ const filterCryptos = value => ({
   value,
 });
 
-export { updateCryptos, filterCryptos };
+const toggleAscSorting = () => ({
+  type: 'TOGGLE_SORT_ORDER',
+});
+
+export { updateCryptos, filterCryptos, toggleAscSorting };

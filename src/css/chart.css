@@ -12,10 +12,15 @@
 .chart button {
   border: 0;
   background-color: inherit;
+  color: inherit;
 }
 
 .chart-header td {
   padding: 15px 0;
+}
+
+.chart-header td button {
+  padding: 0;
 }
 
 .chart-crypto-row {
