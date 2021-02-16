@@ -1,4 +1,6 @@
 import { lightMode, darkMode } from './displayActions';
-import updateCryptos from './cryptosActions';
+import { updateCryptos, filterCryptos } from './cryptosActions';
 
-export { lightMode, darkMode, updateCryptos };
+export {
+  lightMode, darkMode, updateCryptos, filterCryptos,
+};

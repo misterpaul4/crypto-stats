@@ -6,12 +6,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateCryptos } from '../actions';
 import HotToday from './HotToday';
-import Filter from './PriceChangeFilter';
+import Filter from './Filter';
 import Chart from '../containers/Chart';
 
 const App = props => {
   useEffect(() => {
-    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&sparkline=false&price_change_percentage=7d%2C30d';
+    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&sparkline=false&price_change_percentage=7d%2C30d';
 
     fetch(url).then(response => response.json())
       .then(data => {

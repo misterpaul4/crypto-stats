@@ -8,7 +8,18 @@ import { createStore } from 'redux';
 import rootReducer from './reducers';
 import Routes from './routes';
 
-const store = createStore(rootReducer, { darkmode: { darkmode: false } });
+const store = createStore(
+  rootReducer,
+  {
+    darkmode: { darkmode: false },
+    filter: {
+      filter: {
+        filter: 'All',
+        duration: null,
+      },
+    },
+  },
+);
 
 // console.log(store.getState());
 

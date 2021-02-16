@@ -1,10 +1,15 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { filterCryptos } from '../actions';
 
-const Filter = () => {
-  const percentageChange = ['All', '-15%', '-10%', '-5%', '0%', '+5%', '+10%', '+15%'];
+const Filter = props => {
+  const percentageChange = ['All', '-0.5%', '-0.4%', '-0.2%', '-0.1%', '+0%', '+10%', '+20%', '+30%', '+50%', '+100%'];
 
-  const [duration, updateDuration] = useState(null);
+  const [localStateDuration, updateDuration] = useState('24h');
   const [filterBy, updateFilter] = useState(percentageChange[0]);
 
   const onDurationChange = e => {
@@ -17,11 +22,15 @@ const Filter = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('duration', duration);
-    console.log('filter', filterBy);
+    props.filterCryptoList({
+      filter: filterBy === 'All' ? filterBy : filterBy.substring(filterBy[0] === '+' ? 1 : 0, filterBy.length - 1),
+      duration: localStateDuration,
+    });
   };
 
-  const Options = pg => <option key={pg}>{pg}</option>;
+  const Options = pg => (
+    <option key={pg}>{pg}</option>
+  );
 
   return (
     <form className="d-flex align-items-center my-3">
@@ -34,7 +43,7 @@ const Filter = () => {
           type="radio"
           value="24h"
           className="mr-1"
-          checked={duration === '24h'}
+          checked={localStateDuration === '24h'}
           onChange={onDurationChange}
         />
         24h
@@ -45,7 +54,7 @@ const Filter = () => {
           type="radio"
           value="7d"
           className="mr-1"
-          checked={duration === '7d'}
+          checked={localStateDuration === '7d'}
           onChange={onDurationChange}
         />
         7d
@@ -59,4 +68,15 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+const mapStateToProps = state => ({
+  cryptos: state.cryptos,
+  filter: state.filter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  filterCryptoList: cryptos => {
+    dispatch(filterCryptos(cryptos));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

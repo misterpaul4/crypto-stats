@@ -1,4 +1,4 @@
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable max-len */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
@@ -7,8 +7,21 @@ import { connect } from 'react-redux';
 import '../css/chart.css';
 import Crypto from '../component/Crypto';
 
-const Chart = props => {
+const Chart = ({
+  cryptos: { cryptos },
+  filter: { filter },
+}) => {
   const passCrypto = crypto => (<Crypto crypto={crypto} key={crypto.name} />);
+
+  const filteredCryptos = () => {
+    if (filter.filter !== 'All') {
+      if (filter.duration === '24h') {
+        return cryptos.filter(crypto => crypto.price_change_percentage_24h >= filter.filter);
+      }
+      return cryptos.filter(crypto => crypto.price_change_percentage_7d_in_currency >= filter.filter);
+    }
+    return cryptos;
+  };
 
   return (
     <table className="chart">
@@ -17,8 +30,8 @@ const Chart = props => {
           <td>rank(#)</td>
           <td>name</td>
           <td>price</td>
-          <td>7d</td>
           <td>24h</td>
+          <td>7d</td>
           <td data-toggle="tooltip" data-placement="top" title="number of coins or tokens in circulation currently">
             circ. supply
             <i className="fas fa-info-circle ml-1" />
@@ -35,7 +48,7 @@ const Chart = props => {
       </thead>
 
       <tbody>
-        {props.cryptos.cryptos.map(passCrypto)}
+        {filteredCryptos().map(passCrypto)}
       </tbody>
     </table>
   );
@@ -43,6 +56,7 @@ const Chart = props => {
 
 const mapStateToProps = state => ({
   cryptos: state.cryptos,
+  filter: state.filter,
 });
 
 export default connect(mapStateToProps)(Chart);

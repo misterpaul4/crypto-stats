@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/hotToday.css';
 
 const HotToday = () => (
-  <div className="border d-inline-block p-3 my-3 today-view mb-3">
+  <div className="d-inline-block p-3 my-3 today-view mb-3">
     <h1>Today</h1>
     <p>
       hottest crypto of the day is

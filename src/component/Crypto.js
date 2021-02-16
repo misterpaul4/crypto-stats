@@ -30,8 +30,9 @@ const Crypto = props => {
         {moneyWithCommas(to2Decimal(props.crypto.current_price))}
       </td>
 
-      {percentTD(props.crypto.price_change_percentage_7d_in_currency)}
       {percentTD(props.crypto.price_change_percentage_24h)}
+
+      {percentTD(props.crypto.price_change_percentage_7d_in_currency)}
 
       <td>{moneyWithCommas(toDecimal(props.crypto.circulating_supply))}</td>
 
