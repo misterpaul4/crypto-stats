@@ -9,6 +9,11 @@
   font-weight: bold;
 }
 
+.chart button {
+  border: 0;
+  background-color: inherit;
+}
+
 .chart-header td {
   padding: 15px 0;
 }

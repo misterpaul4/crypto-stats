@@ -11,7 +11,7 @@ const App = ({
   updateCryptosState,
 }) => {
   useEffect(() => {
-    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&sparkline=false&price_change_percentage=24h%2C7d';
+    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&sparkline=false&price_change_percentage=24h%2C7d';
 
     fetch(url).then(response => response.json())
       .then(data => {
