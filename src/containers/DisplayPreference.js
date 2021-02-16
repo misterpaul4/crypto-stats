@@ -17,8 +17,12 @@ const DisplayPreference = ({
   const handleClick = () => {
     if (darkmode) {
       switchToLight();
+      document.body.style.backgroundColor = '#f8f9fa';
+      document.body.style.color = '#343a40';
     } else {
       switchToDark();
+      document.body.style.backgroundColor = '#343a40';
+      document.body.style.color = '#f8f9fa';
     }
   };
 

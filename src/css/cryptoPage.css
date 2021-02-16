@@ -1,0 +1,17 @@
+.c-pg-icon {
+  height: 100px;
+  width: 100px;
+}
+
+.c-pg-description {
+  font-size: 0.85rem;
+}
+
+.c-pg-stats-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.c-pg-stats-name {
+  font-weight: bold;
+}

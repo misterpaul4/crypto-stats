@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import App from '../component/App';
 import Header from '../component/Header';
+import CryptoPage from '../containers/CryptoPage';
 import '../css/index.css';
 
 const Routes = () => (
@@ -9,6 +10,7 @@ const Routes = () => (
     <Header />
     <Switch>
       <Route exact path="/" component={App} />
+      <Route exact path="/cryptostat/:id" component={CryptoPage} />
     </Switch>
   </BrowserRouter>
 );

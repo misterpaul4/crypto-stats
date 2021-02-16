@@ -4,6 +4,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Crypto = props => {
   const to2Decimal = value => parseFloat(value).toFixed(2);
@@ -22,8 +23,10 @@ const Crypto = props => {
     <tr className="chart-crypto-row">
       <td>{props.crypto.market_cap_rank}</td>
       <td>
-        <img src={props.crypto.image} alt="icon" className="mr-2" />
-        {props.crypto.name}
+        <Link to={`/cryptostat/${props.crypto.id}`}>
+          <img src={props.crypto.image} alt="icon" className="mr-2" />
+          {props.crypto.name}
+        </Link>
       </td>
       <td>
         $
