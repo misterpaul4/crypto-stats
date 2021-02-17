@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateCryptos } from '../actions';
 import HotToday from './HotToday';
 import Filter from './Filter';
-import Chart from '../containers/Chart';
+import Table from './CryptoTable';
 
 const App = ({
   cryptos,
@@ -29,7 +29,7 @@ const App = ({
             <>
               <HotToday />
               <Filter />
-              <Chart />
+              <Table />
             </>
           )
           : <span>...loading</span>
@@ -47,5 +47,17 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateCryptos(cryptos));
   },
 });
+
+App.propTypes = {
+  cryptos: propTypes.shape(propTypes.arrayOf({
+    cryptos: propTypes.object,
+  }).isRequired),
+
+  updateCryptosState: propTypes.func.isRequired,
+};
+
+App.defaultProps = {
+  cryptos: null,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

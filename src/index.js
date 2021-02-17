@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -21,8 +18,6 @@ const store = createStore(
     },
   },
 );
-
-// console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import propTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { to2Decimal } from '../utils';
@@ -62,5 +60,11 @@ const HotToday = ({
 const mapStateToProps = state => ({
   cryptos: state.cryptos,
 });
+
+HotToday.propTypes = {
+  cryptos: propTypes.shape(propTypes.arrayOf({
+    cryptos: propTypes.string,
+  }).isRequired).isRequired,
+};
 
 export default connect(mapStateToProps)(HotToday);

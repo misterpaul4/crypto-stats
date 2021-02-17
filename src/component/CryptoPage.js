@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { moneyWithCommas, to2Decimal, toDecimal } from '../utils';
+import { moneyWithCommas, toDecimal } from '../utils';
 import '../css/cryptoPage.css';
 
 const CryptoPage = () => {
@@ -21,6 +21,13 @@ const CryptoPage = () => {
     return null;
   }, []);
 
+  const percentDT = value => (
+    <span className={value > '0' ? 'text-success' : 'text-danger'}>
+      {value}
+      %
+    </span>
+  );
+
   return (
     <div className="container c-pg py-4">
       {
@@ -38,13 +45,12 @@ const CryptoPage = () => {
                   <div>
                     <span className="c-pg-stats-name">Current Price: </span>
                     $
-                    {moneyWithCommas(to2Decimal(cryptoData.market_data.current_price.usd))}
+                    {moneyWithCommas(cryptoData.market_data.current_price.usd)}
                   </div>
 
                   <div>
                     <span className="c-pg-stats-name">Price Change(1year): </span>
-                    {to2Decimal(cryptoData.market_data.price_change_percentage_1y)}
-                    %
+                    {percentDT(cryptoData.market_data.price_change_percentage_1y)}
                   </div>
 
                   <div>
@@ -55,8 +61,7 @@ const CryptoPage = () => {
 
                   <div>
                     <span className="c-pg-stats-name">Price Change(30days): </span>
-                    {to2Decimal(cryptoData.market_data.price_change_percentage_30d)}
-                    %
+                    {percentDT(cryptoData.market_data.price_change_percentage_30d)}
                   </div>
 
                   <div>
@@ -67,14 +72,13 @@ const CryptoPage = () => {
 
                   <div>
                     <span className="c-pg-stats-name">Price Change(14days): </span>
-                    {to2Decimal(cryptoData.market_data.price_change_percentage_14d)}
-                    %
+                    {percentDT(cryptoData.market_data.price_change_percentage_14d)}
                   </div>
 
                   <div>
                     <span className="c-pg-stats-name">All Time Low: </span>
                     $
-                    {moneyWithCommas(to2Decimal(cryptoData.market_data.atl.usd))}
+                    {moneyWithCommas(cryptoData.market_data.atl.usd)}
                   </div>
 
                   <div>

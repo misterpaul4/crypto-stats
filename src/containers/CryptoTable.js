@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 import '../css/chart.css';
-import Crypto from '../component/Crypto';
+import Crypto from '../component/CryptoTableData';
 import { updateCryptos, toggleAscSorting } from '../actions';
 
 const Chart = ({
@@ -14,8 +13,6 @@ const Chart = ({
   toggleSortOrder,
 }) => {
   const passCrypto = crypto => (<Crypto crypto={crypto} key={crypto.name} />);
-
-  // eslint-disable-next-line no-console
 
   const filteredCryptos = () => {
     if (filter.filter !== 'All') {
@@ -86,5 +83,22 @@ const mapDispatchToProps = dispatch => ({
   },
   toggleSortOrder: () => dispatch(toggleAscSorting()),
 });
+
+Chart.propTypes = {
+  cryptos: propTypes.shape(propTypes.shape({
+    cryptos: propTypes.string,
+  }).isRequired).isRequired,
+
+  filter: propTypes.shape(propTypes.shape({
+    filter: propTypes.string.isRequired,
+  }).isRequired).isRequired,
+
+  asc: propTypes.shape({
+    asc: propTypes.bool.isRequired,
+  }).isRequired,
+
+  updateCryptosState: propTypes.func.isRequired,
+  toggleSortOrder: propTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chart);

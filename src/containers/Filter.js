@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filterCryptos } from '../actions';
 
 const Filter = props => {
-  const percentageChange = ['All', '-0.5%', '-0.4%', '-0.2%', '-0.1%', '+0%', '+10%', '+20%', '+30%', '+50%', '+100%'];
+  const percentageChange = ['All', '-0.5%', '-0.4%', '-0.2%', '-0.1%', '+0%', '+10%', '+20%', '+30%', '+50%', '+100%', '+200%'];
 
   const [localStateDuration, updateDuration] = useState('24h');
   const [filterBy, updateFilter] = useState(percentageChange[0]);
@@ -20,6 +20,7 @@ const Filter = props => {
   const handleSubmit = e => {
     e.preventDefault();
     props.filterCryptoList({
+      // remove + sign from filter
       filter: filterBy === 'All' ? filterBy : filterBy.substring(filterBy[0] === '+' ? 1 : 0, filterBy.length - 1),
       duration: localStateDuration,
     });
@@ -65,15 +66,14 @@ const Filter = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  cryptos: state.cryptos,
-  filter: state.filter,
-});
-
 const mapDispatchToProps = dispatch => ({
   filterCryptoList: cryptos => {
     dispatch(filterCryptos(cryptos));
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+Filter.propTypes = {
+  filterCryptoList: propTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Filter);
