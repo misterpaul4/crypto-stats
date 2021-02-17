@@ -1,21 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { to2Decimal, toDecimal, moneyWithCommas } from '../utils';
 
 const Crypto = ({
   crypto,
 }) => {
-  const to2Decimal = value => parseFloat(value).toFixed(2);
-  const toDecimal = value => parseFloat(value).toFixed(0);
-
   const percentTD = value => (
     <td className={value > '0' ? 'text-success' : 'text-danger'}>
       {to2Decimal(value)}
       %
     </td>
   );
-
-  const moneyWithCommas = amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <tr className="chart-crypto-row">
