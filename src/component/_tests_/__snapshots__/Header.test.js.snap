@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header correctly without errors 1`] = `
+<header
+  className="flex-between"
+>
+  <Link
+    className="flex-centered home"
+    to="/"
+  >
+    <div
+      className="logo bg-img"
+    />
+    <span
+      className="logo-name"
+    >
+      Crypto Stats
+    </span>
+  </Link>
+  <Memo(Connect(DisplayPreference)) />
+</header>
+`;

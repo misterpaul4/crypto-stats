@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import '../css/chart.css';
-import Crypto from '../component/CryptoTableData';
+import CryptoTableData from '../component/CryptoTableData';
 import { updateCryptos, toggleAscSorting } from '../actions';
 
 const Chart = ({
@@ -12,7 +12,7 @@ const Chart = ({
   updateCryptosState,
   toggleSortOrder,
 }) => {
-  const passCrypto = crypto => (<Crypto crypto={crypto} key={crypto.name} />);
+  const passCrypto = crypto => (<CryptoTableData crypto={crypto} key={crypto.name} />);
 
   const filteredCryptos = () => {
     if (filter.filter !== 'All') {
