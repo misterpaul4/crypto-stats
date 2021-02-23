@@ -2,6 +2,10 @@
 
 > Crypto Stats is an app to view crypto currency data. Currently there is no data refresh but that is a feature to be implemented later on in the project.
 
+![screenshot](./screenshot.png)
+![screenshot](./screenshot_dark.png)
+
+
 ## Built With
 
 - React
@@ -18,6 +22,8 @@ make sure nodejs & npm is installed in your machine
 - install dependecies `npm install`
 - start the server `npm start`
 
+## Test
+To run tests, run `npm test`. Make sure the dependencies installed successfully before running tests
 
 ## Authors
 
