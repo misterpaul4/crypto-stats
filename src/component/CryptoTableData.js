@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { to2Decimal, toDecimal, moneyWithCommas } from '../utils';
 
@@ -41,4 +41,11 @@ const Crypto = ({
     </tr>
   );
 };
+
+Crypto.propTypes = {
+  crypto: propTypes.shape(propTypes.shape({
+    cryptos: propTypes.string,
+  }).isRequired).isRequired,
+};
+
 export default Crypto;
