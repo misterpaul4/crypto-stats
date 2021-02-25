@@ -1,0 +1,22 @@
+.c-pg-icon {
+  height: 100px;
+  width: 100px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 18px 50px -10px;
+}
+
+.c-pg-description {
+  font-size: 0.9rem;
+}
+
+.c-pg-description a {
+  color: red;
+}
+
+.c-pg-stats-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.c-pg-stats-name {
+  font-weight: bold;
+}
