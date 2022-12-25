@@ -1,23 +1,22 @@
-const toDecimal = value => parseFloat(value).toFixed(0);
+const toDecimal = (value) => parseFloat(value).toFixed(0);
 
-const to2Decimal = value => {
+const to2Decimal = (value) => {
   let result = parseFloat(value).toFixed(2);
-  if (result === '0.00') { result = value; }
+  if (result === "0.00") {
+    result = value;
+  }
   return result;
 };
 
-const moneyWithCommas = amount => {
-  const breakAmount = amount.toString().split('.');
+const moneyWithCommas = (amount) => {
+  const breakAmount = amount.toString().split(".");
   const preDecimal = breakAmount[0];
   const postDecimal = breakAmount[1];
-  const preDecimalWithCommas = preDecimal.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const preDecimalWithCommas = preDecimal.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const resultArry = [preDecimalWithCommas, postDecimal];
-  const result = postDecimal ? resultArry.join('.') : preDecimalWithCommas;
+  const result = postDecimal ? resultArry.join(".") : preDecimalWithCommas;
   return result;
 };
 
-export {
-  to2Decimal,
-  toDecimal,
-  moneyWithCommas,
-};
+export { to2Decimal, toDecimal, moneyWithCommas };
+

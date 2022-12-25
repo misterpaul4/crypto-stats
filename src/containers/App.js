@@ -6,6 +6,8 @@ import HotToday from "./HotToday";
 import Filter from "./Filter";
 import Table from "./CryptoTable";
 import PageLoader from "../component/PageLoader";
+import { Table as ATable } from "antd";
+import columns from "../component/Columns";
 
 const App = ({ cryptos, updateCryptosState }) => {
   useEffect(() => {
@@ -27,8 +29,15 @@ const App = ({ cryptos, updateCryptosState }) => {
         {cryptos && (
           <>
             <HotToday />
-            <Filter />
-            <Table />
+            <ATable
+              sticky
+              columns={columns()}
+              rowKey={(d) => d.id}
+              dataSource={cryptos?.cryptos || []}
+              scroll={{ x: "auto", y: 500 }}
+            />
+            {/* <Filter /> */}
+            {/* <Table /> */}
           </>
         )}
       </div>
