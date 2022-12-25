@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const toDecimal = (value) => parseFloat(value).toFixed(0);
 
 const to2Decimal = (value) => {
@@ -18,5 +20,7 @@ const moneyWithCommas = (amount) => {
   return result;
 };
 
-export { to2Decimal, toDecimal, moneyWithCommas };
+const dateFormat = (d) => moment(d).format("ll");
+
+export { to2Decimal, toDecimal, moneyWithCommas, dateFormat };
 

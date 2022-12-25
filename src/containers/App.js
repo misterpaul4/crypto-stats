@@ -25,16 +25,19 @@ const App = ({ cryptos, updateCryptosState }) => {
 
   return (
     <PageLoader loading={!cryptos}>
-      <div className="main-container container">
+      <div className="container-fluid mx-2">
         {cryptos && (
           <>
-            <HotToday />
+            {/* <HotToday /> */}
             <ATable
               sticky
               columns={columns()}
               rowKey={(d) => d.id}
               dataSource={cryptos?.cryptos || []}
               scroll={{ x: "auto", y: 500 }}
+              pagination={{
+                position: ["topRight"],
+              }}
             />
             {/* <Filter /> */}
             {/* <Table /> */}

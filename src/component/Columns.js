@@ -1,53 +1,82 @@
 import { Avatar, Tag } from "antd";
-import { moneyWithCommas, to2Decimal } from "../utils";
+import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
 
 const columns = () => [
   {
-    title: "rank",
-    dataIndex: "market_cap_rank",
-    width: 150,
-  },
-  {
     title: "name",
-    width: 150,
+    width: 250,
+    fixed: true,
     render: (data) => (
-      <>
-        <Avatar size="small" src={data.image} className="mr-2" />
+      <div className="d-flex">
+        {data.market_cap_rank}.
+        <Avatar size="small" src={data.image} className="ml-1 mr-2" />
         {data.name}
-      </>
+      </div>
     ),
   },
+
   {
     title: "Price",
     width: 150,
+    ellipsis: true,
     dataIndex: "current_price",
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {
     title: "24h",
     width: 150,
+    ellipsis: true,
     dataIndex: "price_change_percentage_24h",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
     title: "7d",
+    width: 150,
+    ellipsis: true,
     dataIndex: "price_change_percentage_7d_in_currency",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
     title: "circ. supply",
+    width: 150,
+    ellipsis: true,
     dataIndex: "circulating_supply",
     render: (d) => (d ? moneyWithCommas(d) : "-"),
   },
   {
     title: "total supply",
     dataIndex: "max_supply",
+    width: 150,
+    ellipsis: true,
     render: (d) => (d ? moneyWithCommas(d) : "-"),
   },
   {
     title: "Market Cap",
     dataIndex: "market_cap",
+    width: 150,
+    ellipsis: true,
     render: (d) => `$${moneyWithCommas(d)}`,
+  },
+  {
+    title: "Total Volume",
+    dataIndex: "total_volume",
+    width: 150,
+    ellipsis: true,
+    render: (d) => moneyWithCommas(d),
+  },
+  {
+    title: "All time high",
+    width: 150,
+    ellipsis: true,
+    dataIndex: "ath",
+    render: (d) => `$${moneyWithCommas(d)}`,
+  },
+  {
+    title: "All time high date",
+    dataIndex: "atl_date",
+    width: 150,
+    ellipsis: true,
+    render: (d) => dateFormat(d),
   },
 ];
 
