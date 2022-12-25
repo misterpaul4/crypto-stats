@@ -1,4 +1,4 @@
-import { Avatar, Tag } from "antd";
+import { Avatar, Tag, Tooltip, Typography } from "antd";
 import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
 
 const columns = () => [
@@ -37,14 +37,14 @@ const columns = () => [
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
-    title: "circ. supply",
+    title: "Circ. supply",
     width: 150,
     ellipsis: true,
     dataIndex: "circulating_supply",
     render: (d) => (d ? moneyWithCommas(d) : "-"),
   },
   {
-    title: "total supply",
+    title: "Total supply",
     dataIndex: "max_supply",
     width: 150,
     ellipsis: true,
@@ -58,6 +58,20 @@ const columns = () => [
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {
+    title: "Symbol",
+    dataIndex: "symbol",
+    width: 150,
+    ellipsis: true,
+    render: (d) => <Tag>{d}</Tag>,
+  },
+  {
+    title: "FDV",
+    dataIndex: "fully_diluted_valuation",
+    width: 150,
+    ellipsis: true,
+    render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
+  },
+  {
     title: "Total Volume",
     dataIndex: "total_volume",
     width: 150,
@@ -65,18 +79,32 @@ const columns = () => [
     render: (d) => moneyWithCommas(d),
   },
   {
-    title: "All time high",
+    title: <Tooltip title="All Time High">ATH</Tooltip>,
     width: 150,
     ellipsis: true,
     dataIndex: "ath",
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {
-    title: "All time high date",
+    title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
     dataIndex: "atl_date",
     width: 150,
     ellipsis: true,
     render: (d) => dateFormat(d),
+  },
+  {
+    title: "24 High",
+    width: 150,
+    ellipsis: true,
+    dataIndex: "high_24h",
+    render: (d) => `$${moneyWithCommas(d)}`,
+  },
+  {
+    title: "24 Low",
+    width: 150,
+    ellipsis: true,
+    dataIndex: "low_24h",
+    render: (d) => `$${moneyWithCommas(d)}`,
   },
 ];
 
