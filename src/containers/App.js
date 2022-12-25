@@ -1,46 +1,33 @@
-import React, { useEffect } from "react";
-import propTypes from "prop-types";
-import { connect } from "react-redux";
-import { updateCryptos } from "../actions";
-import HotToday from "./HotToday";
-import Filter from "./Filter";
-import Table from "./CryptoTable";
+import React from "react";
 import PageLoader from "../component/PageLoader";
-import { Table as ATable } from "antd";
+import { Button, Table as ATable } from "antd";
 import columns from "../component/Columns";
+import useAPI from "../hooks/useAPI";
+import { ALL_TOKENS } from "../settings";
 
-const App = ({ cryptos, updateCryptosState }) => {
-  useEffect(() => {
-    const url =
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&sparkline=false&price_change_percentage=24h%2C7d";
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        updateCryptosState(data);
-      });
-
-    return null;
-  }, []);
+const App = () => {
+  const [cryptos, { loading, refetch }] = useAPI({ url: ALL_TOKENS });
 
   return (
     <PageLoader loading={!cryptos}>
-      <div className="container-fluid mx-2">
+      <div className="container-fluid px-3">
         {cryptos && (
           <>
-            {/* <HotToday /> */}
             <ATable
               sticky
               columns={columns()}
               rowKey={(d) => d.id}
-              dataSource={cryptos?.cryptos || []}
+              dataSource={cryptos || []}
               scroll={{ x: "auto", y: 500 }}
               pagination={{
                 position: ["topRight"],
+                showTotal: () => (
+                  <Button loading={loading} onClick={refetch}>
+                    Refresh
+                  </Button>
+                ),
               }}
             />
-            {/* <Filter /> */}
-            {/* <Table /> */}
           </>
         )}
       </div>
@@ -48,29 +35,5 @@ const App = ({ cryptos, updateCryptosState }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  cryptos: state.cryptos,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateCryptosState: (cryptos) => {
-    dispatch(updateCryptos(cryptos));
-  },
-});
-
-App.propTypes = {
-  cryptos: propTypes.shape(
-    propTypes.arrayOf({
-      cryptos: propTypes.object,
-    }).isRequired
-  ),
-
-  updateCryptosState: propTypes.func.isRequired,
-};
-
-App.defaultProps = {
-  cryptos: null,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 

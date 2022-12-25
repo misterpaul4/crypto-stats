@@ -3,7 +3,7 @@ import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
 
 const columns = () => [
   {
-    title: "name",
+    title: "Name",
     width: 250,
     fixed: true,
     render: (data) => (
@@ -65,7 +65,7 @@ const columns = () => [
     render: (d) => <Tag>{d}</Tag>,
   },
   {
-    title: "FDV",
+    title: <Tooltip title="Fully Diluted Valuation">FDV</Tooltip>,
     dataIndex: "fully_diluted_valuation",
     width: 150,
     ellipsis: true,
