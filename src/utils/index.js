@@ -31,7 +31,7 @@ const moneyWithCommas = (amount) => {
   return "-";
 };
 
-const dateFormat = (d) => moment(d).format("ll");
+const dateFormat = (d) => (d ? moment(d).format("ll") : "-");
 
 export { to2Decimal, toDecimal, moneyWithCommas, dateFormat };
 

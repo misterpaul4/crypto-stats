@@ -3,7 +3,7 @@ import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
 import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 
-const columns = () => [
+const columns = (onDetailsOpen) => [
   {
     title: "Name",
     width: 300,
@@ -118,6 +118,7 @@ const columns = () => [
         className="mx-3"
         placement="left"
         overlayInnerStyle={{ padding: 0 }}
+        zIndex={3}
         content={
           <Menu
             selectable={false}
@@ -129,6 +130,7 @@ const columns = () => [
                   </span>
                 ),
                 key: "view",
+                onClick: () => onDetailsOpen(data),
               },
               {
                 key: "favourite",

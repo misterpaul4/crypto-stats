@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import PageLoader from "../component/PageLoader";
-import { Button, Table as ATable } from "antd";
+import { Avatar, Button, Table as ATable, Typography } from "antd";
 import columns from "../component/Columns";
 import useAPI from "../hooks/useAPI";
 import { ALL_TOKENS } from "../settings";
+import DetailsDrawer from "../component/DetailsDrawer";
+import CryptoDetails from "../component/CryptoDetails";
 
 const App = () => {
   const [cryptos, { loading, refetch }] = useAPI({ url: ALL_TOKENS });
+  const [drawerVisibility, setDrawerVisibility] = useState(false);
+  const [selectedCryptoId, setSelectedCryptoId] = useState();
+
+  const onDetailsClose = () => {
+    setDrawerVisibility(false);
+    setSelectedCryptoId(undefined);
+  };
+
+  const onDetailsOpen = (crypto) => {
+    setDrawerVisibility(true);
+    setSelectedCryptoId(crypto);
+  };
 
   return (
     <PageLoader loading={!cryptos}>
+      <DetailsDrawer
+        title={
+          <Typography.Title level={3}>
+            <Avatar size="small" src={selectedCryptoId?.image} />{" "}
+            {selectedCryptoId?.name}
+          </Typography.Title>
+        }
+        onClose={onDetailsClose}
+        visibility={drawerVisibility}
+        children={<CryptoDetails id={selectedCryptoId?.id} />}
+      />
       <div className="container-fluid px-3">
         <ATable
           sticky
-          columns={columns()}
+          columns={columns(onDetailsOpen)}
           rowKey={(d) => d.id}
           dataSource={cryptos || []}
           scroll={{ x: "auto", y: 500 }}
