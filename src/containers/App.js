@@ -11,25 +11,21 @@ const App = () => {
   return (
     <PageLoader loading={!cryptos}>
       <div className="container-fluid px-3">
-        {cryptos && (
-          <>
-            <ATable
-              sticky
-              columns={columns()}
-              rowKey={(d) => d.id}
-              dataSource={cryptos || []}
-              scroll={{ x: "auto", y: 500 }}
-              pagination={{
-                position: ["topRight"],
-                showTotal: () => (
-                  <Button loading={loading} onClick={refetch}>
-                    Refresh
-                  </Button>
-                ),
-              }}
-            />
-          </>
-        )}
+        <ATable
+          sticky
+          columns={columns()}
+          rowKey={(d) => d.id}
+          dataSource={cryptos || []}
+          scroll={{ x: "auto", y: 500 }}
+          pagination={{
+            position: ["topRight"],
+            showTotal: () => (
+              <Button loading={loading} onClick={refetch}>
+                Refresh
+              </Button>
+            ),
+          }}
+        />
       </div>
     </PageLoader>
   );

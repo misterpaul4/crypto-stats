@@ -1,11 +1,13 @@
-import { Avatar, Tag, Tooltip, Typography } from "antd";
+import { Avatar, Menu, Popconfirm, Popover, Tag, Tooltip } from "antd";
 import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
+import { BsThreeDots, BsEye } from "react-icons/bs";
+import { FcLike } from "react-icons/fc";
 
 const columns = () => [
   {
     title: "Name",
     width: 250,
-    fixed: true,
+    fixed: "left",
     render: (data) => (
       <div className="d-flex">
         {data.market_cap_rank}.
@@ -86,13 +88,6 @@ const columns = () => [
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {
-    title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
-    dataIndex: "atl_date",
-    width: 150,
-    ellipsis: true,
-    render: (d) => dateFormat(d),
-  },
-  {
     title: "24 High",
     width: 150,
     ellipsis: true,
@@ -105,6 +100,45 @@ const columns = () => [
     ellipsis: true,
     dataIndex: "low_24h",
     render: (d) => `$${moneyWithCommas(d)}`,
+  },
+  {
+    title: "Action",
+    width: 250,
+    fixed: "right",
+    render: (data) => (
+      <Popover
+        className="mx-3"
+        placement="left"
+        overlayInnerStyle={{ padding: 0 }}
+        content={
+          <Menu
+            items={[
+              {
+                label: (
+                  <span className="d-flex align-items-center">
+                    <BsEye className="mr-2" /> View
+                  </span>
+                ),
+                key: "view",
+              },
+              {
+                key: "favourite",
+                label: (
+                  <span className="d-flex align-items-center">
+                    <FcLike className="mr-2" /> Add
+                    <strong className="mx-1">{data.symbol}</strong> To
+                    Favourites
+                  </span>
+                ),
+              },
+            ]}
+          />
+        }
+        trigger="click"
+      >
+        <BsThreeDots size={20} className="cursor-pointer" />
+      </Popover>
+    ),
   },
 ];
 
