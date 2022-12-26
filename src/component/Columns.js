@@ -6,7 +6,7 @@ import { FcLike } from "react-icons/fc";
 const columns = () => [
   {
     title: "Name",
-    width: 250,
+    width: 300,
     fixed: "left",
     render: (data) => (
       <div className="d-flex">
@@ -20,6 +20,7 @@ const columns = () => [
   {
     title: "Price",
     width: 150,
+    fixed: "left",
     ellipsis: true,
     dataIndex: "current_price",
     render: (d) => `$${moneyWithCommas(d)}`,
@@ -88,6 +89,13 @@ const columns = () => [
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {
+    title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
+    width: 150,
+    ellipsis: true,
+    dataIndex: "ath_date",
+    render: (d) => (d ? dateFormat(d) : "-"),
+  },
+  {
     title: "24 High",
     width: 150,
     ellipsis: true,
@@ -112,6 +120,7 @@ const columns = () => [
         overlayInnerStyle={{ padding: 0 }}
         content={
           <Menu
+            selectable={false}
             items={[
               {
                 label: (
@@ -126,8 +135,10 @@ const columns = () => [
                 label: (
                   <span className="d-flex align-items-center">
                     <FcLike className="mr-2" /> Add
-                    <strong className="mx-1">{data.symbol}</strong> To
-                    Favourites
+                    <strong className="mx-1">
+                      {data.symbol.toUpperCase()}
+                    </strong>{" "}
+                    To Favourites
                   </span>
                 ),
               },

@@ -19,6 +19,8 @@ const App = () => {
           scroll={{ x: "auto", y: 500 }}
           pagination={{
             position: ["topRight"],
+            defaultPageSize: "100",
+            pageSizeOptions: ["50", "100", "150", "200", "250"],
             showTotal: () => (
               <Button loading={loading} onClick={refetch}>
                 Refresh
