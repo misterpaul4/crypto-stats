@@ -31,6 +31,7 @@ const App = () => {
             {selectedCryptoId?.name}
           </Typography.Title>
         }
+        width={"50%"}
         onClose={onDetailsClose}
         visibility={drawerVisibility}
         children={<CryptoDetails id={selectedCryptoId?.id} />}

@@ -100,6 +100,7 @@ const columns = (onDetailsOpen) => [
     width: 150,
     ellipsis: true,
     dataIndex: "high_24h",
+    className: "text-success",
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {
@@ -107,6 +108,7 @@ const columns = (onDetailsOpen) => [
     width: 150,
     ellipsis: true,
     dataIndex: "low_24h",
+    className: "text-danger",
     render: (d) => `$${moneyWithCommas(d)}`,
   },
   {

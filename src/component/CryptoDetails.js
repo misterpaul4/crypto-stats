@@ -1,7 +1,7 @@
 import { Descriptions, Space, Tag, Typography } from "antd";
 import useAPI from "../hooks/useAPI";
 import { CRYPTO_DETAILS } from "../settings";
-import { dateFormat } from "../utils";
+import { dateFormat, moneyWithCommas } from "../utils";
 import PageLoader from "./PageLoader";
 import { GoLinkExternal } from "react-icons/go";
 
@@ -28,20 +28,61 @@ const CryptoDetails = ({ id }) => {
     <PageLoader loading={loading}>
       {d && (
         <Space direction="vertical" size="large" className="w-100">
-          <Descriptions layout="vertical" bordered title="Basic Info">
-            <Item label="Symbol">{d.symbol}</Item>
+          <Descriptions column={2} bordered title="Basic Info">
+            <Item label="Symbol">{d.symbol?.toUpperCase()}</Item>
             <Item label="Name">{d.name}</Item>
             <Item label="Hashing Algorithm">{d.hashing_algorithm}</Item>
+
+            <Item label="Country of Origin">{d.country_origin}</Item>
+            <Item label="Creation Date">{dateFormat(d.genesis_date)}</Item>
+            <Item label="Market Cap Rank"># {d.market_cap_rank}</Item>
             <Item label="Categories">
               {d.categories.map((dt) => (
-                <Tag className="m-1" color="geekblue">
+                <Tag key={dt} className="m-1" color="geekblue">
                   {dt}
                 </Tag>
               ))}
             </Item>
-            <Item label="Country of Origin">{d.country_origin}</Item>
-            <Item label="Creation Date">{dateFormat(d.genesis_date)}</Item>
-            <Item label="Market Cap Rank"># {d.market_cap_rank}</Item>
+          </Descriptions>
+
+          <Descriptions column={2} bordered title="Market Data">
+            <Item label="Current Price">
+              ${moneyWithCommas(d.market_data.current_price.usd)}
+            </Item>
+
+            <Item label="Market Cap">
+              ${moneyWithCommas(d.market_data.market_cap.usd)}
+            </Item>
+
+            <Item label="24H High" className="text-success">
+              ${moneyWithCommas(d.market_data.high_24h.usd)}
+            </Item>
+
+            <Item label="24H Low" className="text-danger">
+              ${moneyWithCommas(d.market_data.low_24h.usd)}
+            </Item>
+
+            <Item label="All Time High" className="text-success">
+              ${moneyWithCommas(d.market_data.ath.usd)}
+            </Item>
+            <Item label="All Time High Date">
+              <Tag color="green">{dateFormat(d.market_data.ath_date.usd)}</Tag>
+            </Item>
+            <Item label="All Time Low" className="text-danger">
+              ${moneyWithCommas(d.market_data.atl.usd)}
+            </Item>
+            <Item label="All Time High Date">
+              <Tag color="red">{dateFormat(d.market_data.atl_date.usd)}</Tag>
+            </Item>
+            <Item label="Circulating Supply">
+              {moneyWithCommas(d.market_data.circulating_supply)}
+            </Item>
+            <Item label="Total Supply">
+              {moneyWithCommas(d.market_data.total_supply)}
+            </Item>
+            <Item label="Fully Diluted Valuation">
+              ${moneyWithCommas(d.market_data.fully_diluted_valuation.usd)}
+            </Item>
           </Descriptions>
 
           <Descriptions column={2} bordered title="Links">
