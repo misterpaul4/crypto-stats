@@ -41,7 +41,7 @@ const App = () => {
           columns={columns(onDetailsOpen)}
           rowKey={(d) => d.id}
           dataSource={cryptos || []}
-          scroll={{ x: "auto", y: 500 }}
+          scroll={{ x: "auto", y: "75vh" }}
           pagination={{
             position: ["topRight"],
             defaultPageSize: "100",

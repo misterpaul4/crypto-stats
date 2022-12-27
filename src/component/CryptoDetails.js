@@ -17,7 +17,9 @@ const CryptoDetails = ({ id }) => {
       (l) =>
         l.link && (
           <Item label={l.label} key={l.label}>
-            <Typography.Link href={l.link}>{extLink}</Typography.Link>
+            <Typography.Link target="_blank" href={l.link}>
+              {extLink}
+            </Typography.Link>
           </Item>
         )
     );
@@ -46,6 +48,14 @@ const CryptoDetails = ({ id }) => {
             {renderLinks([
               { label: "Hompage", link: d.links.homepage[0] },
               { label: "Blockchain Link", link: d.links.blockchain_site[0] },
+              { label: "Official Forum", link: d.links.official_forum_url[0] },
+              { label: "Subreddit", link: d.links.subreddit_url },
+              {
+                label: "Twitter",
+                link:
+                  d.links.twitter_screen_name &&
+                  "//twitter.com/" + d.links.twitter_screen_name,
+              },
             ])}
           </Descriptions>
         </Space>
