@@ -1,4 +1,13 @@
-import { Avatar, Menu, Popconfirm, Popover, Tag, Tooltip } from "antd";
+import {
+  Avatar,
+  Menu,
+  Popconfirm,
+  Popover,
+  Progress,
+  Space,
+  Tag,
+  Tooltip,
+} from "antd";
 import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
 import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
@@ -41,14 +50,56 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "Circ. supply",
-    width: 150,
     ellipsis: true,
-    dataIndex: "circulating_supply",
-    render: (d) => (d ? moneyWithCommas(d) : "-"),
+    render: (data) => {
+      if (data.circulating_supply && data.max_supply) {
+        const circulating_supply = moneyWithCommas(data.circulating_supply);
+        const max_supply = moneyWithCommas(data.max_supply);
+        return (
+          <Popover
+            content={
+              <div>
+                <div>
+                  Circulating Supply:
+                  <strong className="ml-2">{circulating_supply}</strong>
+                </div>
+                <div>
+                  Max. Supply:
+                  <strong className="ml-2">{max_supply}</strong>
+                </div>
+              </div>
+            }
+          >
+            <div>
+              {circulating_supply} <strong>{data.symbol?.toUpperCase()}</strong>
+            </div>
+            <Progress
+              className="m-0 pr-3"
+              percent={to2Decimal(
+                (data.circulating_supply / data.max_supply) * 100
+              )}
+              strokeColor={{
+                "0%": "#108ee9",
+                "100%": "#87d068",
+              }}
+            />
+          </Popover>
+        );
+      }
+
+      return data.circulating_supply ? (
+        <div>
+          {moneyWithCommas(data.circulating_supply)}{" "}
+          <strong>{data.symbol?.toUpperCase()}</strong>
+        </div>
+      ) : (
+        "-"
+      );
+    },
   },
   {
     title: "Total supply",
-    dataIndex: "max_supply",
+    dataIndex: "total_supply",
     width: 150,
     ellipsis: true,
     render: (d) => (d ? moneyWithCommas(d) : "-"),
