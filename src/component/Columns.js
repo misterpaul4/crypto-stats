@@ -31,8 +31,25 @@ const columns = (onDetailsOpen) => [
     width: 150,
     fixed: "left",
     ellipsis: true,
-    dataIndex: "current_price",
-    render: (d) => `$${moneyWithCommas(d)}`,
+    // dataIndex: "current_price",
+    // render: (d) => `$${moneyWithCommas(d)}`,
+    render: (data) => {
+      const percent =
+        ((data.current_price - data.low_24h) / (data.high_24h - data.low_24h)) *
+        100;
+
+      return (
+        <div>
+          <div>${moneyWithCommas(data.current_price)}</div>
+          <Progress
+            percent={percent}
+            showInfo={false}
+            className="m-0 pr-3"
+            steps={5}
+          />
+        </div>
+      );
+    },
   },
   {
     title: "24h",

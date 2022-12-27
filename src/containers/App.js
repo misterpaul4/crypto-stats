@@ -36,7 +36,7 @@ const App = () => {
         visibility={drawerVisibility}
         children={<CryptoDetails id={selectedCryptoId?.id} />}
       />
-      <div className="container-fluid px-3">
+      <div className="container-fluid px-4">
         <ATable
           sticky
           columns={columns(onDetailsOpen)}
