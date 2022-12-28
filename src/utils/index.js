@@ -33,5 +33,13 @@ const moneyWithCommas = (amount) => {
 
 const dateFormat = (d) => (d ? moment(d).format("ll") : "-");
 
-export { to2Decimal, toDecimal, moneyWithCommas, dateFormat };
+const dateFormatWithTime = (d) => (d ? moment(d).format("lll") : "-");
+
+export {
+  to2Decimal,
+  toDecimal,
+  moneyWithCommas,
+  dateFormat,
+  dateFormatWithTime,
+};
 

@@ -8,7 +8,12 @@ import {
   Tag,
   Tooltip,
 } from "antd";
-import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
+import {
+  dateFormat,
+  dateFormatWithTime,
+  moneyWithCommas,
+  to2Decimal,
+} from "../utils";
 import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
@@ -199,7 +204,7 @@ const columns = (onDetailsOpen) => [
     ellipsis: true,
     dataIndex: "high_24h",
     className: "text-success",
-    render: (d) => `$${moneyWithCommas(d)}`,
+    render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
   },
   {
     title: "24 Low",
@@ -208,7 +213,15 @@ const columns = (onDetailsOpen) => [
     sorter: (a, b) => handleSort(a.low_24h, b.low_24h, SORT_TYPES.NUMBER),
     dataIndex: "low_24h",
     className: "text-danger",
-    render: (d) => `$${moneyWithCommas(d)}`,
+    render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
+  },
+  {
+    title: "Last Updated",
+    width: 150,
+    ellipsis: true,
+    dataIndex: "last_updated",
+    sorter: (a, b) => handleSort(a.last_updated, b.last_updated),
+    render: (d) => dateFormatWithTime(d),
   },
   {
     title: "Action",
