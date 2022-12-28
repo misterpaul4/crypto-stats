@@ -11,12 +11,14 @@ import {
 import { dateFormat, moneyWithCommas, to2Decimal } from "../utils";
 import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
+import { handleSort, SORT_TYPES } from "../utils/sorting";
 
 const columns = (onDetailsOpen) => [
   {
     title: "Name",
     width: 300,
     fixed: "left",
+    sorter: (a, b) => handleSort(a.name, b.name),
     render: (data) => (
       <div className="d-flex">
         {data.market_cap_rank}.
@@ -31,8 +33,8 @@ const columns = (onDetailsOpen) => [
     width: 150,
     fixed: "left",
     ellipsis: true,
-    // dataIndex: "current_price",
-    // render: (d) => `$${moneyWithCommas(d)}`,
+    sorter: (a, b) =>
+      handleSort(a.current_price, b.current_price, SORT_TYPES.NUMBER),
     render: (data) => {
       const percent =
         ((data.current_price - data.low_24h) / (data.high_24h - data.low_24h)) *
@@ -55,6 +57,12 @@ const columns = (onDetailsOpen) => [
     title: "24h",
     width: 150,
     ellipsis: true,
+    sorter: (a, b) =>
+      handleSort(
+        a.price_change_percentage_24h,
+        b.price_change_percentage_24h,
+        SORT_TYPES.NUMBER
+      ),
     dataIndex: "price_change_percentage_24h",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
@@ -62,11 +70,19 @@ const columns = (onDetailsOpen) => [
     title: "7d",
     width: 150,
     ellipsis: true,
+    sorter: (a, b) =>
+      handleSort(
+        a.price_change_percentage_7d_in_currency,
+        b.price_change_percentage_7d_in_currency,
+        SORT_TYPES.NUMBER
+      ),
     dataIndex: "price_change_percentage_7d_in_currency",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
     title: "Circ. supply",
+    sorter: (a, b) =>
+      handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
     ellipsis: true,
     render: (data) => {
       if (data.circulating_supply && data.max_supply) {
@@ -118,6 +134,8 @@ const columns = (onDetailsOpen) => [
     title: "Total supply",
     dataIndex: "total_supply",
     width: 150,
+    sorter: (a, b) =>
+      handleSort(a.total_supply, b.total_supply, SORT_TYPES.NUMBER),
     ellipsis: true,
     render: (d) => (d ? moneyWithCommas(d) : "-"),
   },
@@ -125,6 +143,7 @@ const columns = (onDetailsOpen) => [
     title: "Market Cap",
     dataIndex: "market_cap",
     width: 150,
+    sorter: (a, b) => handleSort(a.market_cap, b.market_cap, SORT_TYPES.NUMBER),
     ellipsis: true,
     render: (d) => `$${moneyWithCommas(d)}`,
   },
@@ -139,6 +158,12 @@ const columns = (onDetailsOpen) => [
     title: <Tooltip title="Fully Diluted Valuation">FDV</Tooltip>,
     dataIndex: "fully_diluted_valuation",
     width: 150,
+    sorter: (a, b) =>
+      handleSort(
+        a.fully_diluted_valuation,
+        b.fully_diluted_valuation,
+        SORT_TYPES.NUMBER
+      ),
     ellipsis: true,
     render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
   },
@@ -146,6 +171,8 @@ const columns = (onDetailsOpen) => [
     title: "Total Volume",
     dataIndex: "total_volume",
     width: 150,
+    sorter: (a, b) =>
+      handleSort(a.total_volume, b.total_volume, SORT_TYPES.NUMBER),
     ellipsis: true,
     render: (d) => moneyWithCommas(d),
   },
@@ -153,6 +180,7 @@ const columns = (onDetailsOpen) => [
     title: <Tooltip title="All Time High">ATH</Tooltip>,
     width: 150,
     ellipsis: true,
+    sorter: (a, b) => handleSort(a.ath, b.ath, SORT_TYPES.NUMBER),
     dataIndex: "ath",
     render: (d) => `$${moneyWithCommas(d)}`,
   },
@@ -160,12 +188,14 @@ const columns = (onDetailsOpen) => [
     title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
     width: 150,
     ellipsis: true,
+    sorter: (a, b) => handleSort(a.ath_date, b.ath_date),
     dataIndex: "ath_date",
     render: (d) => (d ? dateFormat(d) : "-"),
   },
   {
     title: "24 High",
     width: 150,
+    sorter: (a, b) => handleSort(a.high_24h, b.high_24h, SORT_TYPES.NUMBER),
     ellipsis: true,
     dataIndex: "high_24h",
     className: "text-success",
@@ -175,6 +205,7 @@ const columns = (onDetailsOpen) => [
     title: "24 Low",
     width: 150,
     ellipsis: true,
+    sorter: (a, b) => handleSort(a.low_24h, b.low_24h, SORT_TYPES.NUMBER),
     dataIndex: "low_24h",
     className: "text-danger",
     render: (d) => `$${moneyWithCommas(d)}`,

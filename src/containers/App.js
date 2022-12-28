@@ -38,6 +38,7 @@ const App = () => {
       />
       <div className="container-fluid px-4">
         <ATable
+          showSorterTooltip={false}
           sticky
           columns={columns(onDetailsOpen)}
           rowKey={(d) => d.id}
