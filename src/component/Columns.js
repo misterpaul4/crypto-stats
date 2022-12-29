@@ -11,12 +11,14 @@ import {
 import {
   dateFormat,
   dateFormatWithTime,
+  formatNumber,
   moneyWithCommas,
   to2Decimal,
 } from "../utils";
 import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
+import MoneyFormat from "./helpers/MoneyFormat";
 
 const columns = (onDetailsOpen) => [
   {
@@ -47,7 +49,7 @@ const columns = (onDetailsOpen) => [
 
       return (
         <div>
-          <div>${moneyWithCommas(data.current_price)}</div>
+          <div>{moneyWithCommas(data.current_price, "$")}</div>
           <Progress
             percent={percent}
             showInfo={false}
@@ -142,7 +144,7 @@ const columns = (onDetailsOpen) => [
     sorter: (a, b) =>
       handleSort(a.total_supply, b.total_supply, SORT_TYPES.NUMBER),
     ellipsis: true,
-    render: (d) => (d ? moneyWithCommas(d) : "-"),
+    render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: "Market Cap",
@@ -150,7 +152,7 @@ const columns = (onDetailsOpen) => [
     width: 150,
     sorter: (a, b) => handleSort(a.market_cap, b.market_cap, SORT_TYPES.NUMBER),
     ellipsis: true,
-    render: (d) => `$${moneyWithCommas(d)}`,
+    render: (d) => <MoneyFormat amount={d} />,
   },
   {
     title: "Symbol",
@@ -170,16 +172,15 @@ const columns = (onDetailsOpen) => [
         SORT_TYPES.NUMBER
       ),
     ellipsis: true,
-    render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
+    render: (d) => <MoneyFormat amount={d} />,
   },
   {
-    title: "Total Volume",
+    title: "Volume(24h)",
     dataIndex: "total_volume",
-    width: 150,
     sorter: (a, b) =>
       handleSort(a.total_volume, b.total_volume, SORT_TYPES.NUMBER),
-    ellipsis: true,
-    render: (d) => moneyWithCommas(d),
+    // ellipsis: true,
+    render: (d) => <MoneyFormat amount={d} />,
   },
   {
     title: <Tooltip title="All Time High">ATH</Tooltip>,
@@ -187,7 +188,7 @@ const columns = (onDetailsOpen) => [
     ellipsis: true,
     sorter: (a, b) => handleSort(a.ath, b.ath, SORT_TYPES.NUMBER),
     dataIndex: "ath",
-    render: (d) => `$${moneyWithCommas(d)}`,
+    render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
@@ -195,7 +196,7 @@ const columns = (onDetailsOpen) => [
     ellipsis: true,
     sorter: (a, b) => handleSort(a.ath_date, b.ath_date),
     dataIndex: "ath_date",
-    render: (d) => (d ? dateFormat(d) : "-"),
+    render: (d) => dateFormat(d),
   },
   {
     title: "24 High",
@@ -204,7 +205,7 @@ const columns = (onDetailsOpen) => [
     ellipsis: true,
     dataIndex: "high_24h",
     className: "text-success",
-    render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
+    render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: "24 Low",
@@ -213,7 +214,7 @@ const columns = (onDetailsOpen) => [
     sorter: (a, b) => handleSort(a.low_24h, b.low_24h, SORT_TYPES.NUMBER),
     dataIndex: "low_24h",
     className: "text-danger",
-    render: (d) => (d ? `$${moneyWithCommas(d)}` : "-"),
+    render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: "Last Updated",

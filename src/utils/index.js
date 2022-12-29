@@ -14,8 +14,8 @@ const to2Decimal = (value) => {
   return "-";
 };
 
-const moneyWithCommas = (amount) => {
-  if (typeof amount === "string" || typeof amount === "number") {
+const moneyWithCommas = (amount, currency = "") => {
+  if (typeof amount === "number") {
     const breakAmount = amount.toString().split(".");
     const preDecimal = breakAmount[0];
     const postDecimal = breakAmount[1];
@@ -25,11 +25,27 @@ const moneyWithCommas = (amount) => {
     );
     const resultArry = [preDecimalWithCommas, postDecimal];
     const result = postDecimal ? resultArry.join(".") : preDecimalWithCommas;
-    return result;
+    return currency + result;
   }
 
   return "-";
 };
+
+function formatNumber(num, currency = "") {
+  if (typeof num === "number") {
+    if (num >= 1000000000000) {
+      return currency + (num / 1000000000000).toFixed(1) + " T";
+    } else if (num >= 1000000000) {
+      return currency + (num / 1000000000).toFixed(1) + " B";
+    } else if (num >= 1000000) {
+      return currency + (num / 1000000).toFixed(1) + " M";
+    } else {
+      return currency + num.toString();
+    }
+  }
+
+  return "-";
+}
 
 const dateFormat = (d) => (d ? moment(d).format("ll") : "-");
 
@@ -41,5 +57,6 @@ export {
   moneyWithCommas,
   dateFormat,
   dateFormatWithTime,
+  formatNumber,
 };
 
