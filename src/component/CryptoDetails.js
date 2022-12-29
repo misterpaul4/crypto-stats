@@ -4,6 +4,7 @@ import { CRYPTO_DETAILS } from "../settings";
 import { dateFormat, moneyWithCommas } from "../utils";
 import PageLoader from "./PageLoader";
 import { GoLinkExternal } from "react-icons/go";
+import MoneyFormat from "./helpers/MoneyFormat";
 
 const { Item } = Descriptions;
 
@@ -51,7 +52,7 @@ const CryptoDetails = ({ id }) => {
             </Item>
 
             <Item label="Market Cap">
-              {moneyWithCommas(d.market_data.market_cap.usd, "$")}
+              <MoneyFormat amount={d.market_data.market_cap.usd} />
             </Item>
 
             <Item label="24H High" className="text-success">
@@ -65,13 +66,14 @@ const CryptoDetails = ({ id }) => {
             <Item label="All Time High" className="text-success">
               {moneyWithCommas(d.market_data.ath.usd, "$")}
             </Item>
-            <Item label="All Time High Date">
-              <Tag color="green">{dateFormat(d.market_data.ath_date.usd)}</Tag>
-            </Item>
+
             <Item label="All Time Low" className="text-danger">
               {moneyWithCommas(d.market_data.atl.usd, "$")}
             </Item>
-            <Item label="All Time High Date">
+            <Item label="All Time High Date" className="text-success">
+              <Tag color="green">{dateFormat(d.market_data.ath_date.usd)}</Tag>
+            </Item>
+            <Item className="text-danger" label="All Time Low Date">
               <Tag color="red">{dateFormat(d.market_data.atl_date.usd)}</Tag>
             </Item>
             <Item label="Circulating Supply">

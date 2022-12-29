@@ -144,19 +144,18 @@ const columns = (onDetailsOpen) => [
     sorter: (a, b) =>
       handleSort(a.total_supply, b.total_supply, SORT_TYPES.NUMBER),
     ellipsis: true,
-    render: (d) => moneyWithCommas(d, "$"),
+    render: (d) => moneyWithCommas(d),
   },
   {
     title: "Market Cap",
     dataIndex: "market_cap",
-    width: 150,
     sorter: (a, b) => handleSort(a.market_cap, b.market_cap, SORT_TYPES.NUMBER),
-    ellipsis: true,
-    render: (d) => <MoneyFormat amount={d} />,
+    render: (d) => <MoneyFormat className="mx-3" amount={d} />,
   },
   {
     title: "Symbol",
     dataIndex: "symbol",
+    sorter: (a, b) => handleSort(a.symbol, b.symbol),
     width: 150,
     ellipsis: true,
     render: (d) => <Tag>{d}</Tag>,
