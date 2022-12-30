@@ -2,12 +2,17 @@ import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const SearchFilters = ({ setSelectedKeys, selectedKeys, confirm }) => {
+const SearchFilters = ({
+  setSelectedKeys,
+  selectedKeys,
+  confirm,
+  placeholder = "Type here...",
+}) => {
   return (
     <Input.Search
       size="large"
       className="search-filter"
-      placeholder="e.g bitcoin"
+      placeholder={placeholder}
       value={selectedKeys[0]}
       onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
       onSearch={() => confirm()}
