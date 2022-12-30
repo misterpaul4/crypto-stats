@@ -22,6 +22,10 @@ const App = () => {
     setSelectedCryptoId(crypto);
   };
 
+  const handleTableChange = (pagination, filters, sorter) => {
+    console.log("TABLE CHANGED");
+  };
+
   return (
     <PageLoader loading={!cryptos}>
       <DetailsDrawer
@@ -44,6 +48,7 @@ const App = () => {
           rowKey={(d) => d.id}
           dataSource={cryptos || []}
           scroll={{ x: "auto", y: "75vh" }}
+          onChange={handleTableChange}
           pagination={{
             position: ["topRight"],
             defaultPageSize: "100",

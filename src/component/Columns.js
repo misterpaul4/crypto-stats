@@ -9,6 +9,9 @@ import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
 import MoneyFormat from "./helpers/MoneyFormat";
+import SearchFilters from "./helpers/SearchFilters";
+import { SearchOutlined } from "@ant-design/icons";
+import { getSearchFilters } from "../utils/filters";
 
 const columns = (onDetailsOpen) => [
   {
@@ -16,6 +19,7 @@ const columns = (onDetailsOpen) => [
     width: 300,
     fixed: "left",
     sorter: (a, b) => handleSort(a.name, b.name),
+    ...getSearchFilters("name"),
     render: (data) => (
       <div className="d-flex">
         {data.market_cap_rank}.
@@ -24,7 +28,6 @@ const columns = (onDetailsOpen) => [
       </div>
     ),
   },
-
   {
     title: "Price",
     width: 150,

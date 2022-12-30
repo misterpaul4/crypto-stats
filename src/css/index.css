@@ -94,3 +94,9 @@ td img {
 .ant-descriptions-item-label {
   font-weight: bold !important;
 }
+
+.search-filter button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
