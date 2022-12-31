@@ -82,6 +82,7 @@ const columns = (onDetailsOpen) => [
     dataIndex: "price_change_percentage_7d_in_currency",
     ...getNumberFilters({
       dataIndex: "price_change_percentage_7d_in_currency",
+      suggestions: numberFilterSuggestions.percentage,
     }),
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
@@ -89,7 +90,10 @@ const columns = (onDetailsOpen) => [
     title: "Circ. supply",
     sorter: (a, b) =>
       handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
-    ...getNumberFilters({ dataIndex: "circulating_supply" }),
+    ...getNumberFilters({
+      dataIndex: "circulating_supply",
+      suggestions: numberFilterSuggestions.supply,
+    }),
     render: (data) => {
       if (data.circulating_supply && data.max_supply) {
         const circulating_supply = moneyWithCommas(data.circulating_supply);
@@ -179,13 +183,19 @@ const columns = (onDetailsOpen) => [
     dataIndex: "total_volume",
     sorter: (a, b) =>
       handleSort(a.total_volume, b.total_volume, SORT_TYPES.NUMBER),
-    ...getNumberFilters({ dataIndex: "total_volume" }),
+    ...getNumberFilters({
+      dataIndex: "total_volume",
+      suggestions: numberFilterSuggestions.supply,
+    }),
     render: (d) => <MoneyFormat amount={d} />,
   },
   {
     title: <Tooltip title="All Time High">ATH</Tooltip>,
     sorter: (a, b) => handleSort(a.ath, b.ath, SORT_TYPES.NUMBER),
-    ...getNumberFilters({ dataIndex: "ath" }),
+    ...getNumberFilters({
+      dataIndex: "ath",
+      suggestions: numberFilterSuggestions.price,
+    }),
     dataIndex: "ath",
     render: (d) => moneyWithCommas(d, "$"),
   },
@@ -198,7 +208,10 @@ const columns = (onDetailsOpen) => [
   {
     title: "24 High",
     sorter: (a, b) => handleSort(a.high_24h, b.high_24h, SORT_TYPES.NUMBER),
-    ...getNumberFilters({ dataIndex: "high_24h" }),
+    ...getNumberFilters({
+      dataIndex: "high_24h",
+      suggestions: numberFilterSuggestions.price,
+    }),
     dataIndex: "high_24h",
     className: "text-success",
     render: (d) => moneyWithCommas(d, "$"),
@@ -206,7 +219,10 @@ const columns = (onDetailsOpen) => [
   {
     title: "24 Low",
     sorter: (a, b) => handleSort(a.low_24h, b.low_24h, SORT_TYPES.NUMBER),
-    ...getNumberFilters({ dataIndex: "low_24h" }),
+    ...getNumberFilters({
+      dataIndex: "low_24h",
+      suggestions: numberFilterSuggestions.price,
+    }),
     dataIndex: "low_24h",
     className: "text-danger",
     render: (d) => moneyWithCommas(d, "$"),
