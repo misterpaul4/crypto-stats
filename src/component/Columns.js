@@ -14,7 +14,6 @@ import { getNumberFilters, getSearchFilters } from "../utils/filters";
 const columns = (onDetailsOpen) => [
   {
     title: "Name",
-    width: 300,
     fixed: "left",
     sorter: (a, b) => handleSort(a.name, b.name),
     ...getSearchFilters({ dataIndex: "name", placeholder: "e.g bitcoin" }),
@@ -52,21 +51,18 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "24h",
-    width: 150,
-    ellipsis: true,
     sorter: (a, b) =>
       handleSort(
         a.price_change_percentage_24h,
         b.price_change_percentage_24h,
         SORT_TYPES.NUMBER
       ),
+    ...getNumberFilters({ dataIndex: "price_change_percentage_24h" }),
     dataIndex: "price_change_percentage_24h",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
     title: "7d",
-    width: 150,
-    ellipsis: true,
     sorter: (a, b) =>
       handleSort(
         a.price_change_percentage_7d_in_currency,
@@ -74,6 +70,9 @@ const columns = (onDetailsOpen) => [
         SORT_TYPES.NUMBER
       ),
     dataIndex: "price_change_percentage_7d_in_currency",
+    ...getNumberFilters({
+      dataIndex: "price_change_percentage_7d_in_currency",
+    }),
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
@@ -81,6 +80,7 @@ const columns = (onDetailsOpen) => [
     sorter: (a, b) =>
       handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
     ellipsis: true,
+    ...getNumberFilters({ dataIndex: "circulating_supply" }),
     render: (data) => {
       if (data.circulating_supply && data.max_supply) {
         const circulating_supply = moneyWithCommas(data.circulating_supply);
@@ -130,15 +130,15 @@ const columns = (onDetailsOpen) => [
   {
     title: "Total supply",
     dataIndex: "total_supply",
-    width: 150,
+    ...getNumberFilters({ dataIndex: "total_supply" }),
     sorter: (a, b) =>
       handleSort(a.total_supply, b.total_supply, SORT_TYPES.NUMBER),
-    ellipsis: true,
     render: (d) => moneyWithCommas(d),
   },
   {
     title: "Market Cap",
     dataIndex: "market_cap",
+    ...getNumberFilters({ dataIndex: "market_cap" }),
     sorter: (a, b) => handleSort(a.market_cap, b.market_cap, SORT_TYPES.NUMBER),
     render: (d) => <MoneyFormat className="mx-3" amount={d} />,
   },
@@ -147,76 +147,66 @@ const columns = (onDetailsOpen) => [
     dataIndex: "symbol",
     sorter: (a, b) => handleSort(a.symbol, b.symbol),
     ...getSearchFilters({ dataIndex: "symbol", placeholder: "e.g btc" }),
-    width: 150,
-    ellipsis: true,
     render: (d) => <Tag>{d}</Tag>,
   },
   {
     title: <Tooltip title="Fully Diluted Valuation">FDV</Tooltip>,
     dataIndex: "fully_diluted_valuation",
-    width: 150,
+    ...getNumberFilters({ dataIndex: "fully_diluted_valuation" }),
     sorter: (a, b) =>
       handleSort(
         a.fully_diluted_valuation,
         b.fully_diluted_valuation,
         SORT_TYPES.NUMBER
       ),
-    ellipsis: true,
     render: (d) => <MoneyFormat amount={d} />,
   },
   {
-    title: "Volume(24h)",
+    title: "Volume (24H)",
+    width: 200,
     dataIndex: "total_volume",
     sorter: (a, b) =>
       handleSort(a.total_volume, b.total_volume, SORT_TYPES.NUMBER),
-    // ellipsis: true,
+    ...getNumberFilters({ dataIndex: "total_volume" }),
     render: (d) => <MoneyFormat amount={d} />,
   },
   {
     title: <Tooltip title="All Time High">ATH</Tooltip>,
-    width: 150,
-    ellipsis: true,
     sorter: (a, b) => handleSort(a.ath, b.ath, SORT_TYPES.NUMBER),
+    ...getNumberFilters({ dataIndex: "ath" }),
     dataIndex: "ath",
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
-    width: 150,
-    ellipsis: true,
     sorter: (a, b) => handleSort(a.ath_date, b.ath_date),
     dataIndex: "ath_date",
     render: (d) => dateFormat(d),
   },
   {
     title: "24 High",
-    width: 150,
     sorter: (a, b) => handleSort(a.high_24h, b.high_24h, SORT_TYPES.NUMBER),
-    ellipsis: true,
+    ...getNumberFilters({ dataIndex: "high_24h" }),
     dataIndex: "high_24h",
     className: "text-success",
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: "24 Low",
-    width: 150,
-    ellipsis: true,
     sorter: (a, b) => handleSort(a.low_24h, b.low_24h, SORT_TYPES.NUMBER),
+    ...getNumberFilters({ dataIndex: "low_24h" }),
     dataIndex: "low_24h",
     className: "text-danger",
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: "Last Updated",
-    width: 150,
-    ellipsis: true,
     dataIndex: "last_updated",
     sorter: (a, b) => handleSort(a.last_updated, b.last_updated),
     render: (d) => dateFormatWithTime(d),
   },
   {
     title: "Action",
-    width: 250,
     fixed: "right",
     render: (data) => (
       <Popover
