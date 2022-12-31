@@ -31,6 +31,7 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "Price",
+    width: 150,
     fixed: "left",
     sorter: (a, b) =>
       handleSort(a.current_price, b.current_price, SORT_TYPES.NUMBER),
@@ -154,13 +155,17 @@ const columns = (onDetailsOpen) => [
   {
     title: "Market Cap",
     dataIndex: "market_cap",
-    ...getNumberFilters({ dataIndex: "market_cap" }),
+    ...getNumberFilters({
+      dataIndex: "market_cap",
+      suggestions: numberFilterSuggestions.cap,
+    }),
     sorter: (a, b) => handleSort(a.market_cap, b.market_cap, SORT_TYPES.NUMBER),
     render: (d) => <MoneyFormat className="mx-3" amount={d} />,
   },
   {
     title: "Symbol",
     dataIndex: "symbol",
+    width: 150,
     sorter: (a, b) => handleSort(a.symbol, b.symbol),
     ...getSearchFilters({ dataIndex: "symbol", placeholder: "e.g btc" }),
     render: (d) => <Tag>{d}</Tag>,
