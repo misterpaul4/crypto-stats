@@ -1,12 +1,12 @@
 import { Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import { AiFillCloseCircle } from "react-icons/ai";
 
 const SearchFilters = ({
   setSelectedKeys,
   selectedKeys,
   confirm,
-  placeholder = "Type here...",
+  placeholder,
+  clearFilters,
+  close,
 }) => {
   return (
     <Input.Search

@@ -1,6 +1,6 @@
 import { Descriptions, Space, Tag, Typography } from "antd";
 import useAPI from "../hooks/useAPI";
-import { CRYPTO_DETAILS } from "../settings";
+import { CRYPTO_DETAILS } from "../endpoints";
 import { dateFormat, moneyWithCommas } from "../utils";
 import PageLoader from "./PageLoader";
 import { GoLinkExternal } from "react-icons/go";

@@ -3,7 +3,7 @@ import PageLoader from "../component/PageLoader";
 import { Avatar, Button, Table as ATable, Typography } from "antd";
 import columns from "../component/Columns";
 import useAPI from "../hooks/useAPI";
-import { ALL_TOKENS } from "../settings";
+import { ALL_TOKENS } from "../endpoints";
 import DetailsDrawer from "../component/DetailsDrawer";
 import CryptoDetails from "../component/CryptoDetails";
 

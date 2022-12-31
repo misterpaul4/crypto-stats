@@ -47,6 +47,19 @@ function formatNumber(num, currency = "") {
   return "-";
 }
 
+const numberInputFormatter = (num) => {
+  let formattedNum = num.toString();
+  let parts = formattedNum.split(".");
+  let wholeNumber = parts[0];
+  let decimal = parts[1];
+  wholeNumber = wholeNumber.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+  if (decimal) {
+    return wholeNumber + "." + decimal;
+  } else {
+    return wholeNumber;
+  }
+};
+
 const dateFormat = (d) => (d ? moment(d).format("ll") : "-");
 
 const dateFormatWithTime = (d) => (d ? moment(d).format("lll") : "-");
@@ -58,5 +71,6 @@ export {
   dateFormat,
   dateFormatWithTime,
   formatNumber,
+  numberInputFormatter,
 };
 

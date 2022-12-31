@@ -9,7 +9,7 @@ import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
 import MoneyFormat from "./helpers/MoneyFormat";
-import { getSearchFilters } from "../utils/filters";
+import { getNumberFilters, getSearchFilters } from "../utils/filters";
 
 const columns = (onDetailsOpen) => [
   {
@@ -28,11 +28,10 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "Price",
-    width: 150,
     fixed: "left",
-    ellipsis: true,
     sorter: (a, b) =>
       handleSort(a.current_price, b.current_price, SORT_TYPES.NUMBER),
+    ...getNumberFilters({ dataIndex: "current_price" }),
     render: (data) => {
       const percent =
         ((data.current_price - data.low_24h) / (data.high_24h - data.low_24h)) *
