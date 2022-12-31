@@ -34,7 +34,10 @@ const columns = (onDetailsOpen) => [
     fixed: "left",
     sorter: (a, b) =>
       handleSort(a.current_price, b.current_price, SORT_TYPES.NUMBER),
-    ...getNumberFilters({ dataIndex: "current_price" }),
+    ...getNumberFilters({
+      dataIndex: "current_price",
+      suggestions: numberFilterSuggestions.price,
+    }),
     render: (data) => {
       const percent =
         ((data.current_price - data.low_24h) / (data.high_24h - data.low_24h)) *
@@ -136,7 +139,10 @@ const columns = (onDetailsOpen) => [
   {
     title: "Total supply",
     dataIndex: "total_supply",
-    ...getNumberFilters({ dataIndex: "total_supply" }),
+    ...getNumberFilters({
+      dataIndex: "total_supply",
+      suggestions: numberFilterSuggestions.supply,
+    }),
     sorter: (a, b) =>
       handleSort(a.total_supply, b.total_supply, SORT_TYPES.NUMBER),
     render: (d) => moneyWithCommas(d),

@@ -31,14 +31,16 @@ const moneyWithCommas = (amount, currency = "") => {
   return "-";
 };
 
-function formatNumber(num, currency = "") {
+function formatNumber(num, currency = "", decimal = 1) {
   if (typeof num === "number") {
     if (num >= 1000000000000) {
-      return currency + (num / 1000000000000).toFixed(1) + " T";
+      return currency + (num / 1000000000000).toFixed(decimal) + " T";
     } else if (num >= 1000000000) {
-      return currency + (num / 1000000000).toFixed(1) + " B";
+      return currency + (num / 1000000000).toFixed(decimal) + " B";
     } else if (num >= 1000000) {
-      return currency + (num / 1000000).toFixed(1) + " M";
+      return currency + (num / 1000000).toFixed(decimal) + " M";
+    } else if (num >= 1000) {
+      return currency + (num / 1000).toFixed(decimal) + " K";
     } else {
       return currency + num.toString();
     }
