@@ -9,7 +9,11 @@ import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
 import MoneyFormat from "./helpers/MoneyFormat";
-import { getNumberFilters, getSearchFilters } from "../utils/filters";
+import {
+  getNumberFilters,
+  getSearchFilters,
+  numberFilterSuggestions,
+} from "../utils/filters";
 
 const columns = (onDetailsOpen) => [
   {
@@ -57,7 +61,10 @@ const columns = (onDetailsOpen) => [
         b.price_change_percentage_24h,
         SORT_TYPES.NUMBER
       ),
-    ...getNumberFilters({ dataIndex: "price_change_percentage_24h" }),
+    ...getNumberFilters({
+      dataIndex: "price_change_percentage_24h",
+      suggestions: numberFilterSuggestions.percentage,
+    }),
     dataIndex: "price_change_percentage_24h",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
@@ -79,7 +86,6 @@ const columns = (onDetailsOpen) => [
     title: "Circ. supply",
     sorter: (a, b) =>
       handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
-    ellipsis: true,
     ...getNumberFilters({ dataIndex: "circulating_supply" }),
     render: (data) => {
       if (data.circulating_supply && data.max_supply) {

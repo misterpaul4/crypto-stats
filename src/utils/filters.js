@@ -29,9 +29,14 @@ export const getSearchFilters = ({
 export const getNumberFilters = ({
   dataIndex,
   placeholder = DEFAULT_PLACEHOLDER,
+  suggestions,
 }) => ({
   filterDropdown: (props) => (
-    <NumberFilters placeholder={placeholder} {...props} />
+    <NumberFilters
+      suggestions={suggestions}
+      placeholder={placeholder}
+      {...props}
+    />
   ),
   onFilter: ({ action, value }, record) => {
     const prop =
@@ -63,5 +68,13 @@ export const numberFilterOptions = {
   "Greater than or equal to": ">=",
   "Less than": "<",
   "Less than or equal to": "<=",
+};
+
+const billion = 1000000000;
+const million = 1000000;
+const thousand = 1000;
+
+export const numberFilterSuggestions = {
+  percentage: [-25, -10, 0, 10, 25],
 };
 

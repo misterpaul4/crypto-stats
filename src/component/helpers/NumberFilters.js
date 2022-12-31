@@ -1,4 +1,4 @@
-import { Button, Form, InputNumber, Radio } from "antd";
+import { Button, Form, InputNumber, Radio, Space } from "antd";
 import { numberInputFormatter } from "../../utils";
 import { numberFilterOptions } from "../../utils/filters";
 import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
@@ -11,8 +11,11 @@ const NumberFilters = ({
   placeholder,
   clearFilters,
   close,
+  suggestions,
 }) => {
   const labelProps = { span: 24, className: "font-weight-bold" };
+
+  const [form] = Form.useForm();
 
   const handleSubmit = (values) => {
     if (values.action && values.value !== undefined) {
@@ -23,6 +26,7 @@ const NumberFilters = ({
 
   const handleFilterClear = () => {
     clearFilters();
+    form.resetFields();
     confirm();
   };
 
@@ -31,6 +35,7 @@ const NumberFilters = ({
       className="px-3 py-3 border"
       onFinish={handleSubmit}
       initialValues={selectedKeys.length ? selectedKeys[0] : {}}
+      form={form}
     >
       <Form.Item
         label="Action"
@@ -46,7 +51,13 @@ const NumberFilters = ({
           ))}
         </Radio.Group>
       </Form.Item>
-      <Form.Item name="value" label="Value" labelCol={labelProps}>
+
+      <Form.Item
+        name="value"
+        label="Value"
+        labelCol={labelProps}
+        className="mb-2"
+      >
         <InputNumber
           required
           size="large"
@@ -56,7 +67,22 @@ const NumberFilters = ({
         />
       </Form.Item>
 
-      <div className="d-flex justify-content-end">
+      {suggestions && (
+        <Space>
+          {suggestions.map((v) => (
+            <Button
+              shape="round"
+              type="dashed"
+              key={v}
+              onClick={() => form.setFieldValue("value", v)}
+            >
+              {v}
+            </Button>
+          ))}
+        </Space>
+      )}
+
+      <div className="d-flex justify-content-end mt-4">
         <Button
           className="d-flex align-items-center"
           icon={<AiOutlineClear className="mr-1" />}
