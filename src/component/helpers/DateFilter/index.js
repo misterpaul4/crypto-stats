@@ -38,16 +38,24 @@ const DateFilter = ({
 
   const handleFilterClear = () => {
     clearFilters();
-    form.resetFields();
+    const { action, date } = isRange ? rangeNames : singleDateNames;
+    form.setFieldsValue({ [action]: undefined, [date]: undefined });
     confirm();
   };
 
   const handleSubmit = (values) => {
-    console.log("xx", values);
+    setSelectedKeys([values]);
+    confirm();
   };
 
   return (
-    <Form className="p-3 border" style={{ width: 320 }} onFinish={handleSubmit}>
+    <Form
+      className="p-3 border"
+      style={{ width: 320 }}
+      onFinish={handleSubmit}
+      form={form}
+      initialValues={selectedKeys.length ? selectedKeys[0] : {}}
+    >
       <Form.Item className="d-flex align-items-center">
         <Switch
           checked={isRange}
