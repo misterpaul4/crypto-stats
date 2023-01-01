@@ -44,7 +44,7 @@ const DateFilter = ({
   };
 
   const handleSubmit = (values) => {
-    setSelectedKeys([values]);
+    setSelectedKeys([{ ...values, isRange }]);
     confirm();
   };
 
@@ -54,7 +54,7 @@ const DateFilter = ({
       style={{ width: 320 }}
       onFinish={handleSubmit}
       form={form}
-      initialValues={selectedKeys.length ? selectedKeys[0] : {}}
+      // initialValues={selectedKeys.length ? selectedKeys[0] : {}}
     >
       <Form.Item className="d-flex align-items-center">
         <Switch

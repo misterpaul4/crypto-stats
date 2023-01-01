@@ -62,7 +62,14 @@ const numberInputFormatter = (num) => {
   }
 };
 
-const dateFormat = (d) => (d ? moment(d).format("ll") : "-");
+const dateFormat = (d) => {
+  if (d) {
+    const [date] = d.split("T");
+    return moment(date).format("MMM Do, YYYY");
+  }
+
+  return "-";
+};
 
 const dateFormatWithTime = (d) => (d ? moment(d).format("lll") : "-");
 

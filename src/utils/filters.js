@@ -4,6 +4,11 @@ import { accessObjProperty } from "./object";
 import { DEFAULT_PLACEHOLDER } from "../settings";
 import NumberFilters from "../component/helpers/NumberFilters";
 import DateFilter from "../component/helpers/DateFilter";
+import {
+  rangeNames,
+  singleDateNames,
+} from "../component/helpers/DateFilter/constants";
+import moment from "moment";
 
 // dataIndex: string[] | string
 
@@ -45,26 +50,85 @@ export const getNumberFilters = ({
         ? record[dataIndex]
         : accessObjProperty(record, dataIndex);
 
-    switch (action) {
-      case numberFilterOptions["Equal to"]:
-        return prop === value;
-      case numberFilterOptions["Greater than"]:
-        return prop > value;
-      case numberFilterOptions["Greater than or equal to"]:
-        return prop >= value;
-      case numberFilterOptions["Less than"]:
-        return prop < value;
-      case numberFilterOptions["Less than or equal to"]:
-        return prop <= value;
+    if (typeof prop === "number") {
+      switch (action) {
+        case numberFilterOptions["Equal to"]:
+          return prop === value;
+        case numberFilterOptions["Greater than"]:
+          return prop > value;
+        case numberFilterOptions["Greater than or equal to"]:
+          return prop >= value;
+        case numberFilterOptions["Less than"]:
+          return prop < value;
+        case numberFilterOptions["Less than or equal to"]:
+          return prop <= value;
 
-      default:
-        return true;
+        default:
+          return false;
+      }
     }
+
+    return false;
   },
 });
 
 export const getDateFilters = ({ dataIndex }) => ({
   filterDropdown: (props) => <DateFilter {...props} />,
+  onFilter: (values, record) => {
+    const prop =
+      typeof dataIndex === "string"
+        ? record[dataIndex]
+        : accessObjProperty(record, dataIndex);
+
+    if (prop) {
+      if (values.isRange) {
+        const { action, date } = rangeNames;
+
+        const date1 = new Date(values[date][0].toISOString().split("T")[0]);
+        const date2 = new Date(values[date][1].toISOString().split("T")[0]);
+        const date3 = new Date(prop.split("T")[0]);
+
+        const startDate = date1.getTime();
+        const endDate = date2.getTime();
+        const propDate = date3.getTime();
+
+        switch (values[action]) {
+          case dateRangeFilterOptions["Date Between"]:
+            return propDate >= startDate && propDate <= endDate;
+          case dateRangeFilterOptions["Date Not Between"]:
+            return propDate <= startDate && propDate <= endDate;
+
+          default:
+            return false;
+        }
+      } else {
+        const { action, date } = singleDateNames;
+        const date1 = new Date(values[date].toISOString().split("T")[0]);
+        const date2 = new Date(prop.split("T")[0]);
+
+        const value = date1.getTime();
+        const propDate = date2.getTime();
+
+        switch (values[action]) {
+          case dateFilterOptions["Date After"]:
+            return propDate > value;
+          case dateFilterOptions["Date Before"]:
+            return propDate < value;
+          case dateFilterOptions["Selected Date"]:
+            return propDate === value;
+          case dateFilterOptions["Selected Date & Date After"]:
+            return propDate >= value;
+          case dateFilterOptions["Selected Date & Date Before"]:
+            return propDate <= value;
+
+          default:
+            return false;
+        }
+      }
+    }
+
+    return false;
+  },
 });
 
 export const numberFilterOptions = {
