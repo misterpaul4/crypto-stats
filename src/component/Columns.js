@@ -60,6 +60,7 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "24h",
+    width: 150,
     sorter: (a, b) =>
       handleSort(
         a.price_change_percentage_24h,
@@ -75,6 +76,7 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "7d",
+    width: 150,
     sorter: (a, b) =>
       handleSort(
         a.price_change_percentage_7d_in_currency,
@@ -90,6 +92,7 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "Circ. supply",
+    width: 200,
     sorter: (a, b) =>
       handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
     ...getNumberFilters({
@@ -145,6 +148,7 @@ const columns = (onDetailsOpen) => [
   {
     title: "Total supply",
     dataIndex: "total_supply",
+    width: 150,
     ...getNumberFilters({
       dataIndex: "total_supply",
       suggestions: numberFilterSuggestions.supply,
@@ -156,6 +160,7 @@ const columns = (onDetailsOpen) => [
   {
     title: "Market Cap",
     dataIndex: "market_cap",
+    width: 150,
     ...getNumberFilters({
       dataIndex: "market_cap",
       suggestions: numberFilterSuggestions.cap,
@@ -175,6 +180,7 @@ const columns = (onDetailsOpen) => [
     title: <Tooltip title="Fully Diluted Valuation">FDV</Tooltip>,
     dataIndex: "fully_diluted_valuation",
     ...getNumberFilters({ dataIndex: "fully_diluted_valuation" }),
+    width: 150,
     sorter: (a, b) =>
       handleSort(
         a.fully_diluted_valuation,
@@ -198,6 +204,7 @@ const columns = (onDetailsOpen) => [
   {
     title: <Tooltip title="All Time High">ATH</Tooltip>,
     sorter: (a, b) => handleSort(a.ath, b.ath, SORT_TYPES.NUMBER),
+    width: 150,
     ...getNumberFilters({
       dataIndex: "ath",
       suggestions: numberFilterSuggestions.price,
@@ -221,6 +228,7 @@ const columns = (onDetailsOpen) => [
       suggestions: numberFilterSuggestions.price,
     }),
     dataIndex: "high_24h",
+    width: 150,
     className: "text-success",
     render: (d) => moneyWithCommas(d, "$"),
   },
@@ -232,12 +240,14 @@ const columns = (onDetailsOpen) => [
       suggestions: numberFilterSuggestions.price,
     }),
     dataIndex: "low_24h",
+    width: 150,
     className: "text-danger",
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
     title: "Last Updated",
     dataIndex: "last_updated",
+    width: 200,
     sorter: (a, b) => handleSort(a.last_updated, b.last_updated),
     render: (d) => dateFormatWithTime(d),
   },
