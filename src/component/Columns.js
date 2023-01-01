@@ -10,6 +10,7 @@ import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
 import MoneyFormat from "./helpers/MoneyFormat";
 import {
+  getDateFilters,
   getNumberFilters,
   getSearchFilters,
   numberFilterSuggestions,
@@ -206,7 +207,9 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
+    width: 150,
     sorter: (a, b) => handleSort(a.ath_date, b.ath_date),
+    ...getDateFilters({ dataIndex: "ath_date" }),
     dataIndex: "ath_date",
     render: (d) => dateFormat(d),
   },

@@ -2,7 +2,6 @@ import { Button, Form, InputNumber, Radio, Space } from "antd";
 import { formatNumber, numberInputFormatter } from "../../utils";
 import { numberFilterOptions } from "../../utils/filters";
 import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
-import { useRef } from "react";
 
 const NumberFilters = ({
   setSelectedKeys,
@@ -33,7 +32,7 @@ const NumberFilters = ({
   return (
     <Form
       className="px-3 py-3 border"
-      style={{ maxWidth: 350 }}
+      style={{ maxWidth: 300 }}
       onFinish={handleSubmit}
       initialValues={selectedKeys.length ? selectedKeys[0] : {}}
       form={form}
@@ -84,11 +83,12 @@ const NumberFilters = ({
       )}
 
       <div className="d-flex justify-content-between mt-5">
-        <Button type="text" onClick={() => close()}>
+        <Button size="small" type="text" onClick={() => close()}>
           Close
         </Button>
         <div className="d-flex">
           <Button
+            size="small"
             className="d-flex align-items-center"
             icon={<AiOutlineClear className="mr-1" />}
             onClick={handleFilterClear}
@@ -96,6 +96,7 @@ const NumberFilters = ({
             Clear
           </Button>
           <Button
+            size="small"
             htmlType="submit"
             type="primary"
             className="ml-2 d-flex align-items-center"

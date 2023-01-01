@@ -3,6 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { accessObjProperty } from "./object";
 import { DEFAULT_PLACEHOLDER } from "../settings";
 import NumberFilters from "../component/helpers/NumberFilters";
+import DateFilter from "../component/helpers/DateFilter";
 
 // dataIndex: string[] | string
 
@@ -62,12 +63,29 @@ export const getNumberFilters = ({
   },
 });
 
+export const getDateFilters = ({ dataIndex }) => ({
+  filterDropdown: (props) => <DateFilter {...props} />,
+});
+
 export const numberFilterOptions = {
   "Equal to": "=",
   "Greater than": ">",
   "Greater than or equal to": ">=",
   "Less than": "<",
   "Less than or equal to": "<=",
+};
+
+export const dateFilterOptions = {
+  "Selected Date": "=",
+  "Date Before": "<",
+  "Selected Date & Date Before": "<=",
+  "Date After": ">",
+  "Selected Date & Date After": ">=",
+};
+
+export const dateRangeFilterOptions = {
+  "Date Between": "bw",
+  "Date Not Between": "nbw",
 };
 
 export const numberFilterSuggestions = {
