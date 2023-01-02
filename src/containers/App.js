@@ -35,14 +35,6 @@ const App = () => {
     sorter,
     { action, currentDataSource }
   ) => {
-    console.log("TABLE CHANGED", {
-      pagination,
-      filters,
-      sorter,
-      action,
-      currentDataSource,
-    });
-
     switch (action) {
       case "sort":
         if (sorter.column)
@@ -67,12 +59,13 @@ const App = () => {
     }
   };
 
-  const TableExtraActions = () => {
+  const TableExtraActions = (arg) => {
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
           {tableSort && (
             <Tag
+              color="cyan"
               className="d-flex align-items-center"
               icon={
                 tableSort.order === "ascend" ? (
@@ -95,13 +88,16 @@ const App = () => {
         </div>
 
         <Space>
-          {/* <Button
-            type="text"
-            className="d-flex align-items-center text-danger"
-            icon={<RiFilterOffFill size={20} className="mr-1" />}
-          >
-            Clear Filters
-          </Button> */}
+          {arg?.range && (
+            <Tag
+              color="cyan"
+              className="py-1 px-2"
+              style={{ fontSize: "1rem" }}
+            >
+              Showing <strong>{arg.range.toString().slice(2)}</strong> out of{" "}
+              <strong>{arg.total}</strong>
+            </Tag>
+          )}
           <Button
             className="d-flex align-items-center"
             icon={<FiRefreshCcw className="mr-1" />}
@@ -147,7 +143,7 @@ const App = () => {
             position: ["topRight"],
             defaultPageSize: "100",
             pageSizeOptions: ["50", "100", "150", "200", "250"],
-            showTotal: () => TableExtraActions(),
+            showTotal: (total, range) => TableExtraActions({ total, range }),
           }}
         />
       </div>
