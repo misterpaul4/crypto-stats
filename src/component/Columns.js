@@ -21,7 +21,11 @@ const columns = (onDetailsOpen) => [
     title: "Name",
     fixed: "left",
     sorter: (a, b) => handleSort(a.name, b.name),
-    ...getSearchFilters({ dataIndex: "name", placeholder: "e.g bitcoin" }),
+    ...getSearchFilters({
+      dataIndex: "name",
+      placeholder: "e.g bitcoin",
+      title: "name",
+    }),
     render: (data) => (
       <div className="d-flex">
         {data.market_cap_rank}.
@@ -39,6 +43,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "current_price",
       suggestions: numberFilterSuggestions.price,
+      title: "price",
     }),
     render: (data) => {
       const percent =
@@ -70,6 +75,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "price_change_percentage_24h",
       suggestions: numberFilterSuggestions.percentage,
+      title: "24H",
     }),
     dataIndex: "price_change_percentage_24h",
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
@@ -87,6 +93,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "price_change_percentage_7d_in_currency",
       suggestions: numberFilterSuggestions.percentage,
+      title: "7D",
     }),
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
@@ -98,6 +105,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "circulating_supply",
       suggestions: numberFilterSuggestions.supply,
+      title: "circ. supply",
     }),
     render: (data) => {
       if (data.circulating_supply && data.max_supply) {
@@ -152,6 +160,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "total_supply",
       suggestions: numberFilterSuggestions.supply,
+      title: "total supply",
     }),
     sorter: (a, b) =>
       handleSort(a.total_supply, b.total_supply, SORT_TYPES.NUMBER),
@@ -164,6 +173,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "market_cap",
       suggestions: numberFilterSuggestions.cap,
+      title: "market cap",
     }),
     sorter: (a, b) => handleSort(a.market_cap, b.market_cap, SORT_TYPES.NUMBER),
     render: (d) => <MoneyFormat className="mx-3" amount={d} />,
@@ -173,13 +183,17 @@ const columns = (onDetailsOpen) => [
     dataIndex: "symbol",
     width: 150,
     sorter: (a, b) => handleSort(a.symbol, b.symbol),
-    ...getSearchFilters({ dataIndex: "symbol", placeholder: "e.g btc" }),
+    ...getSearchFilters({
+      dataIndex: "symbol",
+      placeholder: "e.g btc",
+      title: "symbol",
+    }),
     render: (d) => <Tag>{d}</Tag>,
   },
   {
     title: <Tooltip title="Fully Diluted Valuation">FDV</Tooltip>,
     dataIndex: "fully_diluted_valuation",
-    ...getNumberFilters({ dataIndex: "fully_diluted_valuation" }),
+    ...getNumberFilters({ dataIndex: "fully_diluted_valuation", title: "fdv" }),
     width: 150,
     sorter: (a, b) =>
       handleSort(
@@ -198,6 +212,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "total_volume",
       suggestions: numberFilterSuggestions.supply,
+      title: "total volume",
     }),
     render: (d) => <MoneyFormat amount={d} />,
   },
@@ -208,6 +223,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "ath",
       suggestions: numberFilterSuggestions.price,
+      title: "ath",
     }),
     dataIndex: "ath",
     render: (d) => moneyWithCommas(d, "$"),
@@ -216,7 +232,7 @@ const columns = (onDetailsOpen) => [
     title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
     width: 150,
     sorter: (a, b) => handleSort(a.ath_date, b.ath_date),
-    ...getDateFilters({ dataIndex: "ath_date" }),
+    ...getDateFilters({ dataIndex: "ath_date", title: "ath date" }),
     dataIndex: "ath_date",
     render: (d) => dateFormat(d),
   },
@@ -226,6 +242,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "high_24h",
       suggestions: numberFilterSuggestions.price,
+      title: "24 high",
     }),
     dataIndex: "high_24h",
     width: 150,
@@ -238,6 +255,7 @@ const columns = (onDetailsOpen) => [
     ...getNumberFilters({
       dataIndex: "low_24h",
       suggestions: numberFilterSuggestions.price,
+      title: "24 low",
     }),
     dataIndex: "low_24h",
     width: 150,

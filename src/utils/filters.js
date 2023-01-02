@@ -8,21 +8,20 @@ import {
   rangeNames,
   singleDateNames,
 } from "../component/helpers/DateFilter/constants";
-import moment from "moment";
 
 // dataIndex: string[] | string
-
 export const getSearchFilters = ({
   dataIndex,
   placeholder = DEFAULT_PLACEHOLDER,
+  title = "",
 }) => ({
   filterDropdown: (props) => (
-    <SearchFilters placeholder={placeholder} {...props} />
+    <SearchFilters placeholder={placeholder} {...props} title={title} />
   ),
   filterIcon: (filtered) => (
     <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
   ),
-  onFilter: (value, record) => {
+  onFilter: ({ value }, record) => {
     const prop =
       typeof dataIndex === "string"
         ? record[dataIndex]
@@ -36,11 +35,13 @@ export const getNumberFilters = ({
   dataIndex,
   placeholder = DEFAULT_PLACEHOLDER,
   suggestions,
+  title = "",
 }) => ({
   filterDropdown: (props) => (
     <NumberFilters
       suggestions={suggestions}
       placeholder={placeholder}
+      title={title}
       {...props}
     />
   ),
@@ -72,8 +73,8 @@ export const getNumberFilters = ({
   },
 });
 
-export const getDateFilters = ({ dataIndex }) => ({
-  filterDropdown: (props) => <DateFilter {...props} />,
+export const getDateFilters = ({ dataIndex, title = "" }) => ({
+  filterDropdown: (props) => <DateFilter {...props} title={title} />,
   onFilter: (values, record) => {
     const prop =
       typeof dataIndex === "string"

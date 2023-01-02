@@ -11,6 +11,7 @@ const NumberFilters = ({
   clearFilters,
   close,
   suggestions,
+  title,
 }) => {
   const labelProps = { span: 24, className: "font-weight-bold" };
 
@@ -18,7 +19,7 @@ const NumberFilters = ({
 
   const handleSubmit = (values) => {
     if (values.action && values.value !== undefined) {
-      setSelectedKeys([values]);
+      setSelectedKeys([{ ...values, title }]);
       confirm();
     }
   };

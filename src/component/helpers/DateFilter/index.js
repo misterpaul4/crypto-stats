@@ -19,6 +19,7 @@ const DateFilter = ({
   confirm,
   clearFilters,
   close,
+  title,
 }) => {
   const [form] = Form.useForm();
 
@@ -44,7 +45,7 @@ const DateFilter = ({
   };
 
   const handleSubmit = (values) => {
-    setSelectedKeys([{ ...values, isRange }]);
+    setSelectedKeys([{ ...values, isRange, title }]);
     confirm();
   };
 

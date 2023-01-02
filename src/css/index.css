@@ -100,3 +100,13 @@ td img {
   align-items: center;
   justify-content: center;
 }
+
+.ant-table-title {
+  padding: 0 !important;
+  display: flex;
+  justify-content: end;
+}
+
+.ant-pagination-total-text {
+  flex: 1 !important;
+}

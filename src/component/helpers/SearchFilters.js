@@ -8,6 +8,7 @@ const SearchFilters = ({
   placeholder,
   clearFilters,
   close,
+  title,
 }) => {
   const [form] = Form.useForm();
 
@@ -19,7 +20,12 @@ const SearchFilters = ({
 
   const handleSubmit = (values) => {
     if (values.searchTerm) {
-      setSelectedKeys([values.searchTerm]);
+      setSelectedKeys([
+        {
+          value: values.searchTerm,
+          title,
+        },
+      ]);
       confirm();
     } else {
       setSelectedKeys([]);
