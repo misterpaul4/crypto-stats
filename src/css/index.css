@@ -104,9 +104,13 @@ td img {
 .ant-table-title {
   padding: 0 !important;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .ant-pagination-total-text {
   flex: 1 !important;
+}
+
+.ant-table-thead th:hover {
+  background: whitesmoke !important;
 }

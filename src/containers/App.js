@@ -2,17 +2,12 @@ import React, { useState } from "react";
 import PageLoader from "../component/PageLoader";
 import { Avatar, Button, Space, Table as ATable, Tag, Typography } from "antd";
 import columns from "../component/Columns";
-import useAPI from "../hooks/useAPI";
-import { ALL_TOKENS } from "../endpoints";
 import DetailsDrawer from "../component/DetailsDrawer";
 import CryptoDetails from "../component/CryptoDetails";
 import { FiRefreshCcw } from "react-icons/fi";
-import { RiFilterOffFill } from "react-icons/ri";
 import { AiFillCaretDown, AiFillCaretUp, AiOutlineClose } from "react-icons/ai";
 
-const App = () => {
-  const [cryptos, { loading, refetch }] = useAPI({ url: ALL_TOKENS });
-
+const App = ({ cryptos, loading, refetch }) => {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
   const [selectedCrypto, setSelectedCrypto] = useState();
 
@@ -59,25 +54,23 @@ const App = () => {
     }
   };
 
+  const renderTableSorts = () => {
+    const { icon, tagColor } =
+      tableSort.order === "ascend"
+        ? { tagColor: "lime", icon: <AiFillCaretUp className="mr-1" /> }
+        : { tagColor: "green", icon: <AiFillCaretDown className="mr-1" /> };
+    return (
+      <Tag color={tagColor} className="d-flex align-items-center" icon={icon}>
+        {tableSort.column}
+      </Tag>
+    );
+  };
+
   const TableExtraActions = (arg) => {
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
-          {tableSort && (
-            <Tag
-              color="cyan"
-              className="d-flex align-items-center"
-              icon={
-                tableSort.order === "ascend" ? (
-                  <AiFillCaretUp className="mr-1" />
-                ) : (
-                  <AiFillCaretDown className="mr-1" />
-                )
-              }
-            >
-              {tableSort.column}
-            </Tag>
-          )}
+          {tableSort && renderTableSorts()}
 
           {tableFilters &&
             tableFilters.map((f) => (
@@ -129,7 +122,7 @@ const App = () => {
         <ATable
           title={(currentPageData) =>
             !currentPageData.length && (
-              <div className="py-3">{TableExtraActions()}</div>
+              <div className="py-3 w-100">{TableExtraActions()}</div>
             )
           }
           showSorterTooltip={false}
