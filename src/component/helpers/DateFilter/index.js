@@ -28,11 +28,13 @@ const DateFilter = ({
   const config = isRange
     ? {
         dateComp: RangeComp,
+        tableValue: rangeNames.date,
         actionOptions: dateRangeFilterOptions,
         actionName: rangeNames.action,
       }
     : {
         dateComp: SingleDayComp,
+        tableValue: singleDateNames.date,
         actionOptions: dateFilterOptions,
         actionName: singleDateNames.action,
       };
@@ -45,7 +47,9 @@ const DateFilter = ({
   };
 
   const handleSubmit = (values) => {
-    setSelectedKeys([{ ...values, isRange, title }]);
+    setSelectedKeys([
+      { ...values, isRange, title, value: values[config.tableValue] },
+    ]);
     confirm();
   };
 

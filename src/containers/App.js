@@ -6,6 +6,7 @@ import DetailsDrawer from "../component/DetailsDrawer";
 import CryptoDetails from "../component/CryptoDetails";
 import { FiRefreshCcw } from "react-icons/fi";
 import { AiFillCaretDown, AiFillCaretUp, AiOutlineClose } from "react-icons/ai";
+import { displayData } from "../utils/display";
 
 const App = ({ cryptos, loading, refetch }) => {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
@@ -42,7 +43,9 @@ const App = ({ cryptos, loading, refetch }) => {
         for (const key in filters) {
           const value = filters[key];
           if (value) {
-            appliedFilters.push(value[0]);
+            value.forEach((item) => {
+              appliedFilters.push(item);
+            });
           }
         }
         if (appliedFilters.length) setTableFilters(appliedFilters);
@@ -66,18 +69,19 @@ const App = ({ cryptos, loading, refetch }) => {
     );
   };
 
+  const renderTableFilters = () =>
+    tableFilters.map((f) => (
+      <Tag color="blue" key={f.title}>
+        {f.title.toUpperCase()}(<strong>{displayData(f.value)}</strong>)
+      </Tag>
+    ));
+
   const TableExtraActions = (arg) => {
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
           {tableSort && renderTableSorts()}
-
-          {tableFilters &&
-            tableFilters.map((f) => (
-              <Tag color="blue" key={f.title}>
-                {f.title.toUpperCase()}(<strong>{f.value}</strong>)
-              </Tag>
-            ))}
+          {tableFilters && renderTableFilters()}
         </div>
 
         <Space>
@@ -113,7 +117,7 @@ const App = ({ cryptos, loading, refetch }) => {
             {selectedCrypto?.name}
           </Typography.Title>
         }
-        width={"50%"}
+        width={"80%"}
         onClose={onDetailsClose}
         visibility={drawerVisibility}
         children={<CryptoDetails id={selectedCrypto?.id} />}
