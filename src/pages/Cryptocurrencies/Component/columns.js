@@ -1,4 +1,4 @@
-import { Avatar, Menu, Popover, Progress, Tag, Tooltip } from "antd";
+import { Avatar, Dropdown, Menu, Popover, Progress, Tag, Tooltip } from "antd";
 import {
   dateFormat,
   dateFormatWithTime,
@@ -6,7 +6,7 @@ import {
   to2Decimal,
 } from "../../../utils/index";
 import { BsThreeDots, BsEye } from "react-icons/bs";
-import { FcLike } from "react-icons/fc";
+import { FcDislike, FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import {
@@ -15,6 +15,13 @@ import {
   getSearchFilters,
   numberFilterSuggestions,
 } from "../../../utils/filters";
+import { getLs, LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "../../../app/helpers/localStorageActions";
+
+const favouritedCoins = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
 
 const columns = (onDetailsOpen) => [
   {
@@ -272,45 +279,66 @@ const columns = (onDetailsOpen) => [
   {
     title: "Action",
     fixed: "right",
-    render: (data) => (
-      <Popover
-        className="mx-3"
-        placement="left"
-        overlayInnerStyle={{ padding: 0 }}
-        zIndex={3}
-        content={
-          <Menu
-            selectable={false}
-            items={[
-              {
-                label: (
-                  <span className="d-flex align-items-center">
-                    <BsEye className="mr-2" /> Quick Look
-                  </span>
-                ),
-                key: "view",
-                onClick: () => onDetailsOpen(data),
-              },
-              {
-                key: "favourite",
-                label: (
-                  <span className="d-flex align-items-center">
-                    <FcLike className="mr-2" /> Add
-                    <strong className="mx-1">
-                      {data.symbol.toUpperCase()}
-                    </strong>{" "}
-                    To Favourites
-                  </span>
-                ),
-              },
-            ]}
-          />
-        }
-        trigger="click"
-      >
-        <BsThreeDots size={20} className="cursor-pointer" />
-      </Popover>
-    ),
+    render: (data) => {
+      const { action, label } = favouritedCoins.includes(data.id)
+        ? {
+            label: (
+              <>
+                <FcDislike className="mr-2" /> Remove
+                <strong className="mx-1">
+                  {data.symbol.toUpperCase()}
+                </strong>{" "}
+                from Favourites
+              </>
+            ),
+            action: removeFromFavourites,
+          }
+        : {
+            label: (
+              <>
+                <FcLike className="mr-2" /> Add
+                <strong className="mx-1">{data.symbol.toUpperCase()}</strong> To
+                Favourites
+              </>
+            ),
+            action: addToFavourites,
+          };
+
+      return (
+        <Dropdown
+          className="mx-3"
+          placement="left"
+          trigger="click"
+          overlay={
+            <Menu
+              selectable={false}
+              items={[
+                {
+                  label: (
+                    <span className="d-flex align-items-center">
+                      <BsEye className="mr-2" /> Quick Look
+                    </span>
+                  ),
+                  key: "view",
+                  onClick: () => onDetailsOpen(data),
+                },
+                {
+                  key: "favourite",
+                  label: (
+                    <span className="d-flex align-items-center">{label}</span>
+                  ),
+                  onClick: () => {
+                    action([data.id]);
+                  },
+                },
+              ]}
+            />
+          }
+        >
+          <BsThreeDots size={20} className="cursor-pointer" />
+        </Dropdown>
+      );
+    },
   },
 ];
 

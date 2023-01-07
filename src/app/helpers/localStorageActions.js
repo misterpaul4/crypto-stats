@@ -1,6 +1,6 @@
 import { getLs, LOCAL_STORAGE_KEYS, setLS } from "../../utils/localStorage";
 
-export const addToFavourites = (ids) => {
+export const addToFavourites = (ids = []) => {
   const favourites = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
 
   ids.forEach((id) => {
@@ -12,15 +12,9 @@ export const addToFavourites = (ids) => {
   setLS(LOCAL_STORAGE_KEYS.favourites, favourites);
 };
 
-export const removeFromFavourites = (ids) => {
+export const removeFromFavourites = (ids = []) => {
   const favourites = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
-  const newFavourites = [];
-
-  ids.forEach((id, index) => {
-    if (!favourites.includes(id)) {
-      newFavourites.push(id);
-    }
-  });
+  const newFavourites = favourites.filter((fv) => !ids.includes(fv));
 
   setLS(LOCAL_STORAGE_KEYS.favourites, newFavourites);
 };

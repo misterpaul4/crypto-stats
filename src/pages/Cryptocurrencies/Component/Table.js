@@ -3,7 +3,7 @@ import { Avatar, Button, Space, Table as ATable, Tag, Typography } from "antd";
 import columns from "./columns";
 import DetailsDrawer from "./DetailsDrawer";
 import { FiRefreshCcw } from "react-icons/fi";
-import { AiFillCaretDown, AiFillCaretUp, AiOutlineClose } from "react-icons/ai";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { displayData } from "../../../utils/display";
 import CryptoDetails from "./CryptoDetails";
 import PageLoader from "../../../app/component/PageLoader";
@@ -87,7 +87,7 @@ const App = ({ cryptos, loading, refetch }) => {
         <Space>
           {arg?.range && (
             <Tag
-              color="cyan"
+              color="blue"
               className="py-1 px-2"
               style={{ fontSize: "1rem" }}
             >
