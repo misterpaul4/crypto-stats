@@ -23,7 +23,7 @@ import {
 
 const favouritedCoins = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
 
-const columns = (onDetailsOpen) => [
+export const commonColumns = [
   {
     title: "Name",
     fixed: "left",
@@ -276,6 +276,10 @@ const columns = (onDetailsOpen) => [
     sorter: (a, b) => handleSort(a.last_updated, b.last_updated),
     render: (d) => dateFormatWithTime(d),
   },
+];
+
+const columns = (onDetailsOpen) => [
+  ...commonColumns,
   {
     title: "Action",
     fixed: "right",
