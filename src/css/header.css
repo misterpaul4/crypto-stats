@@ -30,3 +30,7 @@ header {
   -o-transform: rotate(-20deg);
   transform: rotate(-20deg);
 }
+
+.active-header {
+  background-color: whitesmoke;
+}
