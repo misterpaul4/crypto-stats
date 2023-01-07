@@ -20,6 +20,7 @@ import {
   addToFavourites,
   removeFromFavourites,
 } from "../../../app/helpers/localStorageActions";
+import { addSuccess, removeSucesss } from "../../../app/helpers/message";
 
 const favouritedCoins = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
 
@@ -295,7 +296,10 @@ const columns = (onDetailsOpen) => [
                 from Favourites
               </>
             ),
-            action: removeFromFavourites,
+            action: (id) => {
+              removeFromFavourites(id);
+              removeSucesss(data.symbol);
+            },
           }
         : {
             label: (
@@ -305,7 +309,10 @@ const columns = (onDetailsOpen) => [
                 Favourites
               </>
             ),
-            action: addToFavourites,
+            action: (id) => {
+              addToFavourites(id);
+              addSuccess(data.symbol);
+            },
           };
 
       return (
