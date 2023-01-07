@@ -1,10 +1,10 @@
 import { Descriptions, Space, Tag, Typography } from "antd";
-import useAPI from "../app/hooks/useAPI";
-import { CRYPTO_DETAILS } from "../endpoints";
-import { dateFormat, moneyWithCommas } from "../utils";
 import PageLoader from "../../../app/component/PageLoader";
 import { GoLinkExternal } from "react-icons/go";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
+import useAPI from "../../../app/hooks/useAPI";
+import { CRYPTO_DETAILS } from "../../../endpoints";
+import { dateFormat, moneyWithCommas } from "../../../utils";
 
 const { Item } = Descriptions;
 
@@ -108,4 +108,3 @@ const CryptoDetails = ({ id }) => {
 };
 
 export default CryptoDetails;
-

@@ -1,6 +1,6 @@
 import { Button, Form, InputNumber, Radio, Space } from "antd";
-import { formatNumber, numberInputFormatter } from "../../utils";
-import { numberFilterOptions } from "../../utils/filters";
+import { formatNumber, numberInputFormatter } from "../../../utils";
+import { numberFilterOptions } from "../../../utils/filters";
 import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
 
 const NumberFilters = ({
@@ -112,4 +112,3 @@ const NumberFilters = ({
 };
 
 export default NumberFilters;
-

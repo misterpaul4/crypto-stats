@@ -1,4 +1,4 @@
-import { formatNumber, moneyWithCommas } from "../../utils";
+import { formatNumber, moneyWithCommas } from "../../../utils";
 
 const MoneyFormat = ({ amount, className = "" }) => {
   return (
@@ -10,4 +10,3 @@ const MoneyFormat = ({ amount, className = "" }) => {
 };
 
 export default MoneyFormat;
-

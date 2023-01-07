@@ -2,7 +2,7 @@ import { Button, DatePicker, Form, Radio, Switch } from "antd";
 import {
   dateFilterOptions,
   dateRangeFilterOptions,
-} from "../../../utils/filters";
+} from "../../../../utils/filters";
 import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
 import { useState } from "react";
 import {
@@ -117,4 +117,3 @@ const DateFilter = ({
 };
 
 export default DateFilter;
-

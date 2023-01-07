@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import PageLoader from "../../../component/PageLoader";
 import { Avatar, Button, Space, Table as ATable, Tag, Typography } from "antd";
-import columns from "../../../component/Columns";
-import DetailsDrawer from "../../../component/DetailsDrawer";
-import CryptoDetails from "../../../component/CryptoDetails";
+import columns from "./columns";
+import DetailsDrawer from "./DetailsDrawer";
 import { FiRefreshCcw } from "react-icons/fi";
 import { AiFillCaretDown, AiFillCaretUp, AiOutlineClose } from "react-icons/ai";
 import { displayData } from "../../../utils/display";
+import CryptoDetails from "./CryptoDetails";
+import PageLoader from "../../../app/component/PageLoader";
 
 const App = ({ cryptos, loading, refetch }) => {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
@@ -149,4 +149,3 @@ const App = ({ cryptos, loading, refetch }) => {
 };
 
 export default App;
-

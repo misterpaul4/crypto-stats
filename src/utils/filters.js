@@ -1,13 +1,13 @@
-import SearchFilters from "../component/helpers/SearchFilters";
+import SearchFilters from "../app/component/helpers/SearchFilters";
 import { SearchOutlined } from "@ant-design/icons";
 import { accessObjProperty } from "./object";
 import { DEFAULT_PLACEHOLDER } from "../settings";
-import NumberFilters from "../component/helpers/NumberFilters";
-import DateFilter from "../component/helpers/DateFilter";
+import NumberFilters from "../app/component/helpers/NumberFilters";
+import DateFilter from "../app/component/helpers/DateFilter";
 import {
   rangeNames,
   singleDateNames,
-} from "../component/helpers/DateFilter/constants";
+} from "../app/component/helpers/DateFilter/constants";
 
 // dataIndex: string[] | string
 export const getSearchFilters = ({
@@ -162,4 +162,3 @@ export const numberFilterSuggestions = {
     100000000000,
   ],
 };
-
