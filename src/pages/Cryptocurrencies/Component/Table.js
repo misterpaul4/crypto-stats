@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import PageLoader from "../component/PageLoader";
+import PageLoader from "../../../component/PageLoader";
 import { Avatar, Button, Space, Table as ATable, Tag, Typography } from "antd";
-import columns from "../component/Columns";
-import DetailsDrawer from "../component/DetailsDrawer";
-import CryptoDetails from "../component/CryptoDetails";
+import columns from "../../../component/Columns";
+import DetailsDrawer from "../../../component/DetailsDrawer";
+import CryptoDetails from "../../../component/CryptoDetails";
 import { FiRefreshCcw } from "react-icons/fi";
 import { AiFillCaretDown, AiFillCaretUp, AiOutlineClose } from "react-icons/ai";
-import { displayData } from "../utils/display";
+import { displayData } from "../../../utils/display";
 
 const App = ({ cryptos, loading, refetch }) => {
   const [drawerVisibility, setDrawerVisibility] = useState(false);

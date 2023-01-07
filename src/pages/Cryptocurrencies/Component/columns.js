@@ -8,7 +8,7 @@ import {
 import { BsThreeDots, BsEye } from "react-icons/bs";
 import { FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../utils/sorting";
-import MoneyFormat from "./helpers/MoneyFormat";
+import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import {
   getDateFilters,
   getNumberFilters,

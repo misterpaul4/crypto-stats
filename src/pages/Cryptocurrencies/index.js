@@ -1,6 +1,6 @@
-import { ALL_TOKENS } from "../endpoints";
-import useAPI from "../hooks/useAPI";
-import App from "./App";
+import { ALL_TOKENS } from "../../endpoints";
+import useAPI from "../../app/hooks/useAPI";
+import App from "./Component/Table";
 
 const AppWrapper = () => {
   const [cryptos, { loading, refetch }] = useAPI({ url: ALL_TOKENS });

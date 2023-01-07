@@ -1,10 +1,10 @@
 import { Descriptions, Space, Tag, Typography } from "antd";
-import useAPI from "../hooks/useAPI";
+import useAPI from "../app/hooks/useAPI";
 import { CRYPTO_DETAILS } from "../endpoints";
 import { dateFormat, moneyWithCommas } from "../utils";
-import PageLoader from "./PageLoader";
+import PageLoader from "../../../app/component/PageLoader";
 import { GoLinkExternal } from "react-icons/go";
-import MoneyFormat from "./helpers/MoneyFormat";
+import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 
 const { Item } = Descriptions;
 

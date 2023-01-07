@@ -1,29 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './reducers';
-import Routes from './routes';
-
-const store = createStore(
-  rootReducer,
-  {
-    darkmode: { darkmode: false },
-    sort: { asc: false },
-    filter: {
-      filter: {
-        filter: 'All',
-        duration: null,
-      },
-    },
-  },
-);
+import React from "react";
+import ReactDOM from "react-dom";
+import Routes from "./routes";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Routes />
-    </Provider>
+    <Routes />
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
