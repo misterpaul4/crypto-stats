@@ -6,6 +6,7 @@ import { PATHS } from "../paths";
 import FavouritesPage from "../pages/Favourites";
 import Header from "../app/component/Header";
 import CryptocurrencyPage from "../pages/Cryptocurrencies";
+import ExchangesPage from "../pages/Exchanges";
 
 const Routes = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={CryptocurrencyPage} />
       <Route exact path={PATHS.favourites} component={FavouritesPage} />
+      <Route exact path={PATHS.exchanges} component={ExchangesPage} />
     </Switch>
   </BrowserRouter>
 );

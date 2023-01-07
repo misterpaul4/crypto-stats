@@ -15,7 +15,6 @@ export const handleSort = (a, b, type = SORT_TYPES.NORMAL) => {
       }
 
     default:
-      return a.localeCompare(b);
+      return a?.localeCompare(b);
   }
 };
-

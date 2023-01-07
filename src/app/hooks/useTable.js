@@ -103,6 +103,7 @@ const useTable = ({
     scroll: { x: "max-content", y: "73vh" },
     onChange,
     showSorterTooltip: false,
+    className: "container-fluid",
     pagination: {
       position: ["topRight"],
       defaultPageSize,

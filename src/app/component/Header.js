@@ -22,7 +22,7 @@ const Header = () => {
             Cryptocurrencies
           </Button>
         </Link>
-        <Link to="/">
+        <Link to={PATHS.exchanges}>
           <Button className={activeClass(PATHS.exchanges)} type="text">
             Exchanges
           </Button>
