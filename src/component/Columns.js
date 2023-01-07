@@ -99,7 +99,7 @@ const columns = (onDetailsOpen) => [
   },
   {
     title: "Circ. supply",
-    width: 200,
+    width: 250,
     sorter: (a, b) =>
       handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
     ...getNumberFilters({
@@ -285,7 +285,7 @@ const columns = (onDetailsOpen) => [
               {
                 label: (
                   <span className="d-flex align-items-center">
-                    <BsEye className="mr-2" /> View
+                    <BsEye className="mr-2" /> Quick Look
                   </span>
                 ),
                 key: "view",
