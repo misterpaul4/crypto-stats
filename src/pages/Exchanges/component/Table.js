@@ -8,12 +8,14 @@ const ExchangeTable = ({ refetch, loading, data }) => {
 
   return (
     <PageLoader loading={!data}>
-      <Table
-        {...TableProps}
-        rowKey={(d) => d.id}
-        columns={exchangeColumn()}
-        dataSource={data || []}
-      />
+      {!loading && (
+        <Table
+          {...TableProps}
+          rowKey={(d) => d.id}
+          columns={exchangeColumn()}
+          dataSource={data || []}
+        />
+      )}
     </PageLoader>
   );
 };

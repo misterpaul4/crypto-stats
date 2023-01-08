@@ -8,15 +8,17 @@ const FavouritesTable = ({ data, loading, refetch }) => {
 
   return (
     <PageLoader loading={!data}>
-      <Table
-        {...TableProps}
-        className="container-fluid"
-        rowKey={(data) => data.id}
-        dataSource={data || []}
-        columns={columns()}
-      />
+      {!loading && (
+        <Table
+          {...TableProps}
+          className="container-fluid"
+          rowKey={(data) => data.id}
+          dataSource={data || []}
+          columns={columns()}
+        />
+      )}
     </PageLoader>
   );
 };
 
-export default FavouritesTable
+export default FavouritesTable;
