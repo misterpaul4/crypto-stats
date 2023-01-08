@@ -1,7 +1,19 @@
-import { Avatar, Typography } from "antd";
-import { countryCodes, getCountryFlag } from "../../../app/constants/countries";
-import { getSearchFilters } from "../../../utils/filters";
+import { Avatar, Progress, Typography } from "antd";
+import { GoLinkExternal } from "react-icons/go";
+import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
+import YesNoTagged from "../../../app/component/helpers/YesNoTagged";
+import { getCountryFlag } from "../../../app/constants/countries";
+import { getPercentageValue } from "../../../app/helpers/numbers";
+import { getNumberFilters, getSearchFilters } from "../../../utils/filters";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
+
+const progressProps = (score) => {
+  if (score < 5)
+    return { status: "exception", format: (percent) => `${percent}%` };
+  if (score < 6) return { strokeColor: "#ded93e" };
+
+  return {};
+};
 
 const exchangeColumn = () => [
   {
@@ -23,6 +35,48 @@ const exchangeColumn = () => [
     ),
   },
   {
+    title: "Trust Score",
+    dataIndex: "trust_score",
+    sorter: (a, b) =>
+      handleSort(a.trust_score, b.trust_score, SORT_TYPES.NUMBER),
+    width: 150,
+    render: (score) => {
+      return typeof score === "number" ? (
+        <Progress
+          {...progressProps(score)}
+          size="small"
+          percent={getPercentageValue(score, 0, 10)}
+          strokeLinecap="butt"
+        />
+      ) : (
+        "-"
+      );
+    },
+  },
+  {
+    title: "Trading Volumn",
+    dataIndex: "trade_volume_24h_btc",
+    width: 150,
+    ...getNumberFilters({
+      dataIndex: "trade_volume_24h_btc",
+      title: "trading volume",
+      suggestions: [100, 1000, 10000, 100000, 200000, 300000],
+    }),
+    sorter: (a, b) =>
+      handleSort(
+        a.trade_volume_24h_btc,
+        b.trade_volume_24h_btc,
+        SORT_TYPES.NUMBER
+      ),
+    render: (tradingVolume) => (
+      <MoneyFormat
+        amount={tradingVolume}
+        currency=""
+        addonAfter={<strong>btc</strong>}
+      />
+    ),
+  },
+  {
     title: "Established On",
     dataIndex: "year_established",
     sorter: (a, b) =>
@@ -37,39 +91,31 @@ const exchangeColumn = () => [
     width: 150,
     render: (country) => getCountryFlag(country),
   },
+
   {
     title: "Website",
     dataIndex: "url",
-    width: 100,
-    render: (url) => (
-      <Typography.Link ellipsis target="_blank" href={url}>
-        {url}
-      </Typography.Link>
-    ),
+    width: 150,
+    ...getSearchFilters({
+      dataIndex: "url",
+      title: "website",
+    }),
+    render: (url) => {
+      const truncateSite = url?.substring(0, 20) || "";
+      return (
+        <Typography.Link ellipsis target="_blank" href={url}>
+          <GoLinkExternal className="mr-2" />
+          {truncateSite}
+          {truncateSite.length < url?.length && "..."}
+        </Typography.Link>
+      );
+    },
   },
   {
     title: "Has trading incentive",
     dataIndex: "has_trading_incentive",
-    width: 150,
-
-    render: (hasIncentive) => "-",
-  },
-  {
-    title: "Trust Score",
-    dataIndex: "trust_score",
-    width: 150,
-  },
-  {
-    title: "Trust Score Rank",
-    dataIndex: "trust_score_rank",
-    width: 150,
-  },
-  {
-    title: "Trading Volumn",
-    dataIndex: "trade_volume_24h_btc",
-    width: 150,
-
-    render: (tradingVolume) => `${tradingVolume} btc`,
+    width: 200,
+    render: (hasIncentive) => <YesNoTagged condition={hasIncentive} />,
   },
 ];
 
