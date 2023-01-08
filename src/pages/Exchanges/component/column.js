@@ -1,4 +1,5 @@
 import { Avatar, Typography } from "antd";
+import { countryCodes, getCountryFlag } from "../../../app/constants/countries";
 import { getSearchFilters } from "../../../utils/filters";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
 
@@ -34,6 +35,7 @@ const exchangeColumn = () => [
     dataIndex: "country",
     sorter: (a, b) => handleSort(a.country, b.country),
     width: 150,
+    render: (country) => getCountryFlag(country),
   },
   {
     title: "Website",

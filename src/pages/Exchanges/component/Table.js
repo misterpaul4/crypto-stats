@@ -5,6 +5,7 @@ import exchangeColumn from "./column";
 
 const ExchangeTable = ({ refetch, loading, data }) => {
   const { TableProps } = useTable({ loading, refetch });
+
   return (
     <PageLoader loading={!data}>
       <Table
