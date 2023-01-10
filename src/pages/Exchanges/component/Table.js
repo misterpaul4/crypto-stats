@@ -8,7 +8,7 @@ const ExchangeTable = ({ refetch, loading, data }) => {
 
   return (
     <PageLoader loading={!data}>
-      {!loading && (
+      {data && (
         <Table
           {...TableProps}
           rowKey={(d) => d.id}

@@ -37,7 +37,7 @@ const App = ({ cryptos, loading, refetch }) => {
         children={<CryptoDetails id={selectedCrypto?.id} />}
       />
       <div className="container-fluid px-4">
-        {!loading && (
+        {cryptos && (
           <ATable
             {...TableProps}
             columns={columns(onDetailsOpen)}

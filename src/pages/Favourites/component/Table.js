@@ -26,7 +26,7 @@ const FavouritesTable = ({ data, loading, refetch }) => {
 
   return (
     <PageLoader loading={!data}>
-      {!loading && (
+      {data && (
         <Table
           {...TableProps}
           className="container-fluid"
