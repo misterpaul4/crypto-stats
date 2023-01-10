@@ -4,9 +4,9 @@ const useLazyAPI = ({ url }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
 
-  const fetchData = () => {
+  const fetchData = (newUrl) => {
     setLoading(true);
-    fetch(url)
+    fetch(newUrl || url)
       .then((response) => response.json())
       .then((data) => {
         setData(data);

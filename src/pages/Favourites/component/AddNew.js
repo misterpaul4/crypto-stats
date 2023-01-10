@@ -1,16 +1,11 @@
-import { Avatar, Button, Checkbox, Input, List, Modal, Typography } from "antd";
-import { useEffect, useState } from "react";
-import { FcDislike, FcLike } from "react-icons/fc";
-import { addToFavourites } from "../../../app/helpers/localStorageActions";
+import { Avatar, Checkbox, Input, List, Modal, Typography } from "antd";
+import { useContext, useEffect, useState } from "react";
 import { setLS, LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
+import { FavouriteContext } from "../context/favouriteContext";
 
-const AddNewFavourite = ({
-  favourites,
-  visibility,
-  onClose,
-  loading,
-  data,
-}) => {
+const AddNewFavourite = ({ visibility, onClose, loading, data }) => {
+  const { favourites, onFavouriteUpdate } = useContext(FavouriteContext);
+
   const [favouritedCoins, setFavouritedCoins] = useState(favourites);
   const [filteredData, setFilteredData] = useState(data || []);
 
@@ -35,7 +30,7 @@ const AddNewFavourite = ({
   };
 
   const handleUpdate = () => {
-    setLS(LOCAL_STORAGE_KEYS.favourites, favouritedCoins);
+    onFavouriteUpdate(favouritedCoins);
     onClose();
   };
 
