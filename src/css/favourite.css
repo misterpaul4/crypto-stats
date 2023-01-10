@@ -1,4 +1,8 @@
 .add-favourite-list {
   max-height: 60vh;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.favourite-modal .ant-modal-content .ant-modal-body {
+  min-height: 60vh;
 }

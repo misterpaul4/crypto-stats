@@ -1,6 +1,8 @@
-import { Avatar, Button, Input, List, Modal, Typography } from "antd";
+import { Avatar, Button, Checkbox, Input, List, Modal, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { FcLike } from "react-icons/fc";
+import { FcDislike, FcLike } from "react-icons/fc";
+import { addToFavourites } from "../../../app/helpers/localStorageActions";
+import { setLS, LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
 
 const AddNewFavourite = ({
   favourites,
@@ -9,7 +11,7 @@ const AddNewFavourite = ({
   loading,
   data,
 }) => {
-  const [selectedCoins, setSelectedCoins] = useState([]);
+  const [favouritedCoins, setFavouritedCoins] = useState(favourites);
   const [filteredData, setFilteredData] = useState(data || []);
 
   useEffect(() => {
@@ -32,15 +34,21 @@ const AddNewFavourite = ({
     }
   };
 
+  const handleUpdate = () => {
+    setLS(LOCAL_STORAGE_KEYS.favourites, favouritedCoins);
+    onClose();
+  };
+
   return (
     <Modal
+      className="favourite-modal"
       centered
       cancelButtonProps={{ className: "d-none" }}
-      okButtonProps={{ disabled: !selectedCoins.length }}
+      okButtonProps={{ disabled: !favouritedCoins.length }}
       title={
         <div>
           <Typography.Title className="text-center" level={3}>
-            Add Coins {!!selectedCoins.length && `[${selectedCoins.length}]`}
+            Add Coins
           </Typography.Title>
 
           <Input
@@ -51,30 +59,48 @@ const AddNewFavourite = ({
           />
         </div>
       }
-      okText="Add Selected"
+      okText="Update List"
       open={visibility}
       onCancel={onClose}
+      onOk={handleUpdate}
     >
       <List
         loading={loading}
-        className="add-favourite-list"
+        className="add-favourite-list mt-3"
         dataSource={filteredData}
-        renderItem={(coin) => (
-          <List.Item>
-            <div>
-              <Avatar size="small" src={coin.image} className="ml-1 mr-2" />
-              <strong>{coin.name}</strong>
-              <span className="ml-1 text-muted">
-                {coin.symbol.toUpperCase()}
-              </span>
-            </div>
-            <Button
-              className="flex-centered"
-              type="text"
-              icon={<FcLike />}
-            ></Button>
-          </List.Item>
-        )}
+        renderItem={(coin) => {
+          const actionProps = favouritedCoins.includes(coin.id)
+            ? {
+                checked: true,
+                bg: "bg-light",
+                onClick: () =>
+                  setFavouritedCoins((current) =>
+                    current.filter((id) => id !== coin.id)
+                  ),
+              }
+            : {
+                checked: false,
+                bg: "bg-white",
+                onClick: () =>
+                  setFavouritedCoins((current) => [...current, coin.id]),
+              };
+
+          return (
+            <List.Item
+              className={`cursor-pointer ${actionProps.bg}`}
+              onClick={actionProps.onClick}
+            >
+              <div>
+                <Avatar size="small" src={coin.image} className="ml-1 mr-2" />
+                <strong>{coin.name}</strong>
+                <span className="ml-1 text-muted">
+                  {coin.symbol.toUpperCase()}
+                </span>
+              </div>
+              <Checkbox checked={actionProps.checked}></Checkbox>
+            </List.Item>
+          );
+        }}
       />
     </Modal>
   );
