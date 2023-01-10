@@ -6,6 +6,7 @@ import AddNewFavourite from "./component/AddNew";
 import Favourites from "./component/Favourites";
 import NoFavourites from "./component/NoFavourites";
 import "../../css/favourite.css";
+import { FavouriteContext } from "./context/favouriteContext";
 
 const FavouritesPage = () => {
   const favourites = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
@@ -27,7 +28,7 @@ const FavouritesPage = () => {
   };
 
   return (
-    <>
+    <FavouriteContext.Provider value={{ addNew: onModalOpen }}>
       <AddNewFavourite
         loading={loading}
         data={data}
@@ -40,7 +41,7 @@ const FavouritesPage = () => {
       ) : (
         <NoFavourites addNew={onModalOpen} />
       )}
-    </>
+    </FavouriteContext.Provider>
   );
 };
 

@@ -9,6 +9,7 @@ const useTable = ({
   refetch,
   pageSizeOptions = ["50", "100", "150", "200", "250"],
   defaultPageSize = "100",
+  extraActions = [],
 }) => {
   const [tableSort, setTableSort] = useState();
   const [tableFilters, setTableFilters] = useState();
@@ -83,6 +84,8 @@ const useTable = ({
               <strong>{arg.total}</strong>
             </Tag>
           )}
+          {extraActions.map((node) => node)}
+
           {refetch && (
             <Button
               className="d-flex align-items-center"
