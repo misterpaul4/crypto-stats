@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import { Descriptions, Space, Tag, Typography } from "antd";
-import PageLoader from "../../../app/component/PageLoader";
 import { GoLinkExternal } from "react-icons/go";
+import PageLoader from "../../../app/component/PageLoader";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import useAPI from "../../../app/hooks/useAPI";
 import { CRYPTO_DETAILS } from "../../../endpoints";
@@ -8,7 +9,7 @@ import { dateFormat, moneyWithCommas } from "../../../utils";
 
 const { Item } = Descriptions;
 
-const CryptoDetails = ({ id }) => {
+function CryptoDetails({ id }) {
   const [d, { loading }] = useAPI({ url: CRYPTO_DETAILS(id) });
 
   const extLink = <GoLinkExternal size={20} />;
@@ -97,7 +98,7 @@ const CryptoDetails = ({ id }) => {
                 label: "Twitter",
                 link:
                   d.links.twitter_screen_name &&
-                  "//twitter.com/" + d.links.twitter_screen_name,
+                  `//twitter.com/${d.links.twitter_screen_name}`,
               },
             ])}
           </Descriptions>
@@ -105,6 +106,10 @@ const CryptoDetails = ({ id }) => {
       )}
     </PageLoader>
   );
+}
+
+CryptoDetails.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default CryptoDetails;

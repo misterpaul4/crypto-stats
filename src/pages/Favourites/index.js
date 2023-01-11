@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useLazyAPI from "../../app/hooks/useLazyAPI";
 import { ALL_TOKENS, FAVOURITE_TOKENS } from "../../endpoints";
-import { getLs, LOCAL_STORAGE_KEYS } from "../../utils/localStorage";
+import { LOCAL_STORAGE_KEYS } from "../../utils/localStorage";
 import AddNewFavourite from "./component/AddNew";
 import NoFavourites from "./component/NoFavourites";
 import "../../css/favourite.css";
-import { FavouriteContext } from "./context/favouriteContext";
+import FavouriteContext from "./context/favouriteContext";
 import FavouritesTable from "./component/Table";
 import useLocalStorage from "../../app/hooks/useLocalStorage";
 
-const FavouritesPage = () => {
+function FavouritesPage() {
   // const favourites = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
 
   const [favourites, setFavourites] = useLocalStorage({
@@ -49,10 +49,13 @@ const FavouritesPage = () => {
     getFavouriteCoins(FAVOURITE_TOKENS(ids));
   };
 
+  const contextValues = useMemo(
+    () => ({ favourites, onFavouriteUpdate }),
+    [favourites]
+  );
+
   return (
-    <FavouriteContext.Provider
-      value={{ addNew: onModalOpen, favourites, onFavouriteUpdate }}
-    >
+    <FavouriteContext.Provider value={contextValues}>
       <AddNewFavourite
         loading={loading}
         data={data}
@@ -61,6 +64,7 @@ const FavouritesPage = () => {
       />
       {favourites.length ? (
         <FavouritesTable
+          addNew={onModalOpen}
           data={favouriteCoins}
           refetch={getFavouriteCoins}
           loading={favouritesLoading}
@@ -70,6 +74,6 @@ const FavouritesPage = () => {
       )}
     </FavouriteContext.Provider>
   );
-};
+}
 
 export default FavouritesPage;

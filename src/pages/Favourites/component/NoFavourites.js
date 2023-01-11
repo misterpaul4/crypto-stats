@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import { Button, Result } from "antd";
 
-const NoFavourites = ({ addNew }) => {
+function NoFavourites({ addNew }) {
   return (
     <Result
       className="mt-5"
@@ -14,6 +15,10 @@ const NoFavourites = ({ addNew }) => {
       }
     />
   );
+}
+
+NoFavourites.propTypes = {
+  addNew: PropTypes.func.isRequired,
 };
 
 export default NoFavourites;

@@ -20,23 +20,23 @@ const useTable = ({
     sorter,
     { action, currentDataSource }
   ) => {
+    const appliedFilters = [];
+
     switch (action) {
       case "sort":
-        if (sorter.column)
+        if (sorter.column) {
           setTableSort({ order: sorter.order, column: sorter.column.title });
-        else setTableSort(undefined);
+        } else setTableSort(undefined);
         break;
 
       case "filter":
-        const appliedFilters = [];
-        for (const key in filters) {
-          const value = filters[key];
-          if (value) {
-            value.forEach((item) => {
+        Object.keys(filters).forEach((key) => {
+          if (filters[key]) {
+            filters[key].forEach((item) => {
               appliedFilters.push(item);
             });
           }
-        }
+        });
         if (appliedFilters.length) setTableFilters(appliedFilters);
         else setTableFilters(undefined);
         break;
@@ -65,7 +65,8 @@ const useTable = ({
       </Tag>
     ));
 
-  const TableExtraActions = (arg) => {
+  // eslint-disable-next-line react/prop-types
+  function TableExtraActions({ range, total }) {
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
@@ -74,14 +75,14 @@ const useTable = ({
         </div>
 
         <Space>
-          {arg?.range && (
+          {range && (
             <Tag
               color="blue"
               className="py-1 px-2"
               style={{ fontSize: "1rem" }}
             >
-              Showing <strong>{arg.range.toString().slice(2)}</strong> out of{" "}
-              <strong>{arg.total}</strong>
+              Showing <strong>{range.toString().slice(2)}</strong> out of{" "}
+              <strong>{total}</strong>
             </Tag>
           )}
           {extraActions.map((node) => node)}
@@ -99,7 +100,7 @@ const useTable = ({
         </Space>
       </div>
     );
-  };
+  }
 
   const TableProps = {
     sticky: true,

@@ -1,9 +1,9 @@
+import PropTypes from "prop-types";
 import { Avatar, Checkbox, Input, List, Modal, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
-import { setLS, LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
-import { FavouriteContext } from "../context/favouriteContext";
+import FavouriteContext from "../context/favouriteContext";
 
-const AddNewFavourite = ({ visibility, onClose, loading, data }) => {
+function AddNewFavourite({ visibility, onClose, loading, data }) {
   const { favourites, onFavouriteUpdate } = useContext(FavouriteContext);
 
   const [favouritedCoins, setFavouritedCoins] = useState(favourites);
@@ -92,13 +92,24 @@ const AddNewFavourite = ({ visibility, onClose, loading, data }) => {
                   {coin.symbol.toUpperCase()}
                 </span>
               </div>
-              <Checkbox checked={actionProps.checked}></Checkbox>
+              <Checkbox checked={actionProps.checked} />
             </List.Item>
           );
         }}
       />
     </Modal>
   );
+}
+
+AddNewFavourite.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onClose: PropTypes.func.isRequired,
+  visibility: PropTypes.bool.isRequired,
 };
 
 export default AddNewFavourite;

@@ -1,9 +1,10 @@
+import PropTypes from "prop-types";
 import { Table } from "antd";
 import PageLoader from "../../../app/component/PageLoader";
 import useTable from "../../../app/hooks/useTable";
 import exchangeColumn from "./column";
 
-const ExchangeTable = ({ refetch, loading, data }) => {
+function ExchangeTable({ refetch, loading, data }) {
   const { TableProps } = useTable({ loading, refetch });
 
   return (
@@ -18,6 +19,16 @@ const ExchangeTable = ({ refetch, loading, data }) => {
       )}
     </PageLoader>
   );
+}
+
+ExchangeTable.propTypes = {
+  refetch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ExchangeTable;

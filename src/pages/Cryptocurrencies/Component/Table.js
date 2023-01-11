@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Avatar, Button, Space, Table as ATable, Tag, Typography } from "antd";
+import PropTypes from "prop-types";
+import { Avatar, Table as ATable, Typography } from "antd";
 import columns from "./columns";
 import DetailsDrawer from "./DetailsDrawer";
 import CryptoDetails from "./CryptoDetails";
 import PageLoader from "../../../app/component/PageLoader";
 import useTable from "../../../app/hooks/useTable";
 
-const App = ({ cryptos, loading, refetch }) => {
+function App({ cryptos, loading, refetch }) {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
   const [selectedCrypto, setSelectedCrypto] = useState();
 
@@ -31,11 +32,12 @@ const App = ({ cryptos, loading, refetch }) => {
             {selectedCrypto?.name}
           </Typography.Title>
         }
-        width={"80%"}
+        width="80%"
         onClose={onDetailsClose}
         visibility={drawerVisibility}
-        children={<CryptoDetails id={selectedCrypto?.id} />}
-      />
+      >
+        <CryptoDetails id={selectedCrypto?.id} />
+      </DetailsDrawer>
       <div className="container-fluid px-4">
         {cryptos && (
           <ATable
@@ -48,6 +50,16 @@ const App = ({ cryptos, loading, refetch }) => {
       </div>
     </PageLoader>
   );
+}
+
+App.propTypes = {
+  refetch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  cryptos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default App;

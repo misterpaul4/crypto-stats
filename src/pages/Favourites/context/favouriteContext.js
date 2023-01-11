@@ -1,3 +1,5 @@
 import { createContext } from "react";
 
-export const FavouriteContext = createContext({});
+const FavouriteContext = createContext({});
+
+export default FavouriteContext;

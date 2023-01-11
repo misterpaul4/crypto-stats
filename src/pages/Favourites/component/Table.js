@@ -1,13 +1,14 @@
+import PropTypes from "prop-types";
 import { Button, Table } from "antd";
 import { useContext } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import PageLoader from "../../../app/component/PageLoader";
 import useTable from "../../../app/hooks/useTable";
-import { FavouriteContext } from "../context/favouriteContext";
+import FavouriteContext from "../context/favouriteContext";
 import columns from "./columns";
 
-const FavouritesTable = ({ data, loading, refetch }) => {
-  const { addNew } = useContext(FavouriteContext);
+function FavouritesTable({ data, loading, refetch, addNew }) {
+  const { favourites, onFavouriteUpdate } = useContext(FavouriteContext);
 
   const { TableProps } = useTable({
     loading,
@@ -32,11 +33,22 @@ const FavouritesTable = ({ data, loading, refetch }) => {
           className="container-fluid"
           rowKey={(data) => data.id}
           dataSource={data || []}
-          columns={columns()}
+          columns={columns({ favourites, onFavouriteUpdate })}
         />
       )}
     </PageLoader>
   );
+}
+
+FavouritesTable.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  refetch: PropTypes.func.isRequired,
+  addNew: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default FavouritesTable;

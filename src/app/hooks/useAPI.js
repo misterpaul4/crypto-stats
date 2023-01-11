@@ -23,4 +23,3 @@ const useAPI = ({ url }) => {
 };
 
 export default useAPI;
-
