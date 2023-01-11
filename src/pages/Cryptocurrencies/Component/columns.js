@@ -1,6 +1,5 @@
 import { Avatar, Dropdown, Menu, Popover, Progress, Tag, Tooltip } from "antd";
 import { BsThreeDots, BsEye } from "react-icons/bs";
-import { FcDislike, FcLike } from "react-icons/fc";
 import {
   dateFormat,
   dateFormatWithTime,
@@ -16,8 +15,6 @@ import {
   numberFilterSuggestions,
 } from "../../../utils/filters";
 import {} from "../../../app/helpers/localStorageActions";
-import { addSuccess, removeSucesss } from "../../../app/helpers/message";
-import { FAVOURITE_ACTIONS } from "../utils/constants";
 
 export const commonColumns = [
   {
@@ -274,75 +271,36 @@ export const commonColumns = [
   },
 ];
 
-const columns = ({ onDetailsOpen, favourites, onFavouriteUpdate }) => [
+const columns = (onDetailsOpen) => [
   ...commonColumns,
   {
     title: "Action",
     fixed: "right",
-    render: (data) => {
-      const { action, label } = favourites.includes(data.id)
-        ? {
-            label: (
-              <>
-                <FcDislike className="mr-2" /> Remove
-                <strong className="mx-1">
-                  {data.symbol.toUpperCase()}
-                </strong>{" "}
-                from Favourites
-              </>
-            ),
-            action: () => {
-              onFavouriteUpdate(data.id, FAVOURITE_ACTIONS.remove);
-              removeSucesss(data.symbol);
-            },
-          }
-        : {
-            label: (
-              <>
-                <FcLike className="mr-2" /> Add
-                <strong className="mx-1">{data.symbol.toUpperCase()}</strong> To
-                Favourites
-              </>
-            ),
-            action: () => {
-              onFavouriteUpdate(data.id, FAVOURITE_ACTIONS.add);
-              addSuccess(data.symbol);
-            },
-          };
-
-      return (
-        <Dropdown
-          className="mx-3"
-          placement="left"
-          trigger="click"
-          overlay={
-            <Menu
-              selectable={false}
-              items={[
-                {
-                  label: (
-                    <span className="d-flex align-items-center">
-                      <BsEye className="mr-2" /> Quick Look
-                    </span>
-                  ),
-                  key: "view",
-                  onClick: () => onDetailsOpen(data),
-                },
-                {
-                  key: "favourite",
-                  label: (
-                    <span className="d-flex align-items-center">{label}</span>
-                  ),
-                  onClick: action,
-                },
-              ]}
-            />
-          }
-        >
-          <BsThreeDots size={20} className="cursor-pointer" />
-        </Dropdown>
-      );
-    },
+    render: (data) => (
+      <Dropdown
+        className="mx-3"
+        placement="left"
+        trigger="click"
+        overlay={
+          <Menu
+            selectable={false}
+            items={[
+              {
+                label: (
+                  <span className="d-flex align-items-center">
+                    <BsEye className="mr-2" /> Quick Look
+                  </span>
+                ),
+                key: "view",
+                onClick: () => onDetailsOpen(data),
+              },
+            ]}
+          />
+        }
+      >
+        <BsThreeDots size={20} className="cursor-pointer" />
+      </Dropdown>
+    ),
   },
 ];
 

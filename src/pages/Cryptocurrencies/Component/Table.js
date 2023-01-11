@@ -8,7 +8,7 @@ import PageLoader from "../../../app/component/PageLoader";
 import useTable from "../../../app/hooks/useTable";
 import useLocalStorage from "../../../app/hooks/useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
-import { FAVOURITE_ACTIONS } from "../utils/constants";
+import { addSuccess, removeSucesss } from "../../../app/helpers/message";
 
 function App({ cryptos, loading, refetch }) {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
@@ -18,21 +18,6 @@ function App({ cryptos, loading, refetch }) {
     key: LOCAL_STORAGE_KEYS.favourites,
     fallback: [],
   });
-
-  const onFavouriteUpdate = (cryptoId, action) => {
-    switch (action) {
-      case FAVOURITE_ACTIONS.add:
-        setFavourites([...favourites, cryptoId]);
-        break;
-
-      case FAVOURITE_ACTIONS.remove:
-        setFavourites(favourites.filter((fv) => fv !== cryptoId));
-        break;
-
-      default:
-        break;
-    }
-  };
 
   const { TableProps } = useTable({ loading, refetch });
 
@@ -65,9 +50,21 @@ function App({ cryptos, loading, refetch }) {
         {cryptos && (
           <ATable
             {...TableProps}
-            columns={columns({ onDetailsOpen, favourites, onFavouriteUpdate })}
+            columns={columns(onDetailsOpen)}
             rowKey={(d) => d.id}
             dataSource={cryptos || []}
+            rowSelection={{
+              hideSelectAll: true,
+              selectedRowKeys: favourites,
+              onSelect: (record, selected, selectedRowKeys) => {
+                setFavourites(selectedRowKeys.map((crypto) => crypto.id));
+                if (selected) {
+                  addSuccess(record.symbol);
+                } else {
+                  removeSucesss(record.symbol);
+                }
+              },
+            }}
           />
         )}
       </div>

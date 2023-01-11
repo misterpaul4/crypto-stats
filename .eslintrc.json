@@ -32,7 +32,8 @@
     "indent":"off",
     "function-paren-newline":"off",
     "camelcase":"off",
-    "import/prefer-default-export":"off"
+    "import/prefer-default-export":"off",
+    "no-confusing-arrow":"off"
   },
   "ignorePatterns": ["dist/", "build/"]
 }
