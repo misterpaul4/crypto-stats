@@ -40,6 +40,10 @@ function FavouritesTable({ data, loading, refetch, addNew }) {
   );
 }
 
+FavouritesTable.defaultProps = {
+  data: undefined,
+};
+
 FavouritesTable.propTypes = {
   loading: PropTypes.bool.isRequired,
   refetch: PropTypes.func.isRequired,
@@ -48,7 +52,7 @@ FavouritesTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };
 
 export default FavouritesTable;

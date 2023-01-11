@@ -11,9 +11,8 @@ const useAPI = ({ url }) => {
       .then((response) => response.json())
       .then((data) => {
         setData(data);
-        setLoading(false);
-      });
-
+      })
+      .finally(() => setLoading(false));
     return null;
   }, [refresh]);
 

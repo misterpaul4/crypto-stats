@@ -54,6 +54,8 @@ function FavouritesPage() {
     [favourites]
   );
 
+  const refetch = () => getFavouriteCoins(FAVOURITE_TOKENS(favourites));
+
   return (
     <FavouriteContext.Provider value={contextValues}>
       <AddNewFavourite
@@ -66,7 +68,7 @@ function FavouritesPage() {
         <FavouritesTable
           addNew={onModalOpen}
           data={favouriteCoins}
-          refetch={getFavouriteCoins}
+          refetch={refetch}
           loading={favouritesLoading}
         />
       ) : (

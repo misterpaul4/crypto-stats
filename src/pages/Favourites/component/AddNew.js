@@ -15,6 +15,12 @@ function AddNewFavourite({ visibility, onClose, loading, data }) {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (visibility) {
+      setFavouritedCoins(favourites);
+    }
+  }, [visibility]);
+
   const handleSearch = (searchTerm) => {
     if (searchTerm) {
       const filteredResult = data.filter(
@@ -101,13 +107,17 @@ function AddNewFavourite({ visibility, onClose, loading, data }) {
   );
 }
 
+AddNewFavourite.defaultProps = {
+  data: undefined,
+};
+
 AddNewFavourite.propTypes = {
   loading: PropTypes.bool.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
   onClose: PropTypes.func.isRequired,
   visibility: PropTypes.bool.isRequired,
 };
