@@ -6,10 +6,33 @@ import DetailsDrawer from "./DetailsDrawer";
 import CryptoDetails from "./CryptoDetails";
 import PageLoader from "../../../app/component/PageLoader";
 import useTable from "../../../app/hooks/useTable";
+import useLocalStorage from "../../../app/hooks/useLocalStorage";
+import { LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
+import { FAVOURITE_ACTIONS } from "../utils/constants";
 
 function App({ cryptos, loading, refetch }) {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
   const [selectedCrypto, setSelectedCrypto] = useState();
+
+  const [favourites, setFavourites] = useLocalStorage({
+    key: LOCAL_STORAGE_KEYS.favourites,
+    fallback: [],
+  });
+
+  const onFavouriteUpdate = (cryptoId, action) => {
+    switch (action) {
+      case FAVOURITE_ACTIONS.add:
+        setFavourites([...favourites, cryptoId]);
+        break;
+
+      case FAVOURITE_ACTIONS.remove:
+        setFavourites(favourites.filter((fv) => fv !== cryptoId));
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const { TableProps } = useTable({ loading, refetch });
 
@@ -42,7 +65,7 @@ function App({ cryptos, loading, refetch }) {
         {cryptos && (
           <ATable
             {...TableProps}
-            columns={columns(onDetailsOpen)}
+            columns={columns({ onDetailsOpen, favourites, onFavouriteUpdate })}
             rowKey={(d) => d.id}
             dataSource={cryptos || []}
           />

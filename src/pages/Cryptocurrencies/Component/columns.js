@@ -1,12 +1,12 @@
 import { Avatar, Dropdown, Menu, Popover, Progress, Tag, Tooltip } from "antd";
+import { BsThreeDots, BsEye } from "react-icons/bs";
+import { FcDislike, FcLike } from "react-icons/fc";
 import {
   dateFormat,
   dateFormatWithTime,
   moneyWithCommas,
   to2Decimal,
 } from "../../../utils/index";
-import { BsThreeDots, BsEye } from "react-icons/bs";
-import { FcDislike, FcLike } from "react-icons/fc";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import {
@@ -15,14 +15,9 @@ import {
   getSearchFilters,
   numberFilterSuggestions,
 } from "../../../utils/filters";
-import { getLs, LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
-import {
-  addToFavourites,
-  removeFromFavourites,
-} from "../../../app/helpers/localStorageActions";
+import {} from "../../../app/helpers/localStorageActions";
 import { addSuccess, removeSucesss } from "../../../app/helpers/message";
-
-const favouritedCoins = getLs(LOCAL_STORAGE_KEYS.favourites) || [];
+import { FAVOURITE_ACTIONS } from "../utils/constants";
 
 export const commonColumns = [
   {
@@ -279,13 +274,13 @@ export const commonColumns = [
   },
 ];
 
-const columns = (onDetailsOpen) => [
+const columns = ({ onDetailsOpen, favourites, onFavouriteUpdate }) => [
   ...commonColumns,
   {
     title: "Action",
     fixed: "right",
     render: (data) => {
-      const { action, label } = favouritedCoins.includes(data.id)
+      const { action, label } = favourites.includes(data.id)
         ? {
             label: (
               <>
@@ -296,8 +291,8 @@ const columns = (onDetailsOpen) => [
                 from Favourites
               </>
             ),
-            action: (id) => {
-              removeFromFavourites(id);
+            action: () => {
+              onFavouriteUpdate(data.id, FAVOURITE_ACTIONS.remove);
               removeSucesss(data.symbol);
             },
           }
@@ -309,8 +304,8 @@ const columns = (onDetailsOpen) => [
                 Favourites
               </>
             ),
-            action: (id) => {
-              addToFavourites(id);
+            action: () => {
+              onFavouriteUpdate(data.id, FAVOURITE_ACTIONS.add);
               addSuccess(data.symbol);
             },
           };
@@ -338,9 +333,7 @@ const columns = (onDetailsOpen) => [
                   label: (
                     <span className="d-flex align-items-center">{label}</span>
                   ),
-                  onClick: () => {
-                    action([data.id]);
-                  },
+                  onClick: action,
                 },
               ]}
             />
