@@ -108,8 +108,12 @@ function CryptoDetails({ id }) {
   );
 }
 
+CryptoDetails.defaultProps = {
+  id: undefined,
+};
+
 CryptoDetails.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 };
 
 export default CryptoDetails;

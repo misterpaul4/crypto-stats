@@ -21,6 +21,10 @@ function ExchangeTable({ refetch, loading, data }) {
   );
 }
 
+ExchangeTable.defaultProps = {
+  data: undefined,
+};
+
 ExchangeTable.propTypes = {
   refetch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -28,7 +32,7 @@ ExchangeTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
 };
 
 export default ExchangeTable;

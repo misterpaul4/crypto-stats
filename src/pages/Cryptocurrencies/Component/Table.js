@@ -52,6 +52,10 @@ function App({ cryptos, loading, refetch }) {
   );
 }
 
+App.defaultProps = {
+  cryptos: undefined,
+};
+
 App.propTypes = {
   refetch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -59,7 +63,7 @@ App.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
 };
 
 export default App;
