@@ -1,16 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import App from '../containers/App';
-import Header from '../component/Header';
-import CryptoPage from '../component/CryptoPage';
-import '../css/index.css';
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import "../css/index.css";
+import "antd/dist/reset.css";
+import { PATHS } from "../paths";
+import FavouritesPage from "../pages/Favourites";
+import Header from "../app/component/Header";
+import CryptocurrencyPage from "../pages/Cryptocurrencies";
+import ExchangesPage from "../pages/Exchanges";
 
 const Routes = () => (
   <BrowserRouter>
     <Header />
     <Switch>
-      <Route exact path="/" component={App} />
-      <Route exact path="/cryptostat/:id" component={CryptoPage} />
+      <Route exact path="/" component={CryptocurrencyPage} />
+      <Route exact path={PATHS.favourites} component={FavouritesPage} />
+      <Route exact path={PATHS.exchanges} component={ExchangesPage} />
     </Switch>
   </BrowserRouter>
 );

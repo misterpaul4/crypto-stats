@@ -19,10 +19,21 @@
     "react/react-in-jsx-scope": "off",
     "import/no-unresolved": "off",
     "no-shadow": "off",
-    "arrow-parens": ["error", "as-needed"]
+    // disabled these rules because of prettier
+    "quotes": "off",
+    "comma-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
+    "object-curly-newline": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "implicit-arrow-linebreak":"off",
+    "no-unused-vars":"warn",
+    "operator-linebreak":"off",
+    "react/jsx-wrap-multilines":"off",
+    "indent":"off",
+    "function-paren-newline":"off",
+    "camelcase":"off",
+    "import/prefer-default-export":"off",
+    "no-confusing-arrow":"off"
   },
-  "ignorePatterns": [
-    "dist/",
-    "build/"
-  ]
+  "ignorePatterns": ["dist/", "build/"]
 }
