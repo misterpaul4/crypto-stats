@@ -6,7 +6,6 @@ import { commonColumns } from "../../Cryptocurrencies/component/columns";
 const columns = ({ onFavouriteUpdate, favourites }) => [
   ...commonColumns,
   {
-    title: "Action",
     fixed: "right",
     render: (data) => (
       <Button

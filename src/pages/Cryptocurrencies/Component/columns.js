@@ -274,7 +274,6 @@ export const commonColumns = [
 const columns = (onDetailsOpen) => [
   ...commonColumns,
   {
-    title: "Action",
     fixed: "right",
     render: (data) => (
       <Dropdown

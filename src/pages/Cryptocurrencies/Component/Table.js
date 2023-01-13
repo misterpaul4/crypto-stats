@@ -51,6 +51,7 @@ function App({ cryptos, loading, refetch }) {
           <ATable
             {...TableProps}
             columns={columns(onDetailsOpen)}
+            size="small"
             rowKey={(d) => d.id}
             dataSource={cryptos || []}
             rowSelection={{
