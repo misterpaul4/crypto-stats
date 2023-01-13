@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import { Button, Space, Tag } from "antd";
 import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
@@ -66,7 +67,9 @@ const useTable = ({
     ));
 
   // eslint-disable-next-line react/prop-types
-  function TableExtraActions({ range, total }) {
+  function TableExtraActions(arg) {
+    const range = arg?.range;
+    const total = arg?.total;
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
