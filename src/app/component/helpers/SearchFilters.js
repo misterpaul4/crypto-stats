@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Button, Form, Input } from "antd";
 import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
 
-const SearchFilters = ({
+function SearchFilters({
   setSelectedKeys,
   selectedKeys,
   confirm,
@@ -9,7 +10,7 @@ const SearchFilters = ({
   clearFilters,
   close,
   title,
-}) => {
+}) {
   const [form] = Form.useForm();
 
   const handleFilterClear = () => {
@@ -76,6 +77,5 @@ const SearchFilters = ({
       </div>
     </Form>
   );
-};
+}
 export default SearchFilters;
-

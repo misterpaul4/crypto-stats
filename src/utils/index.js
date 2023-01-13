@@ -34,32 +34,33 @@ const moneyWithCommas = (amount, currency = "") => {
 function formatNumber(num, currency = "", decimal = 1) {
   if (typeof num === "number") {
     if (num >= 1000000000000) {
-      return currency + (num / 1000000000000).toFixed(decimal) + " T";
-    } else if (num >= 1000000000) {
-      return currency + (num / 1000000000).toFixed(decimal) + " B";
-    } else if (num >= 1000000) {
-      return currency + (num / 1000000).toFixed(decimal) + " M";
-    } else if (num >= 1000) {
-      return currency + (num / 1000).toFixed(decimal) + " K";
-    } else {
-      return currency + num.toString();
+      return `${currency + (num / 1000000000000).toFixed(decimal)} T`;
     }
+    if (num >= 1000000000) {
+      return `${currency + (num / 1000000000).toFixed(decimal)} B`;
+    }
+    if (num >= 1000000) {
+      return `${currency + (num / 1000000).toFixed(decimal)} M`;
+    }
+    if (num >= 1000) {
+      return `${currency + (num / 1000).toFixed(decimal)} K`;
+    }
+    return currency + num.toString();
   }
 
   return "-";
 }
 
 const numberInputFormatter = (num) => {
-  let formattedNum = num.toString();
-  let parts = formattedNum.split(".");
+  const formattedNum = num.toString();
+  const parts = formattedNum.split(".");
   let wholeNumber = parts[0];
-  let decimal = parts[1];
+  const decimal = parts[1];
   wholeNumber = wholeNumber.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
   if (decimal) {
-    return wholeNumber + "." + decimal;
-  } else {
-    return wholeNumber;
+    return `${wholeNumber}.${decimal}`;
   }
+  return wholeNumber;
 };
 
 const dateFormat = (d) => {
@@ -82,4 +83,3 @@ export {
   formatNumber,
   numberInputFormatter,
 };
-

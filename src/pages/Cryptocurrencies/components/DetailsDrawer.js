@@ -1,12 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Drawer } from "antd";
 
-const DetailsDrawer = ({
-  children,
-  visibility,
-  onClose,
-  width = 700,
-  title,
-}) => {
+function DetailsDrawer({ children, visibility, onClose, width = 700, title }) {
   return (
     <Drawer
       title={title ?? null}
@@ -18,7 +13,6 @@ const DetailsDrawer = ({
       {children}
     </Drawer>
   );
-};
+}
 
 export default DetailsDrawer;
-

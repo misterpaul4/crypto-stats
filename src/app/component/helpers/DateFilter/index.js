@@ -1,10 +1,12 @@
-import { Button, DatePicker, Form, Radio, Switch } from "antd";
+/* eslint-disable import/no-cycle */
+/* eslint-disable react/prop-types */
+import { Button, Form, Radio, Switch } from "antd";
+import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
+import { useState } from "react";
 import {
   dateFilterOptions,
   dateRangeFilterOptions,
 } from "../../../../utils/filters";
-import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
-import { useState } from "react";
 import {
   labelProps,
   RangeComp,
@@ -13,14 +15,14 @@ import {
   SingleDayComp,
 } from "./constants";
 
-const DateFilter = ({
+function DateFilter({
   setSelectedKeys,
   selectedKeys,
   confirm,
   clearFilters,
   close,
   title,
-}) => {
+}) {
   const [form] = Form.useForm();
 
   const [isRange, setIsRange] = useState(false);
@@ -114,6 +116,6 @@ const DateFilter = ({
       </div>
     </Form>
   );
-};
+}
 
 export default DateFilter;

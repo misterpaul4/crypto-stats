@@ -10,4 +10,3 @@ export const accessObjProperty = (object, propertyPath) => {
     ? accessObjProperty(object[firstProperty], remainingProperties)
     : undefined;
 };
-

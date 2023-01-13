@@ -1,9 +1,11 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable react/prop-types */
 import { Button, Form, InputNumber, Radio, Space } from "antd";
+import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
 import { formatNumber, numberInputFormatter } from "../../../utils";
 import { numberFilterOptions } from "../../../utils/filters";
-import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
 
-const NumberFilters = ({
+function NumberFilters({
   setSelectedKeys,
   selectedKeys,
   confirm,
@@ -12,7 +14,7 @@ const NumberFilters = ({
   close,
   suggestions,
   title,
-}) => {
+}) {
   const labelProps = { span: 24, className: "font-weight-bold" };
 
   const [form] = Form.useForm();
@@ -109,6 +111,6 @@ const NumberFilters = ({
       </div>
     </Form>
   );
-};
+}
 
 export default NumberFilters;

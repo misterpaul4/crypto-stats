@@ -8,8 +8,9 @@ import { getNumberFilters, getSearchFilters } from "../../../utils/filters";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
 
 const progressProps = (score) => {
-  if (score < 5)
+  if (score < 5) {
     return { status: "exception", format: (percent) => `${percent}%` };
+  }
   if (score < 6) return { strokeColor: "#ded93e" };
 
   return {};
@@ -40,8 +41,8 @@ const exchangeColumn = () => [
     sorter: (a, b) =>
       handleSort(a.trust_score, b.trust_score, SORT_TYPES.NUMBER),
     width: 150,
-    render: (score) => {
-      return typeof score === "number" ? (
+    render: (score) =>
+      typeof score === "number" ? (
         <Progress
           {...progressProps(score)}
           size="small"
@@ -50,8 +51,7 @@ const exchangeColumn = () => [
         />
       ) : (
         "-"
-      );
-    },
+      ),
   },
   {
     title: "Trading Volumn",

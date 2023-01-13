@@ -8,11 +8,11 @@ export const handleSort = (a, b, type = SORT_TYPES.NORMAL) => {
     case SORT_TYPES.NUMBER:
       if (a > b) {
         return 1;
-      } else if (b > a) {
-        return -1;
-      } else {
-        return 0;
       }
+      if (b > a) {
+        return -1;
+      }
+      return 0;
 
     default:
       return a?.localeCompare(b);
