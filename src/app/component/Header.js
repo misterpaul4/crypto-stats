@@ -5,8 +5,8 @@ import { Button, Input, Space } from "antd";
 import { FcLike } from "react-icons/fc";
 import { PATHS } from "../../paths";
 
-const Header = () => {
-  const pathname = useLocation().pathname;
+function Header() {
+  const { pathname } = useLocation();
 
   const activeClass = (path) => (pathname === path ? "active-header" : "");
 
@@ -43,6 +43,6 @@ const Header = () => {
       </Space>
     </header>
   );
-};
+}
 
 export default Header;

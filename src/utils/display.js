@@ -4,8 +4,6 @@ import { dateFormat } from ".";
 export const displayData = (data) => {
   if (moment.isMoment(data)) {
     return dateFormat(data.toISOString());
-  } else {
-    return data.toString();
   }
+  return data.toString();
 };
-
