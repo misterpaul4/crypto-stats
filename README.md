@@ -2,7 +2,7 @@
 
 > Crypto Stats is an app to view crypto currency data. Currently there is no data refresh but that is a feature to be implemented later on in the project.
 
-![screenshot](./screenshot.png)
+![screenshot](./homepage.png)
 ![screenshot](./home-details.png)
 ![screenshot](./exchange.png)
 ![screenshot](./favourites.png)
