@@ -4,6 +4,7 @@ import {
   List,
   Modal,
   Radio,
+  Slider,
   Space,
   Switch,
   Tag,
@@ -22,7 +23,6 @@ const useTable = ({
   loading,
   refetch,
   pageSizeOptions = ["50", "100", "150", "200", "250"],
-  defaultPageSize = "100",
   extraActions = [],
 }) => {
   const [tableSort, setTableSort] = useState();
@@ -41,6 +41,11 @@ const useTable = ({
   const [tableScroll, setTableScroll] = useLocalStorage({
     key: LOCAL_STORAGE_KEYS.tableScroll,
     fallback: TABLE_SCROLL.fixed,
+  });
+
+  const [pageSize, setPageSize] = useLocalStorage({
+    key: LOCAL_STORAGE_KEYS.pageSize,
+    fallback: 100,
   });
 
   const onChange = (
@@ -136,6 +141,19 @@ const useTable = ({
               <Switch defaultChecked={tableBorder} onChange={setTableBorder} />
             </Space>
           </List.Item>
+          <List.Item>
+            <strong className="w-25">Page Size:</strong>
+            <Slider
+              // tooltip={{ open: true }}
+              className="w-75"
+              step={25}
+              marks={{ 250: "250", 150: "150", 50: "50" }}
+              defaultValue={pageSize}
+              min={50}
+              max={250}
+              onChange={setPageSize}
+            />
+          </List.Item>
         </List>
       ),
     });
@@ -206,8 +224,10 @@ const useTable = ({
     bordered: tableBorder,
     pagination: {
       position: ["topRight"],
-      defaultPageSize,
-      pageSizeOptions,
+      defaultPageSize: 100,
+      // pageSizeOptions,
+      pageSize,
+      showSizeChanger: false,
       showTotal: (total, range) => TableExtraActions({ total, range }),
     },
     title: (currentPageData) =>
