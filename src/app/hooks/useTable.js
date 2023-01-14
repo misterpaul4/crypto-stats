@@ -1,17 +1,22 @@
 /* eslint-disable react/destructuring-assignment */
-import { Button, Dropdown, Menu, Space, Tag } from "antd";
+import {
+  Button,
+  List,
+  Modal,
+  Radio,
+  Space,
+  Switch,
+  Tag,
+  Typography,
+} from "antd";
 import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { FiRefreshCcw } from "react-icons/fi";
-import { CiLineHeight } from "react-icons/ci";
+import { CiSettings } from "react-icons/ci";
 import { displayData } from "../../utils/display";
 import useLocalStorage from "./useLocalStorage";
-
-const TABLE_SIZE = {
-  small: "small",
-  middle: "middle",
-  large: "large",
-};
+import { LOCAL_STORAGE_KEYS } from "../../utils/localStorage";
+import { TABLE_SCROLL, TABLE_SIZE } from "../constants/options";
 
 const useTable = ({
   loading,
@@ -24,8 +29,18 @@ const useTable = ({
   const [tableFilters, setTableFilters] = useState();
 
   const [tableSize, setTableSize] = useLocalStorage({
-    key: "table-size-preference",
+    key: LOCAL_STORAGE_KEYS.tableSize,
     fallback: TABLE_SIZE.middle,
+  });
+
+  const [tableBorder, setTableBorder] = useLocalStorage({
+    key: LOCAL_STORAGE_KEYS.tableBorders,
+    fallback: false,
+  });
+
+  const [tableScroll, setTableScroll] = useLocalStorage({
+    key: LOCAL_STORAGE_KEYS.tableScroll,
+    fallback: TABLE_SCROLL.fixed,
   });
 
   const onChange = (
@@ -72,6 +87,60 @@ const useTable = ({
     );
   };
 
+  const renderTableConfigurations = () => {
+    const modal = Modal.info();
+    modal.update({
+      closable: true,
+      icon: null,
+      width: "40em",
+      okButtonProps: { className: "d-none" },
+      maskClosable: true,
+      title: (
+        <Typography.Title level={4}>Table Configurations</Typography.Title>
+      ),
+      content: (
+        <List>
+          {/* size */}
+          <List.Item>
+            <Space size="large">
+              <strong>Size:</strong>
+              <Radio.Group
+                buttonStyle="solid"
+                defaultValue={tableSize}
+                onChange={(e) => setTableSize(e.target.value)}
+              >
+                <Radio.Button value={TABLE_SIZE.small}>Small</Radio.Button>
+                <Radio.Button value={TABLE_SIZE.middle}>Normal</Radio.Button>
+                <Radio.Button value={TABLE_SIZE.large}>Large</Radio.Button>
+              </Radio.Group>
+            </Space>
+          </List.Item>
+          {/* scroll */}
+          <List.Item>
+            <Space size="large">
+              <strong>Scroll:</strong>
+              <Radio.Group
+                buttonStyle="solid"
+                defaultValue={tableScroll}
+                onChange={(e) => setTableScroll(e.target.value)}
+              >
+                <Radio.Button value={TABLE_SCROLL.fixed}>Fixed</Radio.Button>
+                <Radio.Button value={TABLE_SCROLL.sticky}>Sticky</Radio.Button>
+              </Radio.Group>
+            </Space>
+          </List.Item>
+          {/* borders */}
+          <List.Item>
+            <Space size="large">
+              <strong>Borders:</strong>
+              <Switch defaultChecked={tableBorder} onChange={setTableBorder} />
+            </Space>
+          </List.Item>
+        </List>
+      ),
+    });
+  };
+
   const renderTableFilters = () =>
     tableFilters.map((f) => (
       <Tag color="blue" key={f.title}>
@@ -113,35 +182,12 @@ const useTable = ({
               Refresh
             </Button>
           )}
-          {/* size changer */}
-          <Dropdown
-            overlay={
-              <Menu
-                defaultSelectedKeys={[tableSize]}
-                items={[
-                  {
-                    label: "Small",
-                    key: TABLE_SIZE.small,
-                    onClick: () => setTableSize(TABLE_SIZE.small),
-                  },
-                  {
-                    label: "Normal",
-                    key: TABLE_SIZE.middle,
-                    onClick: () => setTableSize(TABLE_SIZE.middle),
-                  },
-                  {
-                    label: "Large",
-                    key: TABLE_SIZE.large,
-                    onClick: () => setTableSize(TABLE_SIZE.large),
-                  },
-                ]}
-                selectable
-              />
-            }
-            trigger={["click"]}
-          >
-            <Button title="Table Size" icon={<CiLineHeight size={18} />} />
-          </Dropdown>
+          <Button
+            className="flex-centered"
+            title="Table Configuration"
+            icon={<CiSettings size={22} />}
+            onClick={renderTableConfigurations}
+          />
         </Space>
       </div>
     );
@@ -149,11 +195,15 @@ const useTable = ({
 
   const TableProps = {
     sticky: true,
-    scroll: { x: "max-content", y: "73vh" },
+    scroll: {
+      x: "max-content",
+      y: tableScroll === TABLE_SCROLL.fixed ? "73vh" : null,
+    },
     onChange,
     showSorterTooltip: false,
     className: "container-fluid",
     size: tableSize,
+    bordered: tableBorder,
     pagination: {
       position: ["topRight"],
       defaultPageSize,
