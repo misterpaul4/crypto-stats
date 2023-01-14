@@ -54,6 +54,7 @@ function App({ cryptos, loading, refetch }) {
             {...TableProps}
             columns={columns(onDetailsOpen)}
             rowKey={(d) => d.id}
+            className="main-crypto-table"
             dataSource={Array.isArray(cryptos) ? cryptos : []}
             rowSelection={{
               hideSelectAll: true,
