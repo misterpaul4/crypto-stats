@@ -9,4 +9,5 @@ export const LOCAL_STORAGE_KEYS = {
   tableBorders: "table-border-preference",
   tableScroll: "table-scroll-preference",
   pageSize: "data-per-page",
+  paginationPlacement: "pagination-placement",
 };

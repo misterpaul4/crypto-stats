@@ -8,3 +8,8 @@ export const TABLE_SCROLL = {
   fixed: "fixed",
   sticky: "sticky",
 };
+
+export const PAGINATION_PLACEMENT = {
+  topRight: "topRight",
+  bottomRight: "bottomRight",
+};

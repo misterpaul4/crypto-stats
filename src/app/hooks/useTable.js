@@ -17,7 +17,11 @@ import { CiSettings } from "react-icons/ci";
 import { displayData } from "../../utils/display";
 import useLocalStorage from "./useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "../../utils/localStorage";
-import { TABLE_SCROLL, TABLE_SIZE } from "../constants/options";
+import {
+  PAGINATION_PLACEMENT,
+  TABLE_SCROLL,
+  TABLE_SIZE,
+} from "../constants/options";
 
 const useTable = ({
   loading,
@@ -46,6 +50,11 @@ const useTable = ({
   const [pageSize, setPageSize] = useLocalStorage({
     key: LOCAL_STORAGE_KEYS.pageSize,
     fallback: 100,
+  });
+
+  const [paginationPlacement, setPaginationPlacement] = useLocalStorage({
+    key: LOCAL_STORAGE_KEYS.paginationPlacement,
+    fallback: PAGINATION_PLACEMENT.topRight,
   });
 
   const onChange = (
@@ -154,6 +163,23 @@ const useTable = ({
               onChange={setPageSize}
             />
           </List.Item>
+          <List.Item>
+            <Space size="large">
+              <strong>Title Bar Placement:</strong>
+              <Radio.Group
+                buttonStyle="solid"
+                defaultValue={paginationPlacement}
+                onChange={(e) => setPaginationPlacement(e.target.value)}
+              >
+                <Radio.Button value={PAGINATION_PLACEMENT.topRight}>
+                  Top
+                </Radio.Button>
+                <Radio.Button value={PAGINATION_PLACEMENT.bottomRight}>
+                  Bottom
+                </Radio.Button>
+              </Radio.Group>
+            </Space>
+          </List.Item>
         </List>
       ),
     });
@@ -223,7 +249,7 @@ const useTable = ({
     size: tableSize,
     bordered: tableBorder,
     pagination: {
-      position: ["topRight"],
+      position: [paginationPlacement],
       defaultPageSize: 100,
       // pageSizeOptions,
       pageSize,
