@@ -1,9 +1,17 @@
 /* eslint-disable react/destructuring-assignment */
-import { Button, Space, Tag } from "antd";
+import { Button, Dropdown, Menu, Space, Tag } from "antd";
 import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { FiRefreshCcw } from "react-icons/fi";
+import { CiLineHeight } from "react-icons/ci";
 import { displayData } from "../../utils/display";
+import useLocalStorage from "./useLocalStorage";
+
+const TABLE_SIZE = {
+  small: "small",
+  middle: "middle",
+  large: "large",
+};
 
 const useTable = ({
   loading,
@@ -14,6 +22,11 @@ const useTable = ({
 }) => {
   const [tableSort, setTableSort] = useState();
   const [tableFilters, setTableFilters] = useState();
+
+  const [tableSize, setTableSize] = useLocalStorage({
+    key: "table-size-preference",
+    fallback: TABLE_SIZE.middle,
+  });
 
   const onChange = (
     pagination,
@@ -100,6 +113,35 @@ const useTable = ({
               Refresh
             </Button>
           )}
+          {/* size changer */}
+          <Dropdown
+            overlay={
+              <Menu
+                defaultSelectedKeys={[tableSize]}
+                items={[
+                  {
+                    label: "Small",
+                    key: TABLE_SIZE.small,
+                    onClick: () => setTableSize(TABLE_SIZE.small),
+                  },
+                  {
+                    label: "Normal",
+                    key: TABLE_SIZE.middle,
+                    onClick: () => setTableSize(TABLE_SIZE.middle),
+                  },
+                  {
+                    label: "Large",
+                    key: TABLE_SIZE.large,
+                    onClick: () => setTableSize(TABLE_SIZE.large),
+                  },
+                ]}
+                selectable
+              />
+            }
+            trigger={["click"]}
+          >
+            <Button title="Table Size" icon={<CiLineHeight size={18} />} />
+          </Dropdown>
         </Space>
       </div>
     );
@@ -111,6 +153,7 @@ const useTable = ({
     onChange,
     showSorterTooltip: false,
     className: "container-fluid",
+    size: tableSize,
     pagination: {
       position: ["topRight"],
       defaultPageSize,
