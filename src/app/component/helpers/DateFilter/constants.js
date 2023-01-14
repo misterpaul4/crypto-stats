@@ -35,4 +35,3 @@ export const SingleDayComp = (
     />
   </Form.Item>
 );
-

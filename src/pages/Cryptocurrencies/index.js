@@ -1,6 +1,6 @@
 import { ALL_TOKENS } from "../../endpoints";
 import useAPI from "../../app/hooks/useAPI";
-import Table from "./component/Table";
+import Table from "./components/Table";
 
 function CryptocurrencyPage() {
   const [cryptos, { loading, refetch }] = useAPI({ url: ALL_TOKENS });

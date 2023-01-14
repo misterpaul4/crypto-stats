@@ -32,7 +32,7 @@ function FavouritesTable({ data, loading, refetch, addNew }) {
           {...TableProps}
           className="container-fluid"
           rowKey={(data) => data.id}
-          dataSource={data || []}
+          dataSource={Array.isArray(data) ? data : []}
           columns={columns({ favourites, onFavouriteUpdate })}
         />
       )}

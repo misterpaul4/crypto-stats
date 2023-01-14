@@ -14,7 +14,7 @@ function ExchangeTable({ refetch, loading, data }) {
           {...TableProps}
           rowKey={(d) => d.id}
           columns={exchangeColumn()}
-          dataSource={data || []}
+          dataSource={Array.isArray(data) ? data : []}
         />
       )}
     </PageLoader>

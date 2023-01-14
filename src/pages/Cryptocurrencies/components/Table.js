@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Avatar, Table as ATable, Typography } from "antd";
+import { FcLike } from "react-icons/fc";
+import { IoMdHeartEmpty } from "react-icons/io";
 import columns from "./columns";
 import DetailsDrawer from "./DetailsDrawer";
 import CryptoDetails from "./CryptoDetails";
@@ -51,20 +53,33 @@ function App({ cryptos, loading, refetch }) {
           <ATable
             {...TableProps}
             columns={columns(onDetailsOpen)}
-            size="small"
             rowKey={(d) => d.id}
-            dataSource={cryptos || []}
+            className="main-crypto-table"
+            dataSource={Array.isArray(cryptos) ? cryptos : []}
             rowSelection={{
               hideSelectAll: true,
               selectedRowKeys: favourites,
-              onSelect: (record, selected, selectedRowKeys) => {
-                setFavourites(selectedRowKeys.map((crypto) => crypto.id));
-                if (selected) {
-                  addSuccess(record.symbol);
-                } else {
-                  removeSucesss(record.symbol);
-                }
-              },
+              renderCell: (checked, record) =>
+                checked ? (
+                  <FcLike
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setFavourites(
+                        favourites.filter((fav) => fav !== record.id)
+                      );
+                      removeSucesss(record.symbol);
+                    }}
+                  />
+                ) : (
+                  <IoMdHeartEmpty
+                    size={16}
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setFavourites([...favourites, record.id]);
+                      addSuccess(record.symbol);
+                    }}
+                  />
+                ),
             }}
           />
         )}

@@ -1,5 +1,7 @@
-import SearchFilters from "../app/component/helpers/SearchFilters";
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-cycle */
 import { SearchOutlined } from "@ant-design/icons";
+import SearchFilters from "../app/component/helpers/SearchFilters";
 import { accessObjProperty } from "./object";
 import { DEFAULT_PLACEHOLDER } from "../settings";
 import NumberFilters from "../app/component/helpers/NumberFilters";
@@ -8,6 +10,37 @@ import {
   rangeNames,
   singleDateNames,
 } from "../app/component/helpers/DateFilter/constants";
+
+export const numberFilterOptions = {
+  "Equal to": "=",
+  "Greater than": ">",
+  "Greater than or equal to": ">=",
+  "Less than": "<",
+  "Less than or equal to": "<=",
+};
+
+export const dateFilterOptions = {
+  "Selected Date": "=",
+  "Date Before": "<",
+  "Selected Date & Date Before": "<=",
+  "Date After": ">",
+  "Selected Date & Date After": ">=",
+};
+
+export const dateRangeFilterOptions = {
+  "Date Between": "bw",
+  "Date Not Between": "nbw",
+};
+
+export const numberFilterSuggestions = {
+  percentage: [-25, -10, -5, 0, 5, 10, 25],
+  price: [0.0001, 0.01, 1, 5, 100, 1000, 10000],
+  supply: [10000, 100000, 1000000, 10000000, 1000000000, 1000000000000],
+  cap: [
+    100000000, 500000000, 1000000000, 5000000000, 20000000000, 50000000000,
+    100000000000,
+  ],
+};
 
 // dataIndex: string[] | string
 export const getSearchFilters = ({
@@ -131,34 +164,3 @@ export const getDateFilters = ({ dataIndex, title = "" }) => ({
     return false;
   },
 });
-
-export const numberFilterOptions = {
-  "Equal to": "=",
-  "Greater than": ">",
-  "Greater than or equal to": ">=",
-  "Less than": "<",
-  "Less than or equal to": "<=",
-};
-
-export const dateFilterOptions = {
-  "Selected Date": "=",
-  "Date Before": "<",
-  "Selected Date & Date Before": "<=",
-  "Date After": ">",
-  "Selected Date & Date After": ">=",
-};
-
-export const dateRangeFilterOptions = {
-  "Date Between": "bw",
-  "Date Not Between": "nbw",
-};
-
-export const numberFilterSuggestions = {
-  percentage: [-25, -10, -5, 0, 5, 10, 25],
-  price: [0.0001, 0.01, 1, 5, 100, 1000, 10000],
-  supply: [10000, 100000, 1000000, 10000000, 1000000000, 1000000000000],
-  cap: [
-    100000000, 500000000, 1000000000, 5000000000, 20000000000, 50000000000,
-    100000000000,
-  ],
-};

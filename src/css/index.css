@@ -111,3 +111,11 @@ td img {
   justify-content: center;
   align-items: center;
 }
+
+.main-crypto-table .ant-table-tbody .ant-table-row-selected .ant-table-cell {
+  background-color: rgb(255, 249, 249);
+}
+
+.main-crypto-table .ant-table-tbody .ant-table-row-selected .ant-table-cell-row-hover {
+  background-color: rgb(255, 240, 240) !important;
+}

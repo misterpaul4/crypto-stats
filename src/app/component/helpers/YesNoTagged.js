@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Tag } from "antd";
 
-const YesNoTagged = ({ condition, reverse = false }) => {
+function YesNoTagged({ condition, reverse = false }) {
   const { color, label } =
     condition && !reverse
       ? { label: "Yes", color: "green" }
@@ -11,6 +12,6 @@ const YesNoTagged = ({ condition, reverse = false }) => {
   ) : (
     "-"
   );
-};
+}
 
 export default YesNoTagged;

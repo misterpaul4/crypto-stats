@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import { formatNumber, moneyWithCommas } from "../../../utils";
 
-const MoneyFormat = ({
+function MoneyFormat({
   amount,
   className = "",
   currency = "$",
   addonAfter = "",
-}) => {
+}) {
   return (
     <div className={className}>
       <div>
@@ -16,6 +17,6 @@ const MoneyFormat = ({
       </small>
     </div>
   );
-};
+}
 
 export default MoneyFormat;

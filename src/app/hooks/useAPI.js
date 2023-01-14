@@ -7,12 +7,17 @@ const useAPI = ({ url }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .finally(() => setLoading(false));
+    try {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data);
+        })
+        .finally(() => setLoading(false));
+    } catch (error) {
+      console.error(error);
+    }
+
     return null;
   }, [refresh]);
 

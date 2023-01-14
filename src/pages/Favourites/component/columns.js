@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { FcDislike } from "react-icons/fc";
 import { removeSucesss } from "../../../app/helpers/message";
-import { commonColumns } from "../../Cryptocurrencies/component/columns";
+import { commonColumns } from "../../Cryptocurrencies/components/columns";
 
 const columns = ({ onFavouriteUpdate, favourites }) => [
   ...commonColumns,
