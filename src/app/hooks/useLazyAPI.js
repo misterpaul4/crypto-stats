@@ -6,12 +6,16 @@ const useLazyAPI = ({ url }) => {
 
   const fetchData = (newUrl) => {
     setLoading(true);
-    fetch(newUrl || url)
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .finally(() => setLoading(false));
+    try {
+      fetch(newUrl || url)
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data);
+        })
+        .finally(() => setLoading(false));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return [fetchData, { loading, data }];
