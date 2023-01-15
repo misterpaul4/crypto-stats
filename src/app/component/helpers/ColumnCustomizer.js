@@ -63,7 +63,7 @@ function ColumnCustomizer({
       )}
 
       <Space
-        className="justify-content-end d-flex mt-4"
+        className="justify-content-end d-flex mt-5"
         style={{ marginRight: -25, marginBottom: -10 }}
       >
         <Button
