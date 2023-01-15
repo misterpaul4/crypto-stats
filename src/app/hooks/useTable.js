@@ -250,13 +250,12 @@ const useTable = ({
 
           {refetch && (
             <Button
-              className="d-flex align-items-center"
-              icon={<FiRefreshCcw className="mr-1" />}
+              className="flex-centered"
+              icon={<FiRefreshCcw />}
               loading={loading}
               onClick={refetch}
-            >
-              Refresh
-            </Button>
+              title="Refresh"
+            />
           )}
           <Button
             className="flex-centered"

@@ -19,7 +19,7 @@ function ColumnCustomizer({
         <Space className="d-flex flex-wrap">
           {visibleColumns.map((col) => (
             <Tag
-              closable
+              closable={visibleColumns.length > 1}
               onClose={() => {
                 setVisibleColumns((current) =>
                   current.filter((c) => c !== col)
