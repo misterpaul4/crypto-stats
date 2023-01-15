@@ -11,6 +11,7 @@ import useTable from "../../../app/hooks/useTable";
 import useLocalStorage from "../../../app/hooks/useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
 import { addSuccess, removeSucesss } from "../../../app/helpers/message";
+import { hiddenColumns, visibleColumns } from "../utils/constants";
 
 function App({ cryptos, loading, refetch }) {
   const [drawerVisibility, setDrawerVisibility] = useState(false);
@@ -21,7 +22,13 @@ function App({ cryptos, loading, refetch }) {
     fallback: [],
   });
 
-  const { TableProps } = useTable({ loading, refetch });
+  const { TableProps, columnCustommize } = useTable({
+    loading,
+    refetch,
+    tableName: LOCAL_STORAGE_KEYS.cryptoTable,
+    defaultHiddenColumns: hiddenColumns,
+    defaultVisibleColumns: visibleColumns,
+  });
 
   const onDetailsClose = () => {
     setDrawerVisibility(false);
@@ -52,7 +59,7 @@ function App({ cryptos, loading, refetch }) {
         {cryptos && (
           <ATable
             {...TableProps}
-            columns={columns(onDetailsOpen)}
+            columns={columns(onDetailsOpen, columnCustommize)}
             rowKey={(d) => d.id}
             className="main-crypto-table"
             dataSource={Array.isArray(cryptos) ? cryptos : []}

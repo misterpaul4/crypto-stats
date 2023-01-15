@@ -15,10 +15,12 @@ import {
   numberFilterSuggestions,
 } from "../../../utils/filters";
 import {} from "../../../app/helpers/localStorageActions";
+import { columnNames } from "../utils/constants";
 
 export const commonColumns = [
   {
-    title: "Name",
+    title: columnNames.name,
+    key: columnNames.name,
     fixed: "left",
     sorter: (a, b) => handleSort(a.name, b.name),
     ...getSearchFilters({
@@ -35,7 +37,8 @@ export const commonColumns = [
     ),
   },
   {
-    title: "Price",
+    title: columnNames.price,
+    key: columnNames.price,
     width: 150,
     fixed: "left",
     sorter: (a, b) =>
@@ -64,7 +67,8 @@ export const commonColumns = [
     },
   },
   {
-    title: "24h",
+    title: columnNames["24h"],
+    key: columnNames["24h"],
     width: 150,
     sorter: (a, b) =>
       handleSort(
@@ -81,7 +85,8 @@ export const commonColumns = [
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
-    title: "7d",
+    title: columnNames["7d"],
+    key: columnNames["7d"],
     width: 150,
     sorter: (a, b) =>
       handleSort(
@@ -98,7 +103,8 @@ export const commonColumns = [
     render: (d) => <Tag color={d < 0 ? "red" : "green"}>{to2Decimal(d)}%</Tag>,
   },
   {
-    title: "Circ. supply",
+    title: columnNames["Circ. supply"],
+    key: columnNames["Circ. supply"],
     width: 250,
     sorter: (a, b) =>
       handleSort(a.circulating_supply, b.circulating_supply, SORT_TYPES.NUMBER),
@@ -154,7 +160,8 @@ export const commonColumns = [
     },
   },
   {
-    title: "Total supply",
+    title: columnNames["Total supply"],
+    key: columnNames["Total supply"],
     dataIndex: "total_supply",
     width: 150,
     ...getNumberFilters({
@@ -167,7 +174,8 @@ export const commonColumns = [
     render: (d) => moneyWithCommas(d),
   },
   {
-    title: "Market Cap",
+    title: columnNames["Market Cap"],
+    key: columnNames["Market Cap"],
     dataIndex: "market_cap",
     width: 150,
     ...getNumberFilters({
@@ -179,7 +187,8 @@ export const commonColumns = [
     render: (d) => <MoneyFormat className="mx-3" amount={d} />,
   },
   {
-    title: "Symbol",
+    title: columnNames.Symbol,
+    key: columnNames.Symbol,
     dataIndex: "symbol",
     width: 150,
     sorter: (a, b) => handleSort(a.symbol, b.symbol),
@@ -191,7 +200,8 @@ export const commonColumns = [
     render: (d) => <Tag>{d}</Tag>,
   },
   {
-    title: <Tooltip title="Fully Diluted Valuation">FDV</Tooltip>,
+    title: <Tooltip title="Fully Diluted Valuation">{columnNames.FDV}</Tooltip>,
+    key: columnNames.FDV,
     dataIndex: "fully_diluted_valuation",
     ...getNumberFilters({ dataIndex: "fully_diluted_valuation", title: "fdv" }),
     width: 150,
@@ -204,7 +214,8 @@ export const commonColumns = [
     render: (d) => <MoneyFormat amount={d} />,
   },
   {
-    title: "Volume (24H)",
+    title: columnNames["Volume (24H)"],
+    key: columnNames["Volume (24H)"],
     width: 200,
     dataIndex: "total_volume",
     sorter: (a, b) =>
@@ -217,7 +228,8 @@ export const commonColumns = [
     render: (d) => <MoneyFormat amount={d} />,
   },
   {
-    title: <Tooltip title="All Time High">ATH</Tooltip>,
+    title: <Tooltip title="All Time High">{columnNames.ATH}</Tooltip>,
+    key: columnNames.ATH,
     sorter: (a, b) => handleSort(a.ath, b.ath, SORT_TYPES.NUMBER),
     width: 150,
     ...getNumberFilters({
@@ -229,7 +241,10 @@ export const commonColumns = [
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
-    title: <Tooltip title="All Time High Date">ATH Date</Tooltip>,
+    title: (
+      <Tooltip title="All Time High Date">{columnNames["ATH Date"]}</Tooltip>
+    ),
+    key: columnNames["ATH Date"],
     width: 150,
     sorter: (a, b) => handleSort(a.ath_date, b.ath_date),
     ...getDateFilters({ dataIndex: "ath_date", title: "ath date" }),
@@ -237,7 +252,8 @@ export const commonColumns = [
     render: (d) => dateFormat(d),
   },
   {
-    title: "24 High",
+    title: columnNames["24 High"],
+    key: columnNames["24 High"],
     sorter: (a, b) => handleSort(a.high_24h, b.high_24h, SORT_TYPES.NUMBER),
     ...getNumberFilters({
       dataIndex: "high_24h",
@@ -250,7 +266,8 @@ export const commonColumns = [
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
-    title: "24 Low",
+    title: columnNames["24 Low"],
+    key: columnNames["24 Low"],
     sorter: (a, b) => handleSort(a.low_24h, b.low_24h, SORT_TYPES.NUMBER),
     ...getNumberFilters({
       dataIndex: "low_24h",
@@ -263,7 +280,8 @@ export const commonColumns = [
     render: (d) => moneyWithCommas(d, "$"),
   },
   {
-    title: "Last Updated",
+    title: columnNames["Last Updated"],
+    key: columnNames["Last Updated"],
     dataIndex: "last_updated",
     width: 200,
     sorter: (a, b) => handleSort(a.last_updated, b.last_updated),
@@ -271,36 +289,43 @@ export const commonColumns = [
   },
 ];
 
-const columns = (onDetailsOpen) => [
-  ...commonColumns,
-  {
-    fixed: "right",
-    render: (data) => (
-      <Dropdown
-        className="mx-3"
-        placement="left"
-        trigger="click"
-        overlay={
-          <Menu
-            selectable={false}
-            items={[
-              {
-                label: (
-                  <span className="d-flex align-items-center">
-                    <BsEye className="mr-2" /> Quick Look
-                  </span>
-                ),
-                key: "view",
-                onClick: () => onDetailsOpen(data),
-              },
-            ]}
-          />
-        }
-      >
-        <BsThreeDots size={20} className="cursor-pointer" />
-      </Dropdown>
-    ),
-  },
-];
+const columns = (onDetailsOpen, columnCustommize) => {
+  const savedColumns = columnCustommize.visible;
+  const visibleColumns = commonColumns.filter((col) =>
+    savedColumns.includes(col.key)
+  );
+
+  return [
+    ...visibleColumns,
+    {
+      fixed: "right",
+      render: (data) => (
+        <Dropdown
+          className="mx-3"
+          placement="left"
+          trigger="click"
+          overlay={
+            <Menu
+              selectable={false}
+              items={[
+                {
+                  label: (
+                    <span className="d-flex align-items-center">
+                      <BsEye className="mr-2" /> Quick Look
+                    </span>
+                  ),
+                  key: "view",
+                  onClick: () => onDetailsOpen(data),
+                },
+              ]}
+            />
+          }
+        >
+          <BsThreeDots size={20} className="cursor-pointer" />
+        </Dropdown>
+      ),
+    },
+  ];
+};
 
 export default columns;
