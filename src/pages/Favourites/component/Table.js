@@ -6,13 +6,18 @@ import PageLoader from "../../../app/component/PageLoader";
 import useTable from "../../../app/hooks/useTable";
 import FavouriteContext from "../context/favouriteContext";
 import columns from "./columns";
+import { LOCAL_STORAGE_KEYS } from "../../../utils/localStorage";
+import { hiddenColumns, visibleColumns } from "../utils/constants";
 
 function FavouritesTable({ data, loading, refetch, addNew }) {
   const { favourites, onFavouriteUpdate } = useContext(FavouriteContext);
 
-  const { TableProps } = useTable({
+  const { TableProps, columnCustommize } = useTable({
     loading,
     refetch,
+    tableName: LOCAL_STORAGE_KEYS.favouritesTable,
+    defaultHiddenColumns: hiddenColumns,
+    defaultVisibleColumns: visibleColumns,
     extraActions: [
       <Button
         onClick={addNew}
@@ -33,7 +38,7 @@ function FavouritesTable({ data, loading, refetch, addNew }) {
           className="container-fluid"
           rowKey={(data) => data.id}
           dataSource={Array.isArray(data) ? data : []}
-          columns={columns({ favourites, onFavouriteUpdate })}
+          columns={columns({ favourites, onFavouriteUpdate, columnCustommize })}
         />
       )}
     </PageLoader>
