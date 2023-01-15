@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-newline */
 /* eslint-disable react/destructuring-assignment */
 import {
   Button,
@@ -14,6 +15,7 @@ import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { FiRefreshCcw } from "react-icons/fi";
 import { CiSettings } from "react-icons/ci";
+import { BsTable } from "react-icons/bs";
 import { displayData } from "../../utils/display";
 import useLocalStorage from "./useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "../../utils/localStorage";
@@ -22,15 +24,28 @@ import {
   TABLE_SCROLL,
   TABLE_SIZE,
 } from "../constants/options";
+import { modalProps } from "../../utils/modal";
+import ColumnCustomizer from "../component/helpers/ColumnCustomizer";
 
 const useTable = ({
   loading,
   refetch,
   pageSizeOptions = ["50", "100", "150", "200", "250"],
   extraActions = [],
+  tableName = "",
+  defaultVisibleColumns = [],
+  defaultHiddenColumns = [],
 }) => {
   const [tableSort, setTableSort] = useState();
   const [tableFilters, setTableFilters] = useState();
+
+  const [columnCustommize, setColumnCustomize] = useLocalStorage({
+    key: tableName,
+    fallback: {
+      visible: defaultVisibleColumns,
+      hidden: defaultHiddenColumns,
+    },
+  });
 
   const [tableSize, setTableSize] = useLocalStorage({
     key: LOCAL_STORAGE_KEYS.tableSize,
@@ -101,14 +116,30 @@ const useTable = ({
     );
   };
 
+  const renderColumnCustomizer = () => {
+    const modal = Modal.info();
+    modal.update({
+      ...modalProps,
+      title: <Typography.Title level={4}>Column Customizer</Typography.Title>,
+      content: (
+        <ColumnCustomizer
+          hidden={columnCustommize.hidden}
+          visible={columnCustommize.visible}
+          onFinish={(visible, hidden) => {
+            setColumnCustomize({ visible, hidden });
+            modal.destroy();
+          }}
+          defaultHiddenColumns={defaultHiddenColumns}
+          defaultVisibleColumns={defaultVisibleColumns}
+        />
+      ),
+    });
+  };
+
   const renderTableConfigurations = () => {
     const modal = Modal.info();
     modal.update({
-      closable: true,
-      icon: null,
-      width: "40em",
-      okButtonProps: { className: "d-none" },
-      maskClosable: true,
+      ...modalProps,
       title: (
         <Typography.Title level={4}>Table Configurations</Typography.Title>
       ),
@@ -196,6 +227,7 @@ const useTable = ({
   function TableExtraActions(arg) {
     const range = arg?.range;
     const total = arg?.total;
+
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
@@ -210,7 +242,7 @@ const useTable = ({
               className="py-1 px-2"
               style={{ fontSize: "1rem" }}
             >
-              Showing <strong>{range.toString().slice(2)}</strong> out of{" "}
+              Showing <strong>{range[1]}</strong> out of{" "}
               <strong>{total}</strong>
             </Tag>
           )}
@@ -218,13 +250,12 @@ const useTable = ({
 
           {refetch && (
             <Button
-              className="d-flex align-items-center"
-              icon={<FiRefreshCcw className="mr-1" />}
+              className="flex-centered"
+              icon={<FiRefreshCcw />}
               loading={loading}
               onClick={refetch}
-            >
-              Refresh
-            </Button>
+              title="Refresh"
+            />
           )}
           <Button
             className="flex-centered"
@@ -232,6 +263,14 @@ const useTable = ({
             icon={<CiSettings size={22} />}
             onClick={renderTableConfigurations}
           />
+
+          {tableName && (
+            <Button
+              onClick={renderColumnCustomizer}
+              title="Customize Column"
+              icon={<BsTable size={15} />}
+            />
+          )}
         </Space>
       </div>
     );
@@ -262,7 +301,7 @@ const useTable = ({
       ),
   };
 
-  return { TableProps };
+  return { TableProps, columnCustommize };
 };
 
 export default useTable;

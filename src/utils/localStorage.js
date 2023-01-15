@@ -10,4 +10,7 @@ export const LOCAL_STORAGE_KEYS = {
   tableScroll: "table-scroll-preference",
   pageSize: "data-per-page",
   paginationPlacement: "pagination-placement",
+  cryptoTable: "crypto-table",
+  exchangeTable: "exchange-table",
+  favouritesTable: "favourites-table",
 };
