@@ -196,6 +196,7 @@ const useTable = ({
   function TableExtraActions(arg) {
     const range = arg?.range;
     const total = arg?.total;
+
     return (
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex flex-wrap">
@@ -210,7 +211,7 @@ const useTable = ({
               className="py-1 px-2"
               style={{ fontSize: "1rem" }}
             >
-              Showing <strong>{range.toString().slice(2)}</strong> out of{" "}
+              Showing <strong>{range[1]}</strong> out of{" "}
               <strong>{total}</strong>
             </Tag>
           )}
