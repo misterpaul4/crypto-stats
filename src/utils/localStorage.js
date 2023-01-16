@@ -12,5 +12,6 @@ export const LOCAL_STORAGE_KEYS = {
   paginationPlacement: "pagination-placement",
   cryptoTable: "crypto-table",
   exchangeTable: "exchange-table",
+  derivativesTable: "derivatives-table",
   favouritesTable: "favourites-table",
 };
