@@ -10,10 +10,12 @@ function MoneyFormat({
   return (
     <div className={className}>
       <div>
-        {formatNumber(amount, currency)} {addonAfter}
+        {formatNumber(amount, currency)}{" "}
+        {typeof amount === "number" && addonAfter}
       </div>
       <small className="text-muted">
-        {moneyWithCommas(amount, currency)} {addonAfter}
+        {moneyWithCommas(amount, currency)}{" "}
+        {typeof amount === "number" && addonAfter}
       </small>
     </div>
   );

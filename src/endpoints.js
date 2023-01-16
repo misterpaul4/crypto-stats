@@ -11,3 +11,5 @@ export const FAVOURITE_TOKENS = (favourites = []) => {
 };
 
 export const EXCHANGES = `${BASE_URL}exchanges?per_page=250`;
+
+export const DERIVATIVES = `${BASE_URL}derivatives/exchanges`;

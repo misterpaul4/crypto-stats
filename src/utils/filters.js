@@ -84,18 +84,18 @@ export const getNumberFilters = ({
         ? record[dataIndex]
         : accessObjProperty(record, dataIndex);
 
-    if (typeof prop === "number") {
+    if (typeof +prop === "number") {
       switch (action) {
         case numberFilterOptions["Equal to"]:
-          return prop === value;
+          return +prop === value;
         case numberFilterOptions["Greater than"]:
-          return prop > value;
+          return +prop > value;
         case numberFilterOptions["Greater than or equal to"]:
-          return prop >= value;
+          return +prop >= value;
         case numberFilterOptions["Less than"]:
-          return prop < value;
+          return +prop < value;
         case numberFilterOptions["Less than or equal to"]:
-          return prop <= value;
+          return +prop <= value;
 
         default:
           return false;
