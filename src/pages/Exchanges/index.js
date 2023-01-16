@@ -33,8 +33,9 @@ function ExchangesPage() {
       onChange={(key) => key === "derivaties" && getDerivativesData()}
       size="small"
       className="mt-3"
-      centered
-      type="card"
+      // centered
+      tabPosition="left"
+      // type="card"
       items={[
         {
           key: "exchanges",

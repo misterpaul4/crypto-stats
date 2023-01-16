@@ -70,8 +70,8 @@ const derivativesColumn = (columnCustommize) => {
       }),
       sorter: (a, b) =>
         handleSort(
-          a.trade_volume_24h_btc,
-          b.trade_volume_24h_btc,
+          +a.trade_volume_24h_btc,
+          +b.trade_volume_24h_btc,
           SORT_TYPES.NUMBER
         ),
       render: (tradingVolume) => (
