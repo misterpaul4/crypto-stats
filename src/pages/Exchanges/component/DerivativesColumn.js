@@ -21,7 +21,12 @@ const derivativesColumn = (columnCustommize) => {
       }),
       render: (data) => (
         <div className="d-flex">
-          <Avatar size="small" src={data.image} className="ml-2 mr-3" />
+          <Avatar
+            size="large"
+            shape="square"
+            src={data.image}
+            className="ml-2 mr-3"
+          />
           {data.name}
         </div>
       ),
@@ -51,12 +56,32 @@ const derivativesColumn = (columnCustommize) => {
       key: derivativeColumnNames.number_of_perpetual_pairs,
       dataIndex: "number_of_perpetual_pairs",
       width: 200,
+      sorter: (a, b) =>
+        handleSort(
+          a.number_of_perpetual_pairs,
+          b.number_of_perpetual_pairs,
+          SORT_TYPES.NUMBER
+        ),
+      ...getNumberFilters({
+        dataIndex: "number_of_perpetual_pairs",
+        title: derivativeColumnNames.number_of_perpetual_pairs,
+      }),
     },
     {
       title: derivativeColumnNames.number_of_futures_pairs,
       key: derivativeColumnNames.number_of_futures_pairs,
       dataIndex: "number_of_futures_pairs",
       width: 200,
+      sorter: (a, b) =>
+        handleSort(
+          a.number_of_futures_pairs,
+          b.number_of_futures_pairs,
+          SORT_TYPES.NUMBER
+        ),
+      ...getNumberFilters({
+        dataIndex: "number_of_futures_pairs",
+        title: derivativeColumnNames.number_of_futures_pairs,
+      }),
     },
     {
       title: derivativeColumnNames["Trading Volumn"],
