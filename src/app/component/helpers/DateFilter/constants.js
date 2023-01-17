@@ -1,14 +1,4 @@
-import { DatePicker, Form } from "antd";
-
-const { RangePicker } = DatePicker;
-
 export const labelProps = { span: 24, className: "font-weight-bold" };
-
-const sharedDateLabelProps = {
-  label: "Date",
-  labelCol: labelProps,
-  rules: [{ required: true, message: "Please pick a date!" }],
-};
 
 export const rangeNames = {
   date: "range",
@@ -20,18 +10,16 @@ export const singleDateNames = {
   action: "action",
 };
 
-export const RangeComp = (
-  <Form.Item {...sharedDateLabelProps} name={rangeNames.date}>
-    <RangePicker format={(value) => value.format("MMM Do, YYYY")} />
-  </Form.Item>
-);
+export const pickerOptions = {
+  week: "week",
+  month: "month",
+  quarter: "quarter",
+  year: "year",
+  date: "date",
+};
 
-export const SingleDayComp = (
-  <Form.Item {...sharedDateLabelProps} name={singleDateNames.date}>
-    <DatePicker
-      size="large"
-      className="w-100"
-      format={(value) => value.format("MMM Do, YYYY")}
-    />
-  </Form.Item>
-);
+export const pickerOptionsFormat = {
+  [pickerOptions.date]: "MMM Do, YYYY",
+  [pickerOptions.year]: "YYYY",
+  [pickerOptions.month]: "MMM",
+};

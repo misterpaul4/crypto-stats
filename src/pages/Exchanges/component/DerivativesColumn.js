@@ -1,8 +1,13 @@
-import { Avatar, Image, Typography } from "antd";
+import { Image, Typography } from "antd";
 import { GoLinkExternal } from "react-icons/go";
+import { pickerOptions } from "../../../app/component/helpers/DateFilter/constants";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import { getCountryFlag } from "../../../app/constants/countries";
-import { getNumberFilters, getSearchFilters } from "../../../utils/filters";
+import {
+  getDateFilters,
+  getNumberFilters,
+  getSearchFilters,
+} from "../../../utils/filters";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
 import { columnNames, derivativeColumnNames } from "../utils/constants";
 
@@ -108,7 +113,12 @@ const derivativesColumn = (columnCustommize) => {
       dataIndex: "year_established",
       sorter: (a, b) =>
         handleSort(a.year_established, b.year_established, SORT_TYPES.NUMBER),
-      width: 150,
+      ...getDateFilters({
+        dataIndex: "year_established",
+        title: columnNames["Established On"],
+        picker: pickerOptions.year,
+      }),
+      width: 200,
       render: (year) => year || "-",
     },
     {
@@ -116,7 +126,7 @@ const derivativesColumn = (columnCustommize) => {
       key: columnNames.Country,
       dataIndex: "country",
       sorter: (a, b) => handleSort(a.country, b.country),
-      width: 150,
+      width: 250,
       render: (country) => getCountryFlag(country),
     },
 

@@ -33,7 +33,8 @@
     "function-paren-newline":"off",
     "camelcase":"off",
     "import/prefer-default-export":"off",
-    "no-confusing-arrow":"off"
+    "no-confusing-arrow":"off",
+    "react/jsx-curly-newline":"off"
   },
   "ignorePatterns": ["dist/", "build/"]
 }

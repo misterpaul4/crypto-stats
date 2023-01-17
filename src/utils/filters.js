@@ -7,6 +7,7 @@ import { DEFAULT_PLACEHOLDER } from "../settings";
 import NumberFilters from "../app/component/helpers/NumberFilters";
 import DateFilter from "../app/component/helpers/DateFilter";
 import {
+  pickerOptions,
   rangeNames,
   singleDateNames,
 } from "../app/component/helpers/DateFilter/constants";
@@ -106,8 +107,14 @@ export const getNumberFilters = ({
   },
 });
 
-export const getDateFilters = ({ dataIndex, title = "" }) => ({
-  filterDropdown: (props) => <DateFilter {...props} title={title} />,
+export const getDateFilters = ({
+  dataIndex,
+  title = "",
+  picker = pickerOptions.date,
+}) => ({
+  filterDropdown: (props) => (
+    <DateFilter {...props} picker={picker} title={title} />
+  ),
   onFilter: (values, record) => {
     const prop =
       typeof dataIndex === "string"

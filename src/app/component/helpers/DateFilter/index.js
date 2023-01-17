@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/prop-types */
-import { Button, Form, Radio, Switch } from "antd";
+import { Button, DatePicker, Form, Radio, Switch } from "antd";
 import { AiFillFilter, AiOutlineClear } from "react-icons/ai";
 import { useState } from "react";
 import {
@@ -9,11 +9,18 @@ import {
 } from "../../../../utils/filters";
 import {
   labelProps,
-  RangeComp,
+  pickerOptionsFormat,
   rangeNames,
   singleDateNames,
-  SingleDayComp,
 } from "./constants";
+
+const { RangePicker } = DatePicker;
+
+const sharedDateLabelProps = {
+  label: "Date",
+  labelCol: labelProps,
+  rules: [{ required: true, message: "Please pick a date!" }],
+};
 
 function DateFilter({
   setSelectedKeys,
@@ -22,10 +29,35 @@ function DateFilter({
   clearFilters,
   close,
   title,
+  picker,
 }) {
   const [form] = Form.useForm();
 
   const [isRange, setIsRange] = useState(false);
+
+  const RangeComp = (
+    <Form.Item {...sharedDateLabelProps} name={rangeNames.date}>
+      <RangePicker
+        picker={picker}
+        format={(value) =>
+          value.format(pickerOptionsFormat[picker] ?? pickerOptionsFormat.date)
+        }
+      />
+    </Form.Item>
+  );
+
+  const SingleDayComp = (
+    <Form.Item {...sharedDateLabelProps} name={singleDateNames.date}>
+      <DatePicker
+        picker={picker}
+        size="large"
+        className="w-100"
+        format={(value) =>
+          value.format(pickerOptionsFormat[picker] ?? pickerOptionsFormat.date)
+        }
+      />
+    </Form.Item>
+  );
 
   const config = isRange
     ? {
