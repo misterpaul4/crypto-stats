@@ -1,4 +1,4 @@
-import { Avatar, Typography } from "antd";
+import { Avatar, Image, Typography } from "antd";
 import { GoLinkExternal } from "react-icons/go";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import { getCountryFlag } from "../../../app/constants/countries";
@@ -20,14 +20,9 @@ const derivativesColumn = (columnCustommize) => {
         title: "name",
       }),
       render: (data) => (
-        <div className="d-flex">
-          <Avatar
-            size="large"
-            shape="square"
-            src={data.image}
-            className="ml-2 mr-3"
-          />
-          {data.name}
+        <div className="d-flex align-items-center">
+          <Image preview={false} width={30} src={data.image} />
+          <span className="ml-2">{data.name}</span>
         </div>
       ),
     },
