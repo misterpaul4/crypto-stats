@@ -105,6 +105,7 @@ const exchangeColumn = (columnCustommize) => {
       key: columnNames.Country,
       dataIndex: "country",
       sorter: (a, b) => handleSort(a.country, b.country),
+      ...getSearchFilters({ dataIndex: "country", title: columnNames.Country }),
       width: 250,
       render: (country) => getCountryFlag(country),
     },

@@ -61,7 +61,7 @@ export const getSearchFilters = ({
         ? record[dataIndex]
         : accessObjProperty(record, dataIndex);
 
-    return prop.toLowerCase().includes(value.toLowerCase());
+    return prop?.toLowerCase().includes(value?.toLowerCase());
   },
 });
 
