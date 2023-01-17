@@ -125,13 +125,23 @@ export const getDateFilters = ({
       if (values.isRange) {
         const { action, date } = rangeNames;
 
-        const date1 = new Date(values[date][0].toISOString().split("T")[0]);
-        const date2 = new Date(values[date][1].toISOString().split("T")[0]);
-        const date3 = new Date(prop.split("T")[0]);
+        let startDate = 0;
+        let endDate = 0;
+        let propDate = 0;
 
-        const startDate = date1.getTime();
-        const endDate = date2.getTime();
-        const propDate = date3.getTime();
+        if (picker === pickerOptions.year) {
+          startDate = values[date][0].year();
+          endDate = values[date][1].year();
+          propDate = prop;
+        } else {
+          const date1 = new Date(values[date][0].toISOString().split("T")[0]);
+          const date2 = new Date(values[date][1].toISOString().split("T")[0]);
+          const date3 = new Date(prop.split("T")[0]);
+
+          startDate = date1.getTime();
+          endDate = date2.getTime();
+          propDate = date3.getTime();
+        }
 
         switch (values[action]) {
           case dateRangeFilterOptions["Date Between"]:
@@ -144,11 +154,19 @@ export const getDateFilters = ({
         }
       } else {
         const { action, date } = singleDateNames;
-        const date1 = new Date(values[date].toISOString().split("T")[0]);
-        const date2 = new Date(prop.split("T")[0]);
+        let value = 0;
+        let propDate = 0;
 
-        const value = date1.getTime();
-        const propDate = date2.getTime();
+        if (picker === pickerOptions.year) {
+          value = values[date].year();
+          propDate = prop;
+        } else {
+          const date1 = new Date(values[date].toISOString().split("T")[0]);
+          const date2 = new Date(prop.split("T")[0]);
+
+          value = date1.getTime();
+          propDate = date2.getTime();
+        }
 
         switch (values[action]) {
           case dateFilterOptions["Date After"]:
