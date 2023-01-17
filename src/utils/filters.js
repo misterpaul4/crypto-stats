@@ -7,6 +7,7 @@ import { DEFAULT_PLACEHOLDER } from "../settings";
 import NumberFilters from "../app/component/helpers/NumberFilters";
 import DateFilter from "../app/component/helpers/DateFilter";
 import {
+  pickerOptions,
   rangeNames,
   singleDateNames,
 } from "../app/component/helpers/DateFilter/constants";
@@ -60,7 +61,7 @@ export const getSearchFilters = ({
         ? record[dataIndex]
         : accessObjProperty(record, dataIndex);
 
-    return prop.toLowerCase().includes(value.toLowerCase());
+    return prop?.toLowerCase().includes(value?.toLowerCase());
   },
 });
 
@@ -106,8 +107,14 @@ export const getNumberFilters = ({
   },
 });
 
-export const getDateFilters = ({ dataIndex, title = "" }) => ({
-  filterDropdown: (props) => <DateFilter {...props} title={title} />,
+export const getDateFilters = ({
+  dataIndex,
+  title = "",
+  picker = pickerOptions.date,
+}) => ({
+  filterDropdown: (props) => (
+    <DateFilter {...props} picker={picker} title={title} />
+  ),
   onFilter: (values, record) => {
     const prop =
       typeof dataIndex === "string"
@@ -118,13 +125,23 @@ export const getDateFilters = ({ dataIndex, title = "" }) => ({
       if (values.isRange) {
         const { action, date } = rangeNames;
 
-        const date1 = new Date(values[date][0].toISOString().split("T")[0]);
-        const date2 = new Date(values[date][1].toISOString().split("T")[0]);
-        const date3 = new Date(prop.split("T")[0]);
+        let startDate = 0;
+        let endDate = 0;
+        let propDate = 0;
 
-        const startDate = date1.getTime();
-        const endDate = date2.getTime();
-        const propDate = date3.getTime();
+        if (picker === pickerOptions.year) {
+          startDate = values[date][0].year();
+          endDate = values[date][1].year();
+          propDate = prop;
+        } else {
+          const date1 = new Date(values[date][0].toISOString().split("T")[0]);
+          const date2 = new Date(values[date][1].toISOString().split("T")[0]);
+          const date3 = new Date(prop.split("T")[0]);
+
+          startDate = date1.getTime();
+          endDate = date2.getTime();
+          propDate = date3.getTime();
+        }
 
         switch (values[action]) {
           case dateRangeFilterOptions["Date Between"]:
@@ -137,11 +154,19 @@ export const getDateFilters = ({ dataIndex, title = "" }) => ({
         }
       } else {
         const { action, date } = singleDateNames;
-        const date1 = new Date(values[date].toISOString().split("T")[0]);
-        const date2 = new Date(prop.split("T")[0]);
+        let value = 0;
+        let propDate = 0;
 
-        const value = date1.getTime();
-        const propDate = date2.getTime();
+        if (picker === pickerOptions.year) {
+          value = values[date].year();
+          propDate = prop;
+        } else {
+          const date1 = new Date(values[date].toISOString().split("T")[0]);
+          const date2 = new Date(prop.split("T")[0]);
+
+          value = date1.getTime();
+          propDate = date2.getTime();
+        }
 
         switch (values[action]) {
           case dateFilterOptions["Date After"]:

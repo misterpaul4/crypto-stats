@@ -1,8 +1,13 @@
-import { Avatar, Typography } from "antd";
+import { Image, Typography } from "antd";
 import { GoLinkExternal } from "react-icons/go";
+import { pickerOptions } from "../../../app/component/helpers/DateFilter/constants";
 import MoneyFormat from "../../../app/component/helpers/MoneyFormat";
 import { getCountryFlag } from "../../../app/constants/countries";
-import { getNumberFilters, getSearchFilters } from "../../../utils/filters";
+import {
+  getDateFilters,
+  getNumberFilters,
+  getSearchFilters,
+} from "../../../utils/filters";
 import { handleSort, SORT_TYPES } from "../../../utils/sorting";
 import { columnNames, derivativeColumnNames } from "../utils/constants";
 
@@ -20,9 +25,9 @@ const derivativesColumn = (columnCustommize) => {
         title: "name",
       }),
       render: (data) => (
-        <div className="d-flex">
-          <Avatar size="small" src={data.image} className="ml-2 mr-3" />
-          {data.name}
+        <div className="d-flex align-items-center">
+          <Image preview={false} width={30} src={data.image} />
+          <span className="ml-2">{data.name}</span>
         </div>
       ),
     },
@@ -51,12 +56,32 @@ const derivativesColumn = (columnCustommize) => {
       key: derivativeColumnNames.number_of_perpetual_pairs,
       dataIndex: "number_of_perpetual_pairs",
       width: 200,
+      sorter: (a, b) =>
+        handleSort(
+          a.number_of_perpetual_pairs,
+          b.number_of_perpetual_pairs,
+          SORT_TYPES.NUMBER
+        ),
+      ...getNumberFilters({
+        dataIndex: "number_of_perpetual_pairs",
+        title: derivativeColumnNames.number_of_perpetual_pairs,
+      }),
     },
     {
       title: derivativeColumnNames.number_of_futures_pairs,
       key: derivativeColumnNames.number_of_futures_pairs,
       dataIndex: "number_of_futures_pairs",
       width: 200,
+      sorter: (a, b) =>
+        handleSort(
+          a.number_of_futures_pairs,
+          b.number_of_futures_pairs,
+          SORT_TYPES.NUMBER
+        ),
+      ...getNumberFilters({
+        dataIndex: "number_of_futures_pairs",
+        title: derivativeColumnNames.number_of_futures_pairs,
+      }),
     },
     {
       title: derivativeColumnNames["Trading Volumn"],
@@ -88,7 +113,12 @@ const derivativesColumn = (columnCustommize) => {
       dataIndex: "year_established",
       sorter: (a, b) =>
         handleSort(a.year_established, b.year_established, SORT_TYPES.NUMBER),
-      width: 150,
+      ...getDateFilters({
+        dataIndex: "year_established",
+        title: columnNames["Established On"],
+        picker: pickerOptions.year,
+      }),
+      width: 200,
       render: (year) => year || "-",
     },
     {
@@ -96,7 +126,8 @@ const derivativesColumn = (columnCustommize) => {
       key: columnNames.Country,
       dataIndex: "country",
       sorter: (a, b) => handleSort(a.country, b.country),
-      width: 150,
+      ...getSearchFilters({ dataIndex: "country", title: columnNames.Country }),
+      width: 250,
       render: (country) => getCountryFlag(country),
     },
 
