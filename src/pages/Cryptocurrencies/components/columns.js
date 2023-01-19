@@ -1,5 +1,6 @@
 import { Avatar, Dropdown, Menu, Popover, Progress, Tag, Tooltip } from "antd";
 import { BsThreeDots, BsEye } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import {
   dateFormat,
   dateFormatWithTime,
@@ -16,6 +17,7 @@ import {
 } from "../../../utils/filters";
 import {} from "../../../app/helpers/localStorageActions";
 import { columnNames } from "../utils/constants";
+import { PATHS } from "../../../paths";
 
 export const commonColumns = [
   {
@@ -29,11 +31,11 @@ export const commonColumns = [
       title: "name",
     }),
     render: (data) => (
-      <div className="d-flex">
+      <Link to={PATHS.cryptoDetails(data.id)} className="d-flex">
         {data.market_cap_rank}.
         <Avatar size="small" src={data.image} className="ml-1 mr-2" />
         {data.name}
-      </div>
+      </Link>
     ),
   },
   {

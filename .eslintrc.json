@@ -34,7 +34,8 @@
     "camelcase":"off",
     "import/prefer-default-export":"off",
     "no-confusing-arrow":"off",
-    "react/jsx-curly-newline":"off"
+    "react/jsx-curly-newline":"off",
+    "react/prop-types": "warn"
   },
   "ignorePatterns": ["dist/", "build/"]
 }
