@@ -12,10 +12,16 @@ function ShareCoin({ crypto }) {
 
   const onClose = () => setVisibility(false);
 
-  const path = useLocation().pathname;
-
   return (
     <>
+      <Button
+        title="Share"
+        onClick={() => setVisibility(true)}
+        icon={<FiShare size={18} />}
+        className="shadow flex-centered"
+        shape="circle"
+        type="dashed"
+      />
       <Modal
         cancelButtonProps={{ className: "d-none" }}
         okButtonProps={{ className: "d-none" }}
@@ -55,13 +61,6 @@ function ShareCoin({ crypto }) {
           </Typography.Text>
         </Space>
       </Modal>
-      <Button
-        onClick={() => setVisibility(true)}
-        icon={<FiShare size={18} />}
-        className="shadow flex-centered"
-        shape="circle"
-        type="dashed"
-      />
     </>
   );
 }

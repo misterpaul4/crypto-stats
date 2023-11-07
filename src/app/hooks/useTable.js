@@ -30,7 +30,6 @@ import ColumnCustomizer from "../component/helpers/ColumnCustomizer";
 const useTable = ({
   loading,
   refetch,
-  pageSizeOptions = ["50", "100", "150", "200", "250"],
   extraActions = [],
   tableName = "",
   defaultVisibleColumns = [],

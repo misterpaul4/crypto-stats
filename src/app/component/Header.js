@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../css/header.css";
-import { Button, Input, Space } from "antd";
+import { Button, Space } from "antd";
 import { FcLike } from "react-icons/fc";
 import { PATHS } from "../../paths";
 
@@ -39,7 +39,6 @@ function Header() {
             Favourites
           </Button>
         </Link>
-        <Input.Search allowClear placeholder="Search" />
       </Space>
     </header>
   );

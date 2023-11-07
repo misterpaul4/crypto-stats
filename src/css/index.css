@@ -119,3 +119,7 @@ td img {
 .main-crypto-table .ant-table-tbody .ant-table-row-selected .ant-table-cell-row-hover {
   background-color: rgb(255, 240, 240) !important;
 }
+
+.text-faint {
+  color: rgb(200, 200, 200) !important;
+}

@@ -1,5 +1,6 @@
 import { Avatar, Dropdown, Menu, Popover, Progress, Tag, Tooltip } from "antd";
 import { BsThreeDots, BsEye } from "react-icons/bs";
+import { IoMdLink } from "react-icons/io";
 import { Link } from "react-router-dom";
 import {
   dateFormat,
@@ -318,6 +319,14 @@ const columns = (onDetailsOpen, columnCustommize) => {
                   ),
                   key: "view",
                   onClick: () => onDetailsOpen(data),
+                },
+                {
+                  label: (
+                    <Link to={PATHS.cryptoDetails(data.id)}>
+                      <IoMdLink className="mr-1" size={18} /> Visit Page
+                    </Link>
+                  ),
+                  key: "visit",
                 },
               ]}
             />
