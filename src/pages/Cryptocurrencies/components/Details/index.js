@@ -10,7 +10,7 @@ import Details from "./Details";
 
 function CryptoDetails() {
   const [, id] = useLocation().pathname.split("/cryptocurrency/");
-  const [data, { loading }] = useAPI({ url: CRYPTO_DETAILS(id) });
+  const [data, { loading }] = useAPI({ url: CRYPTO_DETAILS(id), save: true });
 
   const [favourites, setFavourites] = useLocalStorage({
     key: LOCAL_STORAGE_KEYS.favourites,
