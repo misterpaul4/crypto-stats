@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
-const useAPI = ({ url, save = true }) => {
+const useAPI = ({ url }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [refresh, setRefresh] = useState(false);
+
+  const save = window.location.href.includes("localhost");
 
   useEffect(() => {
     const fetchData = () => {
