@@ -6,6 +6,7 @@ import {
   Progress,
   Space,
   Tag,
+  Tooltip,
   Typography,
 } from "antd";
 import PropTypes from "prop-types";
@@ -13,11 +14,100 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import { GiTrophyCup } from "react-icons/gi";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { GoLinkExternal } from "react-icons/go";
 import { CURRENCY } from "../../../../settings";
 import { moneyWithCommas } from "../../../../utils";
 import ShareCoin from "./ShareCoin";
 import CardV from "./CardV";
 import SentimentChart from "./SentimentChart";
+import MoneyFormat from "../../../../app/component/helpers/MoneyFormat";
+
+function isValidUrl(url) {
+  try {
+    // eslint-disable-next-line no-new
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+const RenderLinks = (data) =>
+  Object.entries(data)
+    .map(([key, value]) => {
+      if (!value) return null;
+      let validUrl = false;
+      let res = "";
+      const mutiLinkArr = [];
+
+      if (typeof value === "string") {
+        validUrl = isValidUrl(value);
+        res = value;
+      } else if (Array.isArray(value)) {
+        if (typeof value[0] === "string") {
+          // eslint-disable-next-line prefer-destructuring
+          res = value[0];
+          validUrl = isValidUrl(value);
+
+          // eslint-disable-next-line no-plusplus
+          for (let i = 0; i < value.length; i++) {
+            // eslint-disable-next-line no-unused-expressions
+            value[i] && isValidUrl(value[i]) && mutiLinkArr.push(value[i]);
+          }
+        }
+      }
+
+      if (!res) return null;
+
+      const hasMultiLinks = mutiLinkArr.length > 1;
+      const Title = key.replace(/_/g, " ");
+
+      const Component = (
+        <Tag
+          bordered={false}
+          style={{ textTransform: "capitalize" }}
+          className={`rounded ${validUrl ? "cursor-pointer" : ""}`}
+          key={key}
+          onClick={() => validUrl && window.open(res, "_blank")}
+        >
+          {Title}
+          {validUrl ? (
+            <Typography.Link className="ml-1" target="_blank" href={res}>
+              <GoLinkExternal size={15} />
+            </Typography.Link>
+          ) : (
+            <Tag className="ml-2">
+              <strong>
+                <Typography.Text copyable>{res}</Typography.Text>
+              </strong>
+            </Tag>
+          )}
+        </Tag>
+      );
+
+      return hasMultiLinks ? (
+        <Tooltip
+          color="white"
+          title={
+            <div>
+              <Typography.Title level={5}>{Title}</Typography.Title>
+              <Space wrap>
+                {mutiLinkArr.map((l) => (
+                  <Typography.Link key={l} target="_blank" href={l}>
+                    {l} <GoLinkExternal size={15} />
+                  </Typography.Link>
+                ))}
+              </Space>
+            </div>
+          }
+        >
+          {Component}
+        </Tooltip>
+      ) : (
+        Component
+      );
+    })
+    .filter(Boolean);
 
 function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
   const { btnIcon, btnClick, btnTitle } = favourites.includes(data.id)
@@ -144,6 +234,28 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
             />
           </div>
         </div>
+      </Card>
+
+      <Card className="mt-3 shadow-sm">
+        <Descriptions column={3}>
+          <Descriptions.Item label="Market supply">
+            {moneyWithCommas(data.market_data.max_supply)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Fully diluted market cap">
+            <MoneyFormat
+              amount={data.market_data.fully_diluted_valuation.usd}
+            />
+          </Descriptions.Item>
+          <Descriptions.Item label="Total volume">
+            <MoneyFormat amount={data.market_data.total_volume.usd} />
+          </Descriptions.Item>
+          <Descriptions.Item label="Circulating supply">
+            {moneyWithCommas(data.market_data.circulating_supply)}
+          </Descriptions.Item>
+        </Descriptions>
+        <Space className="mt-5 d-flex flex-wrap">
+          {RenderLinks(data.links)}
+        </Space>
       </Card>
 
       <Card className="mt-3 shadow-sm text-muted">

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { DEV_MODE } from "../../settings";
 
 const useAPI = ({ url }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [refresh, setRefresh] = useState(false);
 
-  const save = window.location.href.includes("localhost");
+  const devMode = DEV_MODE;
 
   useEffect(() => {
     const fetchData = () => {
@@ -13,7 +14,7 @@ const useAPI = ({ url }) => {
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
-            if (save) {
+            if (devMode) {
               localStorage.setItem(url, JSON.stringify(data));
             }
             setData(data);
@@ -25,7 +26,7 @@ const useAPI = ({ url }) => {
     };
 
     setLoading(true);
-    if (save) {
+    if (devMode) {
       const dt = localStorage.getItem(url);
 
       if (dt) {
