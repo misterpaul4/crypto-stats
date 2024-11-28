@@ -3,7 +3,7 @@ const BASE_URL = "https://api.coingecko.com/api/v3/";
 export const ALL_TOKENS = `${BASE_URL}coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&sparkline=false&price_change_percentage=24h%2C7d`;
 
 export const CRYPTO_DETAILS = (id) =>
-  `${BASE_URL}coins/${id}?localization=false&tickers=false&market_data=true&community_data=false`;
+  `${BASE_URL}coins/${id}?localization=false&sparkline=true`;
 
 export const FAVOURITE_TOKENS = (favourites = []) => {
   const ids = favourites.join(",");

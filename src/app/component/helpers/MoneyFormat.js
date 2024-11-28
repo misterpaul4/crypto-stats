@@ -6,6 +6,7 @@ function MoneyFormat({
   className = "",
   currency = "$",
   addonAfter = "",
+  short = false,
 }) {
   return (
     <div className={className}>
@@ -13,10 +14,12 @@ function MoneyFormat({
         {formatNumber(amount, currency)}{" "}
         {typeof amount === "number" && addonAfter}
       </div>
-      <small className="text-muted">
-        {moneyWithCommas(amount, currency)}{" "}
-        {typeof amount === "number" && addonAfter}
-      </small>
+      {!short && (
+        <small className="text-muted">
+          {moneyWithCommas(amount, currency)}{" "}
+          {typeof amount === "number" && addonAfter}
+        </small>
+      )}
     </div>
   );
 }
