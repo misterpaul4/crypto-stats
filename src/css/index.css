@@ -123,3 +123,10 @@ td img {
 .text-faint {
   color: rgb(200, 200, 200) !important;
 }
+
+.sentiment-chart-label {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

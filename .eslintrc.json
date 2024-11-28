@@ -35,7 +35,8 @@
     "import/prefer-default-export":"off",
     "no-confusing-arrow":"off",
     "react/jsx-curly-newline":"off",
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "linebreak-style": ["off"]
   },
   "ignorePatterns": ["dist/", "build/"]
 }

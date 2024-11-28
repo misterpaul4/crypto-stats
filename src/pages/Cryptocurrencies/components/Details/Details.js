@@ -16,6 +16,8 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { CURRENCY } from "../../../../settings";
 import { moneyWithCommas } from "../../../../utils";
 import ShareCoin from "./ShareCoin";
+import CardV from "./CardV";
+import SentimentChart from "./SentimentChart";
 
 function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
   const { btnIcon, btnClick, btnTitle } = favourites.includes(data.id)
@@ -38,7 +40,7 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
   return (
     <div>
       <Card className="mt-3 shadow-sm">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between">
           <Space direction="vertical" size="small" style={{ flex: 1.5 }}>
             <div className="mb-2">
               <Tag
@@ -86,7 +88,10 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
             </div>
 
             {/* price change */}
-            <div className="d-flex align-items-center w-75" style={{ fontSize: '0.8rem' }}>
+            <div
+              className="d-flex align-items-center w-75"
+              style={{ fontSize: "0.8rem" }}
+            >
               {/* low */}
               <span className="text-faint">Low 24h:</span>{" "}
               <strong className="mx-1">
@@ -101,7 +106,7 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
                 percent={30}
                 // eslint-disable-next-line react/no-unstable-nested-components
                 format={() => (
-                  <div style={{ fontSize: '0.8rem' }}>
+                  <div style={{ fontSize: "0.8rem" }}>
                     <span className="text-faint">High 24h:</span>{" "}
                     <strong>
                       {moneyWithCommas(data.market_data.high_24h.usd, CURRENCY)}
@@ -112,8 +117,7 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
             </div>
 
             {/* categories */}
-            <div className="d-flex flex-column w-75">
-              <strong>categories:</strong>
+            <div className="d-flex flex-column w-75 mt-3">
               <Space className="flex-wrap" size="small">
                 {data.categories.map((category) => (
                   <Tag color="geekblue" key={category}>
@@ -124,22 +128,26 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
             </div>
           </Space>
 
-          <Space direction="vertical" size="small" style={{ flex: 1 }}>
-            <Descriptions title="Key Links" column={1}>
-              <Descriptions.Item label="Website">Zhou Maomao</Descriptions.Item>
-              <Descriptions.Item label="Blockchain">
-                1810000000
-              </Descriptions.Item>
-              <Descriptions.Item label="Live">
-                Hangzhou, Zhejiang
-              </Descriptions.Item>
-              <Descriptions.Item label="Remark">empty</Descriptions.Item>
-              <Descriptions.Item label="Address">
-                No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
-              </Descriptions.Item>
-            </Descriptions>
-          </Space>
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <div className="d-flex">
+              <CardV
+                title="Market cap"
+                value={data.market_data.market_cap.usd}
+                percentageChange={
+                  data.market_data.market_cap_change_percentage_24h
+                }
+              />
+            </div>
+            <SentimentChart
+              target={data.sentiment_votes_up_percentage}
+              title="Community Sentiment"
+            />
+          </div>
         </div>
+      </Card>
+
+      <Card className="mt-3 shadow-sm text-muted">
+        <div dangerouslySetInnerHTML={{ __html: data.description.en }} />
       </Card>
     </div>
   );

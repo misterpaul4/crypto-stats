@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useAPI = ({ url, save = false }) => {
+const useAPI = ({ url, save = true }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [refresh, setRefresh] = useState(false);
