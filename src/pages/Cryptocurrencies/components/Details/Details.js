@@ -86,17 +86,12 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
             </div>
 
             {/* price change */}
-            <div className="d-flex align-items-center w-25">
+            <div className="d-flex align-items-center w-75" style={{ fontSize: '0.8rem' }}>
               {/* low */}
-              <div
-                className="d-flex align-items-center"
-                style={{ fontSize: 12, flex: 1 }}
-              >
-                <span className="text-faint">Low 24h:</span>{" "}
-                <strong>
-                  {moneyWithCommas(data.market_data.low_24h.usd, CURRENCY)}
-                </strong>
-              </div>
+              <span className="text-faint">Low 24h:</span>{" "}
+              <strong className="mx-1">
+                {moneyWithCommas(data.market_data.low_24h.usd, CURRENCY)}
+              </strong>
               <Progress
                 className="m-0"
                 style={{ flex: 1.5 }}
@@ -106,12 +101,12 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
                 percent={30}
                 // eslint-disable-next-line react/no-unstable-nested-components
                 format={() => (
-                  <>
+                  <div style={{ fontSize: '0.8rem' }}>
                     <span className="text-faint">High 24h:</span>{" "}
                     <strong>
                       {moneyWithCommas(data.market_data.high_24h.usd, CURRENCY)}
                     </strong>
-                  </>
+                  </div>
                 )}
               />
             </div>
