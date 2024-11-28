@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import {
   Button,
   Card,
@@ -55,6 +56,17 @@ const RenderLinks = (data) =>
             value[i] && isValidUrl(value[i]) && mutiLinkArr.push(value[i]);
           }
         }
+      } else if (typeof value === "object") {
+        Object.entries(value).forEach(([k, v1]) => {
+          if (Array.isArray(v1)) {
+            mutiLinkArr.push(...v1.filter(Boolean));
+          }
+        });
+
+        if (mutiLinkArr.length) {
+          res = mutiLinkArr[0];
+          validUrl = isValidUrl(res);
+        }
       }
 
       if (!res) return null;
@@ -89,7 +101,7 @@ const RenderLinks = (data) =>
         <Tooltip
           color="white"
           title={
-            <div>
+            <div style={{ maxHeight: "300px", overflowY: "scroll" }}>
               <Typography.Title level={5}>{Title}</Typography.Title>
               <Space wrap>
                 {mutiLinkArr.map((l) => (
