@@ -205,7 +205,12 @@ function Details({ data, favourites, removeFromFavourites, addToFavourites }) {
                 size="small"
                 strokeColor="#c4bebe"
                 status="active"
-                percent={30}
+                percent={
+                  ((data.market_data.current_price.usd -
+                    data.market_data.low_24h.usd) /
+                    (data.market_data.high_24h.usd - data.market_data.low_24h.usd)) *
+                  100
+                }
                 // eslint-disable-next-line react/no-unstable-nested-components
                 format={() => (
                   <div style={{ fontSize: "0.8rem" }}>
