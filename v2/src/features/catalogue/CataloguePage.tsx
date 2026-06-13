@@ -2,12 +2,14 @@ import { Alert, Button, Skeleton, Space, Typography } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useMarkets } from './api/useMarkets';
 import { MarketTable } from './MarketTable';
+import { DiscoveryRow } from '@features/discovery/components/DiscoveryRow';
 
 export function CataloguePage() {
   const { data, isLoading, isError, error, refetch, isFetching } = useMarkets('usd', 100);
 
   return (
-    <Space direction="vertical" size={16} style={{ width: '100%' }}>
+    <Space direction="vertical" size={20} style={{ width: '100%' }}>
+      <DiscoveryRow />
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
         <div>
           <Typography.Title level={3} style={{ margin: 0 }}>

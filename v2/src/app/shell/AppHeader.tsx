@@ -1,8 +1,9 @@
 import { Link } from '@tanstack/react-router';
-import { Space, theme, Typography } from 'antd';
-import { ThunderboltFilled } from '@ant-design/icons';
+import { Button, Space, theme, Typography } from 'antd';
+import { SearchOutlined, ThunderboltFilled } from '@ant-design/icons';
 import { ThemeToggle } from '@shared/ui/ThemeToggle';
 import { ConnectionStatus } from '@features/realtime/components/ConnectionStatus';
+import { useCommandPalette } from '@features/search/commandPalette.store';
 
 const NAV = [
   { to: '/', label: 'Market' },
@@ -12,6 +13,7 @@ const NAV = [
 
 export function AppHeader() {
   const { token } = theme.useToken();
+  const openSearch = useCommandPalette((s) => s.setOpen);
 
   return (
     <div
@@ -25,9 +27,12 @@ export function AppHeader() {
       }}
     >
       <Space size={36} align="center">
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <Link
+          to="/"
+          style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, whiteSpace: 'nowrap' }}
+        >
           <ThunderboltFilled style={{ color: token.colorPrimary, fontSize: 20 }} />
-          <Typography.Text strong style={{ fontSize: 16, letterSpacing: 0.2 }}>
+          <Typography.Text strong style={{ fontSize: 16, letterSpacing: 0.2, whiteSpace: 'nowrap' }}>
             Crypto<span style={{ color: token.colorPrimary }}>Stats</span>
           </Typography.Text>
         </Link>
@@ -57,7 +62,26 @@ export function AppHeader() {
         </Space>
       </Space>
 
-      <Space size={16} align="center">
+      <Space size={12} align="center">
+        <Button
+          icon={<SearchOutlined />}
+          onClick={() => openSearch(true)}
+          style={{ color: token.colorTextTertiary }}
+        >
+          Search
+          <kbd
+            style={{
+              marginLeft: 8,
+              padding: '1px 6px',
+              borderRadius: 6,
+              fontSize: 11,
+              border: `1px solid ${token.colorBorderSecondary}`,
+              color: token.colorTextTertiary,
+            }}
+          >
+            ⌘K
+          </kbd>
+        </Button>
         <ConnectionStatus />
         <ThemeToggle />
       </Space>

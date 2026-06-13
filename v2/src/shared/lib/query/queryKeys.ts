@@ -6,4 +6,9 @@ export const queryKeys = {
   coin: (id: string) => ['coin', id] as const,
   coinOhlc: (id: string, days: number) => ['coin-ohlc', id, days] as const,
   exchanges: (perPage: number) => ['exchanges', perPage] as const,
+  trending: () => ['trending'] as const,
+  coinSearch: (query: string) => ['coin-search', query] as const,
+  globalTvl: () => ['llama', 'tvl'] as const,
+  stablecoins: () => ['llama', 'stablecoins'] as const,
+  fearGreed: () => ['fng'] as const,
 };

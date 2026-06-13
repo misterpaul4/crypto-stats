@@ -16,4 +16,7 @@ export const cgEndpoints = {
     `/coins/${id}/ohlc?vs_currency=${vs}&days=${days}`,
 
   exchanges: (perPage = 100) => `/exchanges?per_page=${perPage}`,
+
+  trending: () => `/search/trending`,
+  search: (query: string) => `/search?query=${encodeURIComponent(query)}`,
 } as const;

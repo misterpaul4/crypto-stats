@@ -43,6 +43,34 @@ export interface CoinDetail {
 /** CoinGecko OHLC row: [timestamp_ms, open, high, low, close]. */
 export type OhlcRow = [number, number, number, number, number];
 
+/** /search/trending — coins are wrapped in `item`; financials are pre-formatted strings. */
+export interface TrendingItem {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  market_cap_rank: number | null;
+  data?: {
+    price?: number;
+    price_change_percentage_24h?: Record<string, number>;
+  };
+}
+export interface TrendingResponse {
+  coins: { item: TrendingItem }[];
+}
+
+/** /search?query= — flat coins (no `data`/`small`). */
+export interface SearchCoin {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  market_cap_rank: number | null;
+}
+export interface SearchResponse {
+  coins: SearchCoin[];
+}
+
 export interface Exchange {
   id: string;
   name: string;
