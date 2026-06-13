@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { Space, theme, Typography } from 'antd';
 import { ThunderboltFilled } from '@ant-design/icons';
 import { ThemeToggle } from '@shared/ui/ThemeToggle';
+import { ConnectionStatus } from '@features/realtime/components/ConnectionStatus';
 
 const NAV = [
   { to: '/', label: 'Market' },
@@ -56,7 +57,10 @@ export function AppHeader() {
         </Space>
       </Space>
 
-      <ThemeToggle />
+      <Space size={16} align="center">
+        <ConnectionStatus />
+        <ThemeToggle />
+      </Space>
     </div>
   );
 }

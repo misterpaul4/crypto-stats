@@ -54,6 +54,21 @@ html[data-theme='dark'] body {
   }
 }
 
+@keyframes mkt-pulse {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+    opacity: 1;
+  }
+  70% {
+    box-shadow: 0 0 0 5px transparent;
+    opacity: 0.7;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   @keyframes mkt-flash-up {
     from,

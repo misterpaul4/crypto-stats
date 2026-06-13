@@ -3,6 +3,7 @@ import { CoinCell } from '@shared/ui/CoinCell';
 import { PercentTag } from '@shared/ui/PercentTag';
 import { Sparkline } from '@shared/ui/Sparkline';
 import { LivePriceCell } from '@features/realtime/components/LivePriceCell';
+import { baseSymbol } from '@shared/lib/symbol-map/symbols';
 import { formatCompact } from '@shared/lib/format';
 import type { CoinMarket } from '@shared/types/coingecko';
 
@@ -23,7 +24,7 @@ export function marketColumns(): ColumnsType<CoinMarket> {
       align: 'right',
       width: 150,
       sorter: (a, b) => a.current_price - b.current_price,
-      render: (_, c) => <LivePriceCell fallbackPrice={c.current_price} />,
+      render: (_, c) => <LivePriceCell symbol={baseSymbol(c.symbol)} fallbackPrice={c.current_price} />,
     },
     {
       title: '24h',

@@ -4,6 +4,7 @@ import { createAppQueryClient } from '@app/lib/queryClient';
 import { idbPersister } from '@shared/lib/query/persister';
 import { ThemeProvider } from '@app/theme/ThemeProvider';
 import { AppErrorBoundary } from '@app/error/AppErrorBoundary';
+import { RealtimeProvider } from '@features/realtime/RealtimeProvider';
 import { env } from '@app/config/env';
 
 const MONTH_MS = 1000 * 60 * 60 * 24;
@@ -24,7 +25,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
             maxAge: MONTH_MS, // hard ceiling; per-query freshness handled by staleTime
           }}
         >
-          {children}
+          <RealtimeProvider>{children}</RealtimeProvider>
         </PersistQueryClientProvider>
       </AppErrorBoundary>
     </ThemeProvider>

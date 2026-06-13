@@ -5,21 +5,22 @@ import { formatPrice } from '@shared/lib/format';
 import styles from './LivePriceCell.module.css';
 
 interface Props {
-  /** Canonical exchange symbol, if this coin maps to a live feed. Omit for snapshot-only. */
+  /** Canonical base symbol (e.g. BTC) if this coin maps to a live feed. */
   symbol?: string;
   fallbackPrice: number;
 }
 
 /**
  * Renders the live tick if one exists for `symbol`, otherwise the REST snapshot
- * (single source of truth per ARCHITECTURE §4.1). Flashes green/up or red/down on
- * change. The flash logic captures the previous value BEFORE mutating the ref and
- * restarts the keyframe via a `tick` key so repeated same-direction ticks replay.
+ * (single source of truth per ARCHITECTURE §4.1). A coin is "live" only when a
+ * ticker exists AND its source isn't 'snapshot' — so a snapshot-only coin shows a
+ * subtle badge and never flashes. Flash logic captures the previous value BEFORE
+ * mutating the ref and restarts the keyframe via a `tick` key.
  */
 export const LivePriceCell = memo(function LivePriceCell({ symbol, fallbackPrice }: Props) {
-  const live = useRealtimeStore((s) => (symbol ? s.bySymbol[symbol]?.price : undefined));
-  const isLive = live != null;
-  const price = live ?? fallbackPrice;
+  const ticker = useRealtimeStore((s) => (symbol ? s.bySymbol[symbol] : undefined));
+  const isLive = ticker != null && ticker.source !== 'snapshot';
+  const price = ticker?.price ?? fallbackPrice;
 
   const prevRef = useRef(price);
   const [dir, setDir] = useState<'up' | 'down' | null>(null);
@@ -44,7 +45,7 @@ export const LivePriceCell = memo(function LivePriceCell({ symbol, fallbackPrice
         isLive && dir === 'up' && styles.flashUp,
         isLive && dir === 'down' && styles.flashDown,
       )}
-      title={symbol && !isLive ? 'snapshot price (not yet live)' : undefined}
+      title={symbol && !isLive ? 'snapshot price (no live feed)' : undefined}
     >
       {formatPrice(price)}
       {symbol && !isLive && <span className={styles.badge} aria-label="snapshot, not live" />}
