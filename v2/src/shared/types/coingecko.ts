@@ -19,3 +19,26 @@ export interface CoinMarket {
   price_change_percentage_7d_in_currency?: number | null;
   sparkline_in_7d?: { price: number[] };
 }
+
+export interface CoinDetail {
+  id: string;
+  symbol: string;
+  name: string;
+  image: { thumb: string; small: string; large: string };
+  description: { en: string };
+  market_cap_rank: number;
+  market_data: {
+    current_price: Record<string, number>;
+    price_change_percentage_24h: number | null;
+    price_change_percentage_7d: number | null;
+    market_cap: Record<string, number>;
+    total_volume: Record<string, number>;
+    high_24h: Record<string, number>;
+    low_24h: Record<string, number>;
+    circulating_supply: number | null;
+    ath: Record<string, number>;
+  };
+}
+
+/** CoinGecko OHLC row: [timestamp_ms, open, high, low, close]. */
+export type OhlcRow = [number, number, number, number, number];

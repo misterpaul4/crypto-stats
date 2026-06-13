@@ -20,6 +20,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
     "idb-keyval": "^6.2.5",
+    "lightweight-charts": "^5.2.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "zod": "^4.4.3",
