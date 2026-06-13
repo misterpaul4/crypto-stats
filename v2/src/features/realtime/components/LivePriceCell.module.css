@@ -1,0 +1,25 @@
+.cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  margin: -2px -6px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.flashUp {
+  animation: mkt-flash-up 0.6s ease-out;
+}
+
+.flashDown {
+  animation: mkt-flash-down 0.6s ease-out;
+}
+
+.badge {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ant-color-text-quaternary, rgba(255, 255, 255, 0.25));
+  display: inline-block;
+}
