@@ -10,6 +10,20 @@ let done = false;
  * a rollback net. Note: localStorage is origin-scoped, so this only migrates data
  * when the new app is served from the same origin as the old one (i.e. in prod).
  */
+/** Pure read of the legacy favourites blob — returns [] on missing/malformed input. */
+export function readLegacyFavourites(): string[] {
+  try {
+    const raw = localStorage.getItem(LEGACY_KEY);
+    const parsed: unknown = raw ? JSON.parse(raw) : null;
+    if (Array.isArray(parsed)) {
+      return parsed.filter((x): x is string => typeof x === 'string');
+    }
+  } catch {
+    /* defensive: ignore a malformed legacy blob */
+  }
+  return [];
+}
+
 export function bootstrapLegacyWatchlist(): void {
   if (done) return;
   done = true;
@@ -17,14 +31,6 @@ export function bootstrapLegacyWatchlist(): void {
   const store = useWatchlistStore.getState();
   if (store.ids.length > 0) return;
 
-  try {
-    const raw = localStorage.getItem(LEGACY_KEY);
-    const parsed: unknown = raw ? JSON.parse(raw) : null;
-    if (Array.isArray(parsed)) {
-      const ids = parsed.filter((x): x is string => typeof x === 'string');
-      if (ids.length > 0) store.setAll(ids);
-    }
-  } catch {
-    /* defensive: ignore a malformed legacy blob */
-  }
+  const ids = readLegacyFavourites();
+  if (ids.length > 0) store.setAll(ids);
 }

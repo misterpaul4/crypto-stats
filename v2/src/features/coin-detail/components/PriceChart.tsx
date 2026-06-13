@@ -27,17 +27,16 @@ export default function PriceChart({ data, liveSymbol, height = 380 }: Props) {
   const seriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null);
   const lastBarRef = useRef<CandlestickData | null>(null);
   const themeOptions = useChartTheme();
-  const themeRef = useRef(themeOptions);
-  themeRef.current = themeOptions;
 
   // Create once. Size via ResizeObserver (fires regardless of tab visibility,
   // unlike requestAnimationFrame) and re-fit all bars on every resize so the
-  // candles always span the full width.
+  // candles always span the full width. Theme changes are handled by a separate
+  // effect — we deliberately don't recreate the chart, hence the disabled deps.
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const chart = createChart(el, { width: el.clientWidth, height, ...themeRef.current.chart });
-    const series = chart.addSeries(CandlestickSeries, themeRef.current.series);
+    const chart = createChart(el, { width: el.clientWidth, height, ...themeOptions.chart });
+    const series = chart.addSeries(CandlestickSeries, themeOptions.series);
     chartRef.current = chart;
     seriesRef.current = series;
 
@@ -56,6 +55,7 @@ export default function PriceChart({ data, liveSymbol, height = 380 }: Props) {
       chartRef.current = null;
       seriesRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- create once; theme applied separately
   }, [height]);
 
   // Re-theme in lockstep with dark/light.

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- router config module, not an HMR component file */
 import {
   createRootRoute,
   createRoute,
