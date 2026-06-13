@@ -3,12 +3,21 @@ import { CoinCell } from '@shared/ui/CoinCell';
 import { PercentTag } from '@shared/ui/PercentTag';
 import { Sparkline } from '@shared/ui/Sparkline';
 import { LivePriceCell } from '@features/realtime/components/LivePriceCell';
+import { WatchlistStar } from '@features/watchlist/components/WatchlistStar';
 import { baseSymbol } from '@shared/lib/symbol-map/symbols';
 import { formatCompact } from '@shared/lib/format';
 import type { CoinMarket } from '@shared/types/coingecko';
 
 export function marketColumns(): ColumnsType<CoinMarket> {
   return [
+    {
+      title: '',
+      key: 'star',
+      fixed: 'left',
+      width: 46,
+      align: 'center',
+      render: (_, c) => <WatchlistStar coinId={c.id} />,
+    },
     {
       title: 'Coin',
       key: 'coin',

@@ -1,5 +1,6 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { bootstrapLegacyWatchlist } from '@features/watchlist/store/watchlist.bootstrap';
 import { createAppQueryClient } from '@app/lib/queryClient';
 import { idbPersister } from '@shared/lib/query/persister';
 import { ThemeProvider } from '@app/theme/ThemeProvider';
@@ -12,6 +13,11 @@ const MONTH_MS = 1000 * 60 * 60 * 24;
 export function AppProviders({ children }: { children: ReactNode }) {
   // One client per app instance (StrictMode-safe via lazy init).
   const [queryClient] = useState(createAppQueryClient);
+
+  // One-time migration of the legacy localStorage favourites into the watchlist.
+  useEffect(() => {
+    bootstrapLegacyWatchlist();
+  }, []);
 
   return (
     <ThemeProvider>

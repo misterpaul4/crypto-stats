@@ -16,7 +16,7 @@ export function MarketTable({ data }: { data: CoinMarket[] }) {
 
   const props: TableProps<CoinMarket> = {
     virtual: true,
-    scroll: { x: 1130, y: 640 },
+    scroll: { x: 1180, y: 640 },
     columns,
     dataSource: data,
     rowKey: 'id',

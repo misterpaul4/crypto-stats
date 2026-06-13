@@ -42,3 +42,15 @@ export interface CoinDetail {
 
 /** CoinGecko OHLC row: [timestamp_ms, open, high, low, close]. */
 export type OhlcRow = [number, number, number, number, number];
+
+export interface Exchange {
+  id: string;
+  name: string;
+  image: string;
+  trust_score: number | null;
+  trust_score_rank: number | null;
+  trade_volume_24h_btc: number;
+  country: string | null;
+  year_established: number | null;
+  url: string;
+}
