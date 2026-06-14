@@ -7,10 +7,6 @@ interface Props {
   height?: number;
 }
 
-/**
- * Inline-SVG sparkline — one <path> per row, not a chart instance. Rendering 250
- * canvas charts would be a perf trap; an SVG path is cheap and themeable.
- */
 export const Sparkline = memo(function Sparkline({ data, width = 130, height = 40 }: Props) {
   if (!data || data.length < 2) return <span style={{ opacity: 0.4 }}>—</span>;
 

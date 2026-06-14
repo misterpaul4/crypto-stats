@@ -1,17 +1,12 @@
 import { QueryClient } from '@tanstack/react-query';
 import type { CgError } from '@shared/lib/api/cgFetch';
 
-/**
- * One tuned QueryClient. Long staleTime (markets-class data is server-cached
- * ~15 min upstream), no window-focus refetch (the #1 cause of silent 429 storms),
- * a 429-aware retry, and a single coordinated backoff via retryDelay.
- */
 export function createAppQueryClient(): QueryClient {
   return new QueryClient({
     defaultOptions: {
       queries: {
         staleTime: 2 * 60_000,
-        gcTime: 1000 * 60 * 60 * 24, // resident long enough for the persister to dehydrate
+        gcTime: 1000 * 60 * 60 * 24,
         refetchOnWindowFocus: false,
         retry: (failureCount, error) => {
           const status = (error as CgError)?.status;

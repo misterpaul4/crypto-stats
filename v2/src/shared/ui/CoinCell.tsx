@@ -8,7 +8,6 @@ interface Props {
   rank: number;
 }
 
-/** Coin identity cell: rank · logo · name · ticker. */
 export const CoinCell = memo(function CoinCell({ name, symbol, image, rank }: Props) {
   const { token } = theme.useToken();
   return (

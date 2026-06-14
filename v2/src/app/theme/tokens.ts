@@ -1,11 +1,5 @@
 import type { ThemeConfig } from 'antd';
 
-/**
- * The "Aurora" design tokens — the single source of truth for the look.
- * Feeds AntD (via ConfigProvider) and, later, lightweight-charts (via useChartTheme).
- */
-
-/** Market up/down colors. The flash animation reads the `*Bg` values via CSS vars in global.css. */
 export const market = {
   up: '#16c784',
   upBg: 'rgba(22, 199, 132, 0.16)',

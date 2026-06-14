@@ -1,7 +1,6 @@
 import { mergeConfig, defineConfig } from 'vitest/config';
 import viteConfig from './vite.config';
 
-// Reuse the Vite config (path aliases via vite-tsconfig-paths) for tests.
 export default mergeConfig(
   viteConfig,
   defineConfig({

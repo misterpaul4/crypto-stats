@@ -1,5 +1,5 @@
 :root {
-  /* Market flash colors — decoupled from AntD's internal var naming (see ARCHITECTURE §4.2). */
+
   --mkt-up-bg: rgba(22, 199, 132, 0.16);
   --mkt-down-bg: rgba(234, 57, 67, 0.16);
 }
@@ -21,7 +21,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* A subtle aurora gradient wash behind the dark app shell. */
 html[data-theme='dark'] body {
   background:
     radial-gradient(900px 500px at 12% -8%, rgba(91, 108, 255, 0.12), transparent 60%),
@@ -35,7 +34,6 @@ html[data-theme='dark'] body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Price flash keyframes. Respect reduced-motion (WCAG 2.3). */
 @keyframes mkt-flash-up {
   from {
     background-color: var(--mkt-up-bg);

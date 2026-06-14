@@ -11,16 +11,11 @@ import { useChartTheme } from './useChartTheme';
 
 interface Props {
   data: CandlestickData[];
-  /** Base symbol whose live tick overlays the most recent candle. */
+
   liveSymbol?: string;
   height?: number;
 }
 
-/**
- * Candlestick chart. Created ONCE; data and theme are applied via separate effects
- * (never re-create on a data change). The live price extends the last bar's
- * high/low/close in real time without a separate kline subscription.
- */
 export default function PriceChart({ data, liveSymbol, height = 380 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -28,10 +23,6 @@ export default function PriceChart({ data, liveSymbol, height = 380 }: Props) {
   const lastBarRef = useRef<CandlestickData | null>(null);
   const themeOptions = useChartTheme();
 
-  // Create once. Size via ResizeObserver (fires regardless of tab visibility,
-  // unlike requestAnimationFrame) and re-fit all bars on every resize so the
-  // candles always span the full width. Theme changes are handled by a separate
-  // effect — we deliberately don't recreate the chart, hence the disabled deps.
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -58,13 +49,11 @@ export default function PriceChart({ data, liveSymbol, height = 380 }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- create once; theme applied separately
   }, [height]);
 
-  // Re-theme in lockstep with dark/light.
   useEffect(() => {
     chartRef.current?.applyOptions(themeOptions.chart);
     seriesRef.current?.applyOptions(themeOptions.series);
   }, [themeOptions]);
 
-  // Apply historical data; seed the live overlay's reference bar.
   useEffect(() => {
     if (!seriesRef.current) return;
     seriesRef.current.setData(data);
@@ -72,7 +61,6 @@ export default function PriceChart({ data, liveSymbol, height = 380 }: Props) {
     chartRef.current?.timeScale().fitContent();
   }, [data]);
 
-  // Live overlay: extend the last candle from the realtime store.
   const livePrice = useRealtimeStore((s) => (liveSymbol ? s.bySymbol[liveSymbol]?.price : undefined));
   useEffect(() => {
     const bar = lastBarRef.current;

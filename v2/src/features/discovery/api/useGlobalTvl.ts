@@ -5,7 +5,6 @@ import type { LlamaHistoricalChainTvl } from '@shared/types/llama';
 
 const TVL_URL = 'https://api.llama.fi/v2/historicalChainTvl';
 
-/** Global DeFi TVL — DeFiLlama server-caches ~30 min, so refresh hourly. */
 export function useGlobalTvl() {
   return useQuery({
     queryKey: queryKeys.globalTvl(),

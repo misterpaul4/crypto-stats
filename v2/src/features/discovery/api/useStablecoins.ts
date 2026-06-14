@@ -5,7 +5,6 @@ import type { StablecoinsResponse } from '@shared/types/llama';
 
 const STABLE_URL = 'https://stablecoins.llama.fi/stablecoins?includePrices=true';
 
-/** Total USD-pegged stablecoin market cap + 24h delta. Sum ONLY `peggedUSD` (no double-count). */
 export function useStablecoins() {
   return useQuery({
     queryKey: queryKeys.stablecoins(),

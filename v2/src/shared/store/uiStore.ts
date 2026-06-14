@@ -9,10 +9,6 @@ interface UiState {
   toggleTheme: () => void;
 }
 
-/**
- * UI preferences. Persisted under `cs-ui` — the same key the pre-hydration
- * inline script in index.html reads to avoid a theme flash on first paint.
- */
 export const useUiStore = create<UiState>()(
   persist(
     (set, get) => ({
@@ -24,7 +20,6 @@ export const useUiStore = create<UiState>()(
   ),
 );
 
-/** Resolve `system` against the OS preference. */
 export function resolveTheme(theme: ThemeMode): 'light' | 'dark' {
   if (theme !== 'system') return theme;
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

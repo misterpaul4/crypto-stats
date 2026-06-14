@@ -12,7 +12,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <!-- Pre-hydration theme: avoids a light flash before React resolves the persisted theme. -->
     <script>
       (function () {
         try {
@@ -26,7 +25,7 @@
           root.style.colorScheme = theme;
           root.style.background = theme === 'dark' ? '#0b0e14' : '#f6f7fb';
         } catch (e) {
-          /* default dark already set on <html> */
+          void e;
         }
       })();
     </script>

@@ -6,18 +6,12 @@ type FlushFn = (batch: Record<string, Ticker>, state: ConnectionState) => void;
 
 const BASE_BACKOFF = 500;
 const MAX_BACKOFF = 30_000;
-const PROACTIVE_MS = 23 * 60 * 60 * 1000; // reconnect before Binance's 24h kill
-const STALE_MS = 20_000; // watchdog: no tick while "live" => degraded
-const FAST_CLOSE_MS = 2000; // a close this soon after open smells like a geo-block
+const PROACTIVE_MS = 23 * 60 * 60 * 1000;
+const STALE_MS = 20_000;
+const FAST_CLOSE_MS = 2000;
 const FAST_CLOSE_LIMIT = 3;
 const MAX_ATTEMPTS_BEFORE_OFFLINE = 8;
 
-/**
- * Owns the live-price WebSocket OUTSIDE React, so its lifetime survives StrictMode
- * double-invokes and route changes. Ticks are coalesced into one store commit per
- * animation frame; connection state rides the same schedule so the two never
- * interleave. Fast repeated closes (geo-block) flip the active exchange adapter.
- */
 export class TickerSocket {
   private readonly flush: FlushFn;
   private ws: WebSocket | null = null;
@@ -42,7 +36,6 @@ export class TickerSocket {
     this.watchdogId = setInterval(this.watchdog, STALE_MS);
   }
 
-  /** The symbols to retain (base) and the Coinbase product ids to subscribe to. */
   setUniverse(keep: Set<string>, products: string[]): void {
     this.keep = keep;
     this.products = products;
@@ -131,7 +124,7 @@ export class TickerSocket {
   private scheduleReconnect(): void {
     this.attempt += 1;
     const expo = Math.min(MAX_BACKOFF, BASE_BACKOFF * 2 ** this.attempt);
-    const jitter = Math.random() * expo; // full jitter
+    const jitter = Math.random() * expo;
     this.setState(this.attempt >= MAX_ATTEMPTS_BEFORE_OFFLINE ? 'offline' : 'reconnecting');
     this.track(setTimeout(() => this.ensureOpen(), jitter));
   }
@@ -172,7 +165,7 @@ export class TickerSocket {
     try {
       this.ws.close();
     } catch {
-      /* already closing */
+
     }
     this.ws = null;
   }

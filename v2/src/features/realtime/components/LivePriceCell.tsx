@@ -5,18 +5,11 @@ import { formatPrice } from '@shared/lib/format';
 import styles from './LivePriceCell.module.css';
 
 interface Props {
-  /** Canonical base symbol (e.g. BTC) if this coin maps to a live feed. */
+
   symbol?: string;
   fallbackPrice: number;
 }
 
-/**
- * Renders the live tick if one exists for `symbol`, otherwise the REST snapshot
- * (single source of truth per ARCHITECTURE §4.1). A coin is "live" only when a
- * ticker exists AND its source isn't 'snapshot' — so a snapshot-only coin shows a
- * subtle badge and never flashes. Flash logic captures the previous value BEFORE
- * mutating the ref and restarts the keyframe via a `tick` key.
- */
 export const LivePriceCell = memo(function LivePriceCell({ symbol, fallbackPrice }: Props) {
   const ticker = useRealtimeStore((s) => (symbol ? s.bySymbol[symbol] : undefined));
   const isLive = ticker != null && ticker.source !== 'snapshot';

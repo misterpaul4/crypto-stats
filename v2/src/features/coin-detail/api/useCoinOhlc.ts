@@ -5,11 +5,6 @@ import { cgEndpoints } from '@shared/lib/api/coingecko.endpoints';
 import { queryKeys } from '@shared/lib/query/queryKeys';
 import type { OhlcRow } from '@shared/types/coingecko';
 
-/**
- * Historical candles from CoinGecko OHLC (free, no Binance-REST geo-block; routed
- * through our throttle). Deduped + sorted ascending — lightweight-charts throws on
- * duplicate or out-of-order times.
- */
 export function useCoinOhlc(id: string, days: number) {
   return useQuery({
     queryKey: queryKeys.coinOhlc(id, days),

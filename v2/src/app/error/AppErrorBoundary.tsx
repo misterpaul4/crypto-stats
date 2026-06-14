@@ -5,7 +5,6 @@ interface State {
   error: Error | null;
 }
 
-/** Top-level error boundary so a render crash shows a recovery UI, not a white screen. */
 export class AppErrorBoundary extends Component<{ children: ReactNode }, State> {
   state: State = { error: null };
 

@@ -15,15 +15,8 @@ export class CgError extends Error {
   }
 }
 
-/** dev-only request counter to catch a stray refetchInterval regression. */
 let reqCount = 0;
 
-/**
- * The one place that talks to CoinGecko. Passes the Demo key as a *query param*
- * (a "simple request" that skips the CORS preflight a custom header would force),
- * forwards the AbortSignal so navigation cancels in-flight requests, and on 429
- * attaches Retry-After to the error WITHOUT sleeping — TanStack backs off once.
- */
 export async function cgFetch<T>(path: string, signal?: AbortSignal): Promise<T> {
   const release = await acquire();
   try {

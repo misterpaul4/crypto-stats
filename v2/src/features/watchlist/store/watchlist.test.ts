@@ -15,7 +15,7 @@ describe('watchlist store', () => {
     s.toggle('bitcoin');
     expect(useWatchlistStore.getState().ids).toEqual([]);
     s.add('ethereum');
-    s.add('ethereum'); // idempotent
+    s.add('ethereum');
     expect(useWatchlistStore.getState().ids).toEqual(['ethereum']);
     s.remove('ethereum');
     expect(useWatchlistStore.getState().ids).toEqual([]);

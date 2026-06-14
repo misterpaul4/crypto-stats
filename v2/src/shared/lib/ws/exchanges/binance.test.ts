@@ -8,7 +8,7 @@ describe('binanceAdapter.parse', () => {
     const frame = JSON.stringify([
       { e: '24hrMiniTicker', s: 'BTCUSDT', c: '64000.5' },
       { e: '24hrMiniTicker', s: 'ETHUSDT', c: '1700.25' },
-      { e: '24hrMiniTicker', s: 'DOGEUSDT', c: '0.12' }, // not in keep
+      { e: '24hrMiniTicker', s: 'DOGEUSDT', c: '0.12' },
     ]);
     const out = binanceAdapter.parse(frame, keep);
     expect(out).toHaveLength(2);
@@ -29,8 +29,8 @@ describe('binanceAdapter.parse', () => {
 
   it('filters non-USDT pairs and symbols outside the keep set', () => {
     const frame = JSON.stringify([
-      { s: 'ETHBTC', c: '0.05' }, // not a USDT pair
-      { s: 'XRPUSDT', c: '1.1' }, // not in keep
+      { s: 'ETHBTC', c: '0.05' },
+      { s: 'XRPUSDT', c: '1.1' },
     ]);
     expect(binanceAdapter.parse(frame, keep)).toHaveLength(0);
   });

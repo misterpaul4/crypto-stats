@@ -1,13 +1,12 @@
-/** Alternative.me Fear & Greed Index. NOTE: every numeric field is a STRING. */
 export interface FngEntry {
-  value: string; // "0".."100"
-  value_classification: string; // 'Extreme Fear' | 'Fear' | 'Neutral' | 'Greed' | 'Extreme Greed'
-  timestamp: string; // unix SECONDS
-  time_until_update?: string; // present only on the newest entry (data[0])
+  value: string;
+  value_classification: string;
+  timestamp: string;
+  time_until_update?: string;
 }
 
 export interface FngResponse {
   name: string;
-  data: FngEntry[]; // newest-first
+  data: FngEntry[];
   metadata: { error: string | null };
 }

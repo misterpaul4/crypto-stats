@@ -4,7 +4,6 @@ import { cgEndpoints, type VsCurrency } from '@shared/lib/api/coingecko.endpoint
 import { queryKeys } from '@shared/lib/query/queryKeys';
 import type { CoinMarket } from '@shared/types/coingecko';
 
-/** Top coins by market cap. Markets-class data is server-cached ~15 min upstream. */
 export function useMarkets(vs: VsCurrency = 'usd', perPage = 100) {
   return useQuery({
     queryKey: queryKeys.markets(vs, perPage),

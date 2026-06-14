@@ -1,5 +1,3 @@
-/** Builders for the CoinGecko REST paths we consume (relative to /api/v3). */
-
 export type VsCurrency = 'usd' | 'eur' | 'btc' | 'eth';
 
 export const cgEndpoints = {
@@ -11,7 +9,6 @@ export const cgEndpoints = {
   coin: (id: string) =>
     `/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
 
-  /** Candlestick OHLC. days ∈ 1|7|14|30|90|180|365; granularity is auto (free tier). */
   coinOhlc: (id: string, days: number, vs: VsCurrency = 'usd') =>
     `/coins/${id}/ohlc?vs_currency=${vs}&days=${days}`,
 

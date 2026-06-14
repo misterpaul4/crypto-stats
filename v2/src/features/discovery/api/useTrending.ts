@@ -4,7 +4,6 @@ import { cgEndpoints } from '@shared/lib/api/coingecko.endpoints';
 import { queryKeys } from '@shared/lib/query/queryKeys';
 import type { TrendingItem, TrendingResponse } from '@shared/types/coingecko';
 
-/** Trending coins (CoinGecko returns 15, wrapped in `item`). */
 export function useTrending(limit = 6) {
   return useQuery({
     queryKey: queryKeys.trending(),

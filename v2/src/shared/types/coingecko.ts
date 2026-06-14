@@ -1,8 +1,3 @@
-/**
- * Curated CoinGecko response types. Hand-written for the slice; P1 replaces these
- * with `openapi-typescript`-generated types + curated aliases.
- */
-
 export interface CoinMarket {
   id: string;
   symbol: string;
@@ -40,10 +35,8 @@ export interface CoinDetail {
   };
 }
 
-/** CoinGecko OHLC row: [timestamp_ms, open, high, low, close]. */
 export type OhlcRow = [number, number, number, number, number];
 
-/** /search/trending — coins are wrapped in `item`; financials are pre-formatted strings. */
 export interface TrendingItem {
   id: string;
   name: string;
@@ -59,7 +52,6 @@ export interface TrendingResponse {
   coins: { item: TrendingItem }[];
 }
 
-/** /search?query= — flat coins (no `data`/`small`). */
 export interface SearchCoin {
   id: string;
   name: string;

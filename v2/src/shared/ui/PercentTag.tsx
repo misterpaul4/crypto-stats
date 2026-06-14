@@ -3,7 +3,6 @@ import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { theme } from 'antd';
 import { market } from '@app/theme/tokens';
 
-/** Signed % with direction icon + color (never color alone — a11y). */
 export const PercentTag = memo(function PercentTag({ value }: { value: number | null | undefined }) {
   const { token } = theme.useToken();
   if (value == null || Number.isNaN(value)) {

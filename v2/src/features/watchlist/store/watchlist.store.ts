@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface WatchlistState {
-  /** CoinGecko coin ids, insertion order preserved. */
+
   ids: string[];
   toggle: (id: string) => void;
   add: (id: string) => void;
@@ -11,11 +11,6 @@ interface WatchlistState {
   clear: () => void;
 }
 
-/**
- * Persisted watchlist. `version` is reserved for future shape changes; legacy
- * `favourites` migration is handled OUTSIDE persist.migrate (see bootstrap) —
- * migrate never runs for users who have no blob under this store's key.
- */
 export const useWatchlistStore = create<WatchlistState>()(
   persist(
     (set) => ({

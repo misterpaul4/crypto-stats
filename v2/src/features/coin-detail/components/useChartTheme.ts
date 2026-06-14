@@ -9,10 +9,6 @@ import {
 } from 'lightweight-charts';
 import { market } from '@app/theme/tokens';
 
-/**
- * Maps the AntD design tokens to lightweight-charts options so the chart re-themes
- * in lockstep with dark/light (ARCHITECTURE §4.2). One token source, two consumers.
- */
 export function useChartTheme(): {
   chart: DeepPartial<ChartOptions>;
   series: CandlestickSeriesPartialOptions;

@@ -6,11 +6,6 @@ function str(obj: unknown, key: string): string | undefined {
   return typeof v === 'string' ? v : undefined;
 }
 
-/**
- * Coinbase Exchange (legacy public feed, no auth) — the geo-block failover for
- * Binance (which is blocked from US IPs). Unlike Binance's firehose, Coinbase
- * needs an explicit subscribe to specific products on the `ticker` channel.
- */
 export const coinbaseAdapter: ExchangeAdapter = {
   name: 'coinbase',
   url: () => 'wss://ws-feed.exchange.coinbase.com',
@@ -26,7 +21,7 @@ export const coinbaseAdapter: ExchangeAdapter = {
       return [];
     }
     if (str(msg, 'type') !== 'ticker') return [];
-    const pid = str(msg, 'product_id'); // e.g. BTC-USD
+    const pid = str(msg, 'product_id');
     const p = str(msg, 'price');
     if (!pid || !p || !pid.endsWith('-USD')) return [];
     const base = pid.slice(0, -4);

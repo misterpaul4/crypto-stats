@@ -1,4 +1,4 @@
-import '@ant-design/v5-patch-for-react-19'; // must precede any antd import
+import '@ant-design/v5-patch-for-react-19';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from '@tanstack/react-router';

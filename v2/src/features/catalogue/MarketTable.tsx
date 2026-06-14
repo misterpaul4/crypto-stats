@@ -5,11 +5,6 @@ import { useNavigate } from '@tanstack/react-router';
 import { marketColumns } from './columns';
 import type { CoinMarket } from '@shared/types/coingecko';
 
-/**
- * Virtualized market table. `virtual` + a fixed `scroll` are both required for
- * AntD's built-in row virtualization, which keeps 250 rows at 60fps. Rows navigate
- * to the coin-detail page.
- */
 export function MarketTable({ data }: { data: CoinMarket[] }) {
   const navigate = useNavigate();
   const columns = useMemo(() => marketColumns(), []);

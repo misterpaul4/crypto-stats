@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 
 interface Options {
-  /** lowercase key, e.g. 'k' */
+
   key: string;
-  /** require ⌘ (mac) or Ctrl (win/linux) */
+
   meta?: boolean;
 }
 
-/** Global keydown hotkey. Ignores keystrokes while typing in inputs (unless meta). */
 export function useHotkey({ key, meta = false }: Options, handler: () => void): void {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {

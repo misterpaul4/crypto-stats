@@ -12,7 +12,6 @@ const CX = 90;
 const CY = 90;
 const R = 70;
 
-/** Point on the semicircle for a 0–100 value (0 = left, 100 = right). */
 function marker(value: number): { x: number; y: number } {
   const theta = ((180 - (value / 100) * 180) * Math.PI) / 180;
   return { x: CX + R * Math.cos(theta), y: CY - R * Math.sin(theta) };
@@ -23,7 +22,6 @@ interface Props {
   classification: string | null;
 }
 
-/** Semicircular Fear & Greed gauge with a red→green gradient arc and a value marker. */
 export function FearGreedGauge({ value, classification }: Props) {
   const { token } = theme.useToken();
   const v = value ?? 0;

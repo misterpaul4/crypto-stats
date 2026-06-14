@@ -5,16 +5,12 @@ import type { ConnectionState, Ticker } from '@shared/lib/ws/types';
 interface RealtimeState {
   bySymbol: Record<string, Ticker>;
   connectionState: ConnectionState;
-  /** Apply a coalesced batch of ticks + the latest connection state in one commit. */
+
   commit: (batch: Record<string, Ticker>, state: ConnectionState) => void;
-  /** Seed missing keys only — never overwrite a live ref (preserves ref stability). */
+
   seed: (tickers: Ticker[]) => void;
 }
 
-/**
- * The live-price store. A flat `Record<base, Ticker>` read by per-symbol selectors
- * so only ticked cells re-render. The TickerSocket engine is the sole writer.
- */
 export const useRealtimeStore = create<RealtimeState>()(
   subscribeWithSelector((set) => ({
     bySymbol: {},

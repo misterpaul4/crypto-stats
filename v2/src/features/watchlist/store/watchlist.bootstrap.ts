@@ -1,16 +1,8 @@
 import { useWatchlistStore } from './watchlist.store';
 
-const LEGACY_KEY = 'favourites'; // the old CRA app's localStorage key (a string[] of coin ids)
+const LEGACY_KEY = 'favourites';
 let done = false;
 
-/**
- * One-time fold of the legacy `favourites` array into the watchlist, done OUTSIDE
- * persist.migrate (which never fires for users with no `cs-watchlist` blob). Only
- * runs when the watchlist is empty; leaves the legacy key intact for one release as
- * a rollback net. Note: localStorage is origin-scoped, so this only migrates data
- * when the new app is served from the same origin as the old one (i.e. in prod).
- */
-/** Pure read of the legacy favourites blob — returns [] on missing/malformed input. */
 export function readLegacyFavourites(): string[] {
   try {
     const raw = localStorage.getItem(LEGACY_KEY);
@@ -19,7 +11,7 @@ export function readLegacyFavourites(): string[] {
       return parsed.filter((x): x is string => typeof x === 'string');
     }
   } catch {
-    /* defensive: ignore a malformed legacy blob */
+
   }
   return [];
 }
